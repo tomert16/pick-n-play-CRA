@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import FieldCard from '../FieldCard';
+import FieldCard from './FieldCard';
 
 
 function FieldList({ fields, selectedField, setSelectedField }) {
@@ -12,7 +12,7 @@ function FieldList({ fields, selectedField, setSelectedField }) {
     }
 
   return (
-    <div value='field'>
+    <div className='fields-list'>
         {fields.map((field) => (
             <FieldCard 
                 key={field.id}

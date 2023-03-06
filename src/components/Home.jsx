@@ -8,7 +8,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlayer, setLoggedInPlayer, fields, setFields, selectedField, setSelectedField }) {
-  const [sportFieldToggle, setSportFieldToggle] = useState('sport');
+  const [sportFieldToggle, setSportFieldToggle] = useState(true);
   
 
     console.log(loggedInPlayer)
@@ -34,9 +34,9 @@ function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlay
     fetchFields();
   },[]);
 
-    const handleSportFieldToggle = () => {
-      setSportFieldToggle(!sportFieldToggle)
-    }
+    // const handleSportFieldToggle = () => {
+    //   setSportFieldToggle(false)
+    // }
    
    
 
@@ -51,10 +51,9 @@ function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlay
         value={sportFieldToggle}
         exclusive
         aria-label="Platform"
-        onClick={() => handleSportFieldToggle()}
     >
-      <ToggleButton value="sport">Sports</ToggleButton>
-      <ToggleButton value="field">Fields</ToggleButton>
+      <ToggleButton value="sport" onClick={() => setSportFieldToggle(true)}>Sports</ToggleButton>
+      <ToggleButton value="field" onClick={() => setSportFieldToggle(false)}>Fields</ToggleButton>
     </ToggleButtonGroup>
       {sportFieldToggle ? <SportsList 
         sports={sports} 

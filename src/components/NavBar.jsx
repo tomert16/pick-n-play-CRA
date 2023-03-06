@@ -17,8 +17,8 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer }) {
 
   return (
     <div class="nav-bar">
+        <button onClick={() => navigate('/profile')}>Profile</button>
         <h3>Welcome, {loggedInPlayer?.first_name}</h3>
-        <h4 onClick={() => navigate('/profile')}>Profile</h4>
         <button type="button" onClick={handleLogout}>Logout</button>
     </div>
   )

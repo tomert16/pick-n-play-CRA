@@ -40,7 +40,7 @@ function App() {
         }
     });
 },[]);
-// if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
+if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
 
 
   // All of the web routes
@@ -99,16 +99,16 @@ function App() {
         setFields={setFields}
       />
     },
-    {
-      path: `/meetup`,
-      element: <MeetUpCard 
-        meetUps={meetUps} 
-        setMeetUps={setMeetUps}
-        selectedMeetUp={selectedMeetUp}
-        setSelectedMeetUp={setSelectedMeetUp}
-        loggedInPlayer={loggedInPlayer}
-        />
-    },
+    // {
+    //   path: `/meetup`,
+    //   element: <MeetUpCard 
+    //     meetUps={meetUps} 
+    //     setMeetUps={setMeetUps}
+    //     selectedMeetUp={selectedMeetUp}
+    //     setSelectedMeetUp={setSelectedMeetUp}
+    //     loggedInPlayer={loggedInPlayer}
+    //     />
+    // },
     {
       path: '/fieldinfo',
       element: <FieldInfo 

@@ -1,10 +1,10 @@
-//import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SportCard from './SportCard';
 
 function SportsList({ sports, setSports, selectedSport, setSelectedSport}) {
     const navigate = useNavigate()
-
+    
 
     function handleSelectedSport(sports) {
         setSelectedSport(sports)
@@ -14,7 +14,7 @@ function SportsList({ sports, setSports, selectedSport, setSelectedSport}) {
     
    
   return (
-    <div>
+    <div className='sports-list' >
         { sports.map((sport) => (
             <SportCard 
                 key={sport.id} 

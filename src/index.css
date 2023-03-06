@@ -278,3 +278,97 @@ code {
 .su-text{
   color: white;
 }
+/* nav bar */
+.nav-bar{
+  justify-content: center;
+  display: flex;
+  position: sticky;
+  padding-top: 15px;
+  padding-right: 30px;
+  gap: 5em;
+  background-color: rgba(90, 185, 35, 0.929);
+  z-index: 100;
+}
+.nav-bar > button{
+  font-family: "Ultra", serif;
+  border-color: transparent;
+  font-size: 20px;
+  color:#FF4F00;
+  background-color: transparent;
+  text-shadow: 3px 3px 3px rgb(248, 242, 234);
+}
+/* sport list */
+.sports-list, .fields-list{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  align-items: stretch;
+  gap: 1em;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+
+.sport-card, .field-card{
+  border-style: solid;
+  border-radius: 3px;
+  border-color: transparent;
+  height: fit-content;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  left: 5%;
+}
+.sport-card > h3, .field-card > h3 {
+  text-align:  center;
+  display: grid;
+  position: relative;
+  top: 13em;
+  font-size: larger;
+  font-family:"Ultra", serif;
+  height: 3em;
+  color: black;
+}
+
+.sport-image, .field-image{
+  height: 20pc;
+  width: 40%;
+  margin: 5%;
+  border-style: solid;
+  border-radius: .5rem;
+}
+/* meet-ups list */
+.meet-ups-list{
+  border-style: solid;
+  border-radius: 2pc;
+  width: 50pc;
+  position: relative;
+  left: 40%;
+  margin-bottom: 5pc;
+}
+.mu-field-img{
+  width: 15pc;
+  height: 10pc;
+  position: relative;
+  top: 5pc;
+  left: 2pc;
+}
+.mu-info{
+  position: relative;
+  left: 50%;
+  bottom: 5pc;
+  
+}
+/* meet-up card */
+.meet-up-card {
+  border-style: solid;
+  border-radius: 3px;
+  border-color: transparent;
+  height: fit-content;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  left: 5%;
+}
+
