@@ -49,7 +49,7 @@ function Signup({ setLoggedInPlayer }) {
                 onChange={(e) => setLastNameInput(e.target.value)} 
             />
             <input 
-                type="text" 
+                type="email" 
                 placeholder="email" 
                 value={emailInput} 
                 onChange={(e) => setEmailInput(e.target.value)} 

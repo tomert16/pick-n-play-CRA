@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Login from './Login'
 import SportsList from './SportsList';
+import FieldList from './FieldList';
+import NavBar from './NavBar';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlayer, setLoggedInPlayer }) {
-  const navigate = useNavigate()
-    
+function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlayer, setLoggedInPlayer, fields, setFields, selectedField, setSelectedField }) {
+  const [sportFieldToggle, setSportFieldToggle] = useState('sport');
+  
+
+    console.log(loggedInPlayer)
 
     // fetch all sports 
     function fetchSports() {
@@ -18,25 +24,52 @@ function Home({ sports, setSports, selectedSport, setSelectedSport, loggedInPlay
         fetchSports();
     },[]);
 
-    // Logout function 
-    function handleLogout(){
-        fetch ('/logout',{
-            method: "DELETE"
-        }).then((r) => {
-            if (r.ok){
-                navigate('/')
-                setLoggedInPlayer(null)
-            }
-        })
+     // fetch fields 
+  const fetchFields = async() => {
+    const req = await fetch(`/fields`);
+    const resp = await req.json();
+    setFields(resp);
+  };
+  useEffect(() => {
+    fetchFields();
+  },[]);
+
+    const handleSportFieldToggle = () => {
+      setSportFieldToggle(!sportFieldToggle)
     }
+   
+   
 
 
     
   return (
+    
     <div>
-        <button type="button" onClick={handleLogout}>Logout</button>
-       <h3>Welcome, {loggedInPlayer?.first_name}</h3>
-        <SportsList sports={sports} setSports={setSports} selectedSport={selectedSport} setSelectedSport={setSelectedSport}/>
+      <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} />
+      <ToggleButtonGroup
+        color="primary"
+        value={sportFieldToggle}
+        exclusive
+        aria-label="Platform"
+        onClick={() => handleSportFieldToggle()}
+    >
+      <ToggleButton value="sport">Sports</ToggleButton>
+      <ToggleButton value="field">Fields</ToggleButton>
+    </ToggleButtonGroup>
+      {sportFieldToggle ? <SportsList 
+        sports={sports} 
+        setSports={setSports} 
+        selectedSport={selectedSport} 
+        setSelectedSport={setSelectedSport}
+      />
+      :
+      <FieldList 
+        fields={fields} 
+        setFields={setFields} 
+        selectedField={selectedField} 
+        setSelectedField={setSelectedField}
+        
+      />}
     </div>
   )
 };
