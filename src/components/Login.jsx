@@ -31,8 +31,7 @@ function Login({ loggedInPlayer, setLoggedInPlayer }) {
   return (
     <div className="start-page" >
         <div class="title-div">
-            <img class="title" src={pnplogo}/>
-            <button type="button" class="home-button" onClick={handleLoginToggle}>Get Started</button>
+            <img class="title" src={pnplogo} onClick={handleLoginToggle}/>
         </div>
         {loginToggle ? <div className="form-popup">
                     <div className="login-box">

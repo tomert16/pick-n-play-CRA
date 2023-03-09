@@ -34,7 +34,7 @@ function MeetUpCard({ loggedInPlayer, meetUp, setMeetUps, setShowMeetUp, meetUps
       })
     }
 
-    const handleDropMeetUp = () => {
+    const handleDropMeetUp = (id) => {
         fetch (`/drop_meet_up`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json"},
@@ -43,7 +43,8 @@ function MeetUpCard({ loggedInPlayer, meetUp, setMeetUps, setShowMeetUp, meetUps
                 "player_id": loggedInPlayer.id
             })
         })
-        navigate('/sportinfo')
+        // meetUp.teammates.filter((teammate) => teammate.id !== id)
+        // navigate('/sportinfo')
         alert("Meet Up Dropped!")
     }
 
