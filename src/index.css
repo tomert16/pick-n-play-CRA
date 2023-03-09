@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #4d4574;
 }
 
 code {
@@ -13,7 +14,7 @@ code {
 }
 
 
-.first-background {
+/* .first-background {
   width: 100vw;
   height: 60pc;
   background-color: brown;
@@ -37,18 +38,20 @@ code {
    bottom: 60pc;
    left: 40%;
    font-size: 90px;
-}
+} */
 .title-div {
-  background-color: rgb(15, 67, 211);
-  position: relative;
+  background-color: #f9f9f9(15, 67, 211);
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  /* position: relative;
   bottom: 28pc;
   width: 100vw;
-  height: 30pc;
+  height: 30pc; */
 }
 .title{
-  position: relative;
-  top:15pc;
-  left: 48%;
+  position:absolute;
+  width: 70pc;
 }
 .home-button {
   position: relative;
@@ -85,7 +88,7 @@ code {
 
 .login-box {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   width: 400px;
   padding: 40px;
@@ -286,7 +289,7 @@ code {
   padding-top: 15px;
   padding-right: 30px;
   gap: 5em;
-  background-color: rgba(90, 185, 35, 0.929);
+  background-color: white;
   z-index: 100;
 }
 .nav-bar > button{
@@ -297,17 +300,42 @@ code {
   background-color: transparent;
   text-shadow: 3px 3px 3px rgb(248, 242, 234);
 }
+.header-logo {
+  height: 10rem;
+  width: 20rem;
+  padding-top: 10px;
+  padding-left: 30px;
+  position: relative;
+  left: 0%;
+  background-color: transparent;
+}
+.profile-nav{
+  display: flex;
+  position: absolute;
+  right: 20%;
+  top: 40%;
+}
+/* .profile-nav > h3 {
+  position: absolute;
+  top: 50%;
+} */
+
 /* sport list */
 .sports-list, .fields-list{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(auto, 1fr);
   align-items: stretch;
-  gap: 1em;
-  margin-left: 5%;
+  gap: 1rem;
+  /* margin-left: 5%;
   margin-top: 5%;
   margin-right: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 5%; */
+  width: 100%;
+  /* display: flex;
+  flex-wrap: wrap; */
+  justify-content: center;
+  gap: 2rem
 }
 
 .sport-card, .field-card{
@@ -318,7 +346,8 @@ code {
   text-align: center;
   cursor: pointer;
   position: relative;
-  left: 5%;
+  left: 3%;
+  bottom: 80px;
 }
 .sport-card > h3, .field-card > h3 {
   text-align:  center;
@@ -328,7 +357,7 @@ code {
   font-size: larger;
   font-family:"Ultra", serif;
   height: 3em;
-  color: black;
+  color: rgb(255, 205, 98);
 }
 
 .sport-image, .field-image{
@@ -337,15 +366,42 @@ code {
   margin: 5%;
   border-style: solid;
   border-radius: .5rem;
+  border-color: rgb(255, 205, 98);
+  background-color: transparent;
 }
+.sport-field-toggle{
+  color: rgb(2, 2, 2);
+}
+.home-prompt {
+  color: rgb(255, 205, 98);
+  text-align: center;
+  font-size: 60px;
+}
+
 /* meet-ups list */
+.info-title {
+  color: rgb(246, 247, 248);
+  text-align: center;
+  font-size: 5pc;
+  font-family: "Ultra", serif;
+  position: relative;
+  background-color: transparent;
+  text-shadow: 2px 2px 3px rgb(255, 205, 98);
+}
 .meet-ups-list{
+  position: relative;
+}
+.meet-ups{
   border-style: solid;
   border-radius: 2pc;
-  width: 50pc;
+  width: 35pc;
   position: relative;
-  left: 40%;
+  top: 15pc;
+  left: 35%;
   margin-bottom: 5pc;
+  cursor: pointer;
+  background-color: white;
+  overflow-x: scroll;
 }
 .mu-field-img{
   width: 15pc;
@@ -356,19 +412,317 @@ code {
 }
 .mu-info{
   position: relative;
-  left: 50%;
+  left: 55%;
   bottom: 5pc;
-  
 }
+/* new meet up form */
+.new-mu-form{
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 35%;
+  left: 73%;
+  width: 8%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 20px;
+  border-radius: 10px;
+  border-color: rgb(8, 7, 7);
+  background-color: black;
+}
+.new-mu-form > button {
+  margin-bottom: 15px;
+  height: 35px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-family: 'Ultra', serif;
+  color: #4d4574(15, 67, 211);
+  background-color: aliceblue;
+  border-color: rgb(255, 205, 98);
+  border-radius: 40px;
+  text-align: center;
+}
+.new-mu-form > input {
+  margin-bottom: 15px;
+  height: 25px;
+}
+.new-mu-form > select {
+  margin-bottom: 15px;
+  height: 25px;
+}
+.new-mu-form > h3 {
+  color: white;
+  font-size: larger;
+  font-family: 'Ultra', serif;
+  padding-bottom: 20px;
+}
+.learn-more {
+  position: absolute;
+  top: 30%;
+  right: 17%;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+ }
+ 
+ button.learn-more {
+  width: 15rem;
+  height: auto;
+ }
+ 
+ button.learn-more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 5rem;
+  background: #282936;
+  border-radius: 1.625rem;
+ }
+ 
+ button.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+ }
+ 
+ button.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+ }
+ 
+ button.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.29rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #fff;
+  border-right: 0.125rem solid #fff;
+  transform: rotate(45deg);
+ }
+ 
+ button.learn-more .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  color: #282936;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+ }
+ 
+ button:hover .circle {
+  width: 100%;
+ }
+ 
+ button:hover .circle .icon.arrow {
+  background: #fff;
+  transform: translate(1rem, 0);
+ }
+ 
+ button:hover .button-text {
+  color: #fff;
+ }
+ .new-mu-btn{
+   position: absolute;
+
+   color: blue
+ }
 /* meet-up card */
-.meet-up-card {
+.meet-up-card-div {
   border-style: solid;
   border-radius: 3px;
-  border-color: transparent;
-  height: fit-content;
+  border-color: black;
   text-align: center;
   cursor: pointer;
   position: relative;
-  left: 5%;
+  background: rgba(0,0,0,.5);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  overflow-x: scroll;
 }
+.meet-up-card{
+  background-color: white;
+  border-style: solid;
+  width: fit-content;
+  position: relative;
+  left: 37%;
+  top: 15pc;
+}
+.meet-up-card > img {
+  width: 35pc;
+  height: 40pc;
+}
+.bg-image{
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  overflow-x: scroll;
+}
+.mu-info{
+
+}
+.back-btn{
+  position: absolute;
+    top:-0.7rem;
+    right: -0.9rem;
+}
+/* Profile page */
+.account-info-page{
+  /* background-color: antiquewhite; */
+  height: 100vh;
+}
+.bar-info-details {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  color: rgb(255, 190, 130);
+  text-align: center;
+  padding-right: 15px;
+}
+
+.user-info-title{
+  font-family: "ultra", serif;
+  font-size: 25px;
+  margin-left: 40px;
+}
+
+.user-info-detail{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 20px;
+  margin-left: 40px;
+  margin-top: 0;
+}
+.bar-info-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: black;
+  width: 80%;
+  margin-left: 10%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.bar-info-name{
+  display:flex;
+  justify-content: center;
+  font-family: "Ultra", serif;
+  font-size: 40px;
+  color: rgb(255, 190, 130);
+  margin-top: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.user-review-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  border-left: solid #ff51001c;
+  text-align: right;
+}
+.your-reviews {
+  font-family: "Ultra", serif;
+  color: rgb(255, 190, 130);
+  font-size: 30px;
+  padding-right: 35%;
+}
+.scroll-reviews {
+  width:70%;
+  overflow-y: scroll;
+  display: flex;
+  gap: 1rem;
+  margin-left: 10pc;
+  /* position: relative;
+  right:20%; */
+}
+.details-reviews-container {
+  display: flex;
+  flex-direction: row;
+}
+.your-meet-ups{
+  background-color: white;
+  border-style: solid;
+  border-radius: 10px;
+  /* position: absolute; */
+  width: 80%;
+  left: 37%;
+  top: 15pc;
+  height: 80%;
+  gap: 1rem;
+  /* grid-template-columns: repeat(2, 1fr)  */
+}
+.your-joined-meet-ups{
+  background-color: white;
+  border-style: solid;
+  border-radius: 10px;
+  position: relative;
+  /* top: 15pc; */
+  width: 300px;
+  
+  /* display: grid; */
+  /* grid-template-columns: repeat(2, 1fr) */
+}
+.your-joined-meet-ups > h2 {
+  font-size: 30px;
+}
+.your-joined{
+  font-family: "Ultra", serif;
+  color: rgb(255, 190, 130);
+  font-size: 30px;
+  position: relative;
+  /* left: 30%; */
+  right: 35%;
+}
+.scroll-meet-ups{
+  margin-left: -695px;
+  overflow: hidden;
+  overflow-x: scroll ;
+  display: flex;
+  gap: 1rem;
+  /* margin-left: 10pc; */
+  position: relative;
+  width: 700px;
+}
+.user-joined-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+ 
+  border-left: solid #ff51001c;
+  text-align: right;
+  position: relative;
+  left: 40%;
+}
+.mu-date{
+
+}
+
 

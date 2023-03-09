@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "semantic-ui-react";
+import pnplogo from '../pnplogo.png';
 
 function Login({ loggedInPlayer, setLoggedInPlayer }) {
     const [loginToggle, setLoginToggle] = useState(false);
@@ -29,17 +30,9 @@ function Login({ loggedInPlayer, setLoggedInPlayer }) {
 
   return (
     <div>
-        <div>
-            <img class="first-background" src="https://thevarsity.ca/wp-content/uploads/2017/08/SPORTS_Open_Sports_App-STEVEN_LEETHE_VARSITY-DSC_5860-Alicia_playing_1080by720.jpg" />
-            <h2 class="motto">Play Your Favorite Sport</h2>
-        </div>
         <div class="title-div">
-            <h1 class="title" >Pick n' Play</h1>
+            <img class="title" src={pnplogo}/>
             <button type="button" class="home-button" onClick={handleLoginToggle}>Get Started</button>
-        </div>
-        <div>
-            <img class="second-background" src="https://t4.ftcdn.net/jpg/04/61/28/99/360_F_461289911_zoKtHAQB1w3fGRwxwLZxY4M60T4AkWPm.jpg"/>
-            <h2 class="motto2">Meet New People</h2>
         </div>
         {loginToggle ? <div className="form-popup">
                     <div className="login-box">

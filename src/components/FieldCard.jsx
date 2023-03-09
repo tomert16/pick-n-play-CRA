@@ -21,4 +21,4 @@ function FieldCard({ field, handleSelectedField }) {
   )
 }
 
-export default FieldCard
+export default FieldCard;

@@ -12,7 +12,9 @@ function FieldList({ fields, selectedField, setSelectedField }) {
     }
 
   return (
-    <div className='fields-list'>
+      <div>
+        <h1 className='home-prompt'>Where You Playing?</h1>
+        <div className='fields-list'>
         {fields.map((field) => (
             <FieldCard 
                 key={field.id}
@@ -22,7 +24,8 @@ function FieldList({ fields, selectedField, setSelectedField }) {
                 handleSelectedField={handleSelectedField}
             />
         ))}
-    </div>
+        </div>
+      </div>
   )
 }
 

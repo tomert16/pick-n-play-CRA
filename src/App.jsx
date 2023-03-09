@@ -21,6 +21,7 @@ function App() {
   const [playerInfo, setPlayerInfo] = useState([]);
   const [fields, setFields] = useState([]);
   const [selectedField, setSelectedField] = useState();
+  const [meetUpTeammates, setMeetUpTeammates] = useState([])
 
   /// OL map api 
   const [center, setCenter] = useState([-73.97, 40.72]);
@@ -29,19 +30,47 @@ function App() {
   const [showLayer2, setShowLayer2] = useState(true);
   const [showLayer3, setShowLayer3] = useState(true);
   const [showLayer4, setShowLayer4] = useState(true);
-  
 
-   //auto-login function
-   useEffect(() =>{
+  useEffect(() => {
+    const fetchMeetUps = () => {
+        fetch(`/meet_ups`)
+        .then ((r) => r.json())
+    .then((data) => setMeetUps(data))
+    }
+    fetchMeetUps()
+  },[])
+   // fetch all sports 
+   function fetchSports() {
+    fetch('/sports')
+    .then ((r) => r.json())
+    .then((data) => setSports(data))
+};
+useEffect(() => {
+    fetchSports();
+},[]);
+  
+  
+  // if (!meetUps.length === 0) return null;
+  //auto-login function
+  useEffect(() =>{
     fetch('/me')
     .then((r) => {
-        if (r.ok) {
-            r.json().then((user) => setLoggedInPlayer(user))
-        }
+      if (r.ok) {
+        r.json().then((user) => setLoggedInPlayer(user))
+      }
     });
-},[]);
-if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
+  },[]);
 
+  
+console.log(sports)
+  function handleSelectedSport(sports) {
+    setSelectedSport(sports)
+}
+  const handleAddTeammate = (newTeammate) => {
+    const newTeammateArray = [...meetUps, newTeammate]
+    setMeetUps(newTeammateArray)
+  }
+  //if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
 
   // All of the web routes
   const router = createBrowserRouter([
@@ -72,6 +101,7 @@ if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
         setFields={setFields}
         selectedField={selectedField}
         setSelectedField={setSelectedField}
+        handleSelectedSport={handleSelectedSport}
       />
     },
     {
@@ -81,6 +111,8 @@ if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
         meetUps={meetUps}
         playerInfo={playerInfo}
         setPlayerInfo={setPlayerInfo}
+        meetUpTeammates={meetUpTeammates}
+        setMeetUpTeammates={setMeetUpTeammates}
       />
     },
     {
@@ -97,6 +129,8 @@ if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
         setSelectedMeetUp={setSelectedMeetUp}
         fields={fields}
         setFields={setFields}
+        handleAddTeammate={handleAddTeammate}
+        handleSelectedSport={handleSelectedSport}
       />
     },
     // {

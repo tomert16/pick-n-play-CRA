@@ -1,21 +1,46 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-function FieldMeetUpCard({meetUp}) {
-    const navigate = useNavigate();
+import FieldMeetUpCard from './FieldMeetUpCard'
 
+function FieldMeetUpList({meetUp, loggedInPlayer}) {
+    const navigate = useNavigate();
     const [selectedFieldMeetUp, setSelectedFieldMeetUp] = useState();
+    const [showMeetUp, setShowMeetUp] = useState(false);
+
     const goToMeetUp = (fMeetUp) => {
         setSelectedFieldMeetUp(fMeetUp)
-        navigate('/fieldmeetup')
+        setShowMeetUp(true);
+    }
+   
+    const playersNumber = () => {
+      if (meetUp?.teammates?.length + 1 === 1){
+        return `${meetUp?.teammates?.length + 1} player`
+      } else{
+        return (`${meetUp?.teammates?.length + 1} players`)
+      }
     }
     return (
-      <div onClick={() => goToMeetUp(meetUp)}>
-          <h3>{meetUp.sport}</h3>
-          <h4>{meetUp.date}</h4>
-          <p>{meetUp.player.name}</p>
-          <p>{meetUp.teammates.map((teammate) => (<div>{teammate}</div>))}</p>
+      <div className='meet-ups-list'>
+        <div className="meet-ups" onClick={() => goToMeetUp(meetUp)}>
+          <div>
+          <img className='mu-field-img' src={meetUp.sport.image} />
+            <div className="mu-info">
+              <h3>{meetUp.sport.type}</h3>
+              <h4>{meetUp.date}</h4>
+              <p>{playersNumber()}</p>
+            </div>
+          </div>
+          {/* <p>{meetUp.player.name}</p>
+          <div>{meetUp.player_meet_ups.map((teammate) => (<div>{teammate}</div>))}</div> */}
+        </div>
+        {showMeetUp ? <FieldMeetUpCard 
+          meetUp={meetUp} 
+          loggedInPlayer={loggedInPlayer}
+          setShowMeetUp={setShowMeetUp}
+          /> : null
+      }
       </div>
     )
   }
   
-  export default FieldMeetUpCard;
+  export default FieldMeetUpList;

@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
 
-function MeetUpCard({ selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUp, showMeetUp, setShowMeetUp }) {
+function MeetUpCard({ loggedInPlayer, meetUp, setMeetUps, setShowMeetUp, meetUps, handleAddTeammate}) {
     const navigate = useNavigate();
-    const [teammates, setTeammates] = useState([]);
     const [joinToggle, setJoinToggle] = useState(true);
     const [loading, setLoading] = useState(false);
     
@@ -21,14 +20,17 @@ function MeetUpCard({ selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUp,
             "meet_up_id": meetUp.id,
             "player_id": loggedInPlayer.id
         }
-      
+        // debugger
         fetch (`/join_meet_ups`, 
         {method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(join)
       }).then((resp) => {
             if (resp.ok) {
-                resp.json() .then((teammate) => setSelectedMeetUp([...selectedMeetUp.player_meet_ups, teammate]))
+                resp.json() .then((teammate) => {
+                    //debugger
+                    handleAddTeammate(teammate)}
+                    )
       
             }
         })
@@ -53,43 +55,38 @@ function MeetUpCard({ selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUp,
         setShowMeetUp(false)
     }
 
+    const totalPlayers = meetUp?.teammates.length + 1;
 useEffect(() => {
-    const totalPlayers = meetUp?.player_meet_ups.length + 1;
-
     if (meetUp?.sport.sport_type === 'Soccer' && totalPlayers >= 14){
-        console.log('full meet up', meetUp.player_meet_ups.length);
+        console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
     }else if (meetUp?.sport.sport_type === 'Basketball' && totalPlayers >= 10){
-        console.log('full meet up', meetUp.player_meet_ups.length);
+        console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
     }else if (meetUp?.sport.sport_type === 'Tennis' && totalPlayers >= 4){
-        console.log('full meet up', meetUp.player_meet_ups.length);
+        console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
     }else if (meetUp?.sport.sport_type === 'Football' && totalPlayers >= 10){
-        console.log('full meet up', meetUp.player_meet_ups.length);
+        console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
     }
 },[])
-console.log(selectedMeetUp)
   return (
-    <div>
-        
+    <div className='meet-up-card-div'>
       <div className="meet-up-card">
-        <div>{meetUp?.date}</div>
-        <img src={meetUp?.field.img_url} />
         <div>{meetUp?.field.name}</div>
+        <img src={meetUp?.field.img_url} />
+        <div>{meetUp?.date}</div>
+        <div>{totalPlayers}</div>
         <div>{meetUp?.player.name}</div> 
-
-        <div>{meetUp.player_meet_ups.map((player) => (<div key={player.id}>{player.player.name}</div>))}</div>
-        {joinToggle ? <button type="button "onClick={() => 
-            handleJoinTeam(meetUp)
-            }>
-            Join Meet Up
-          </button>
+        <div>{meetUp.teammates.map((player) => (<div key={player.id}>{player}</div>))}</div>
+        {joinToggle ? <button type="button" value="Join Meet Up" onClick={() => {handleJoinTeam()}
+           
+            }>Join Meet Up</button>
           :
           <p>Full</p>}
-        <button type='button' onClick={handleDropMeetUp}>Drop Meet Up</button>
-        <button type='button' onClick={() => handleBackClick()}>Back</button>
+        <button type='button' onClick={() => handleDropMeetUp()}>Drop Meet Up</button>
+        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
     </div>
     </div>  
     

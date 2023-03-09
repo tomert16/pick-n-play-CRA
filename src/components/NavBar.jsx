@@ -1,7 +1,17 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import pnplogo from '../pnplogo.png';
 
 function NavBar({ loggedInPlayer, setLoggedInPlayer }) {
     const navigate = useNavigate();
+    const [iconToggle, setIconToggle] = useState(false);
+
+    const handleProfileMenuOpen = () => {
+        setIconToggle(!iconToggle);
+      };
 
      // Logout function 
      function handleLogout(){
@@ -16,10 +26,29 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer }) {
     }
 
   return (
-    <div class="nav-bar">
-        <button onClick={() => navigate('/profile')}>Profile</button>
-        <h3>Welcome, {loggedInPlayer?.first_name}</h3>
-        <button type="button" onClick={handleLogout}>Logout</button>
+    <div className="nav-bar">
+        <img className="header-logo" src={pnplogo} onClick={() => navigate('/home')}/>
+        <div className='profile-nav'>
+            <h3>Welcome, {loggedInPlayer?.first_name}</h3>
+            <div className='profile-icon'>
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                    >
+                    <AccountCircle />
+                        {iconToggle ? <div>
+                            <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
+                            <MenuItem type="button" onClick={handleLogout}>Logout</MenuItem>
+                        </div>: null}
+                    </IconButton>
+                </MenuItem>
+            </div>
+
+        </div>
     </div>
   )
 }
