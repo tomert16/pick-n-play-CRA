@@ -13,12 +13,13 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
     const [locationInput, setLocationInput] = useState();
     const [formToggle, setFormToggle] = useState(false);
     const [fieldFilter, setFieldFilter] = useState("all");
+    // const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
     //     setLoading(true);
     //     setTimeout(() => {
     //         setLoading(false);
-    //     }, 1000)
+    //     }, 6000)
     // },[])
    
     
@@ -29,9 +30,9 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
             .then((data) => setMeetUps(data.meet_ups))
         }
         fetchMeetUps()
-    },[])
+    },[selectedSport.id]);
 
-    
+
     // if (!meetUps[0]) return null;
     
     // const filteredMeetUps = meetUps.filter((meetUp) =>{
@@ -48,7 +49,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
         
         const newMeetUp = {
             "date": new Date(dateInput),
-            "field_id": parseInt(locationInput),
+            "field_id": locationInput,
             "sport_id": selectedSport.id,
             "player_id": loggedInPlayer.id
             
@@ -73,8 +74,8 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
    //debugger
       return (
         <div >
-{/*             
-        {
+           
+        {/* {
             loading ?
             <ClipLoader
         color={'#de103b'}
@@ -83,12 +84,12 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      : */}
-      {<div className="bg-image" style={{backgroundImage: `url(${selectedSport?.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
+      :  */}
+      <div className="bg-image" style={{backgroundImage: `url(${selectedSport?.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
         <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} />
         <h1 className="info-title">{selectedSport?.sport_type} meet ups:</h1>
-        <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
         <div className="meet-ups-list">
+        <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
           {fieldsDropdownFilter.map((meetUp) => {
               return (
                 // <div onClick={handleMeetUpClick}>  
@@ -105,6 +106,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
                 )
             })}
         </div>
+        <div className='new-meet-up-container'>
             <button className='learn-more' onClick={handleFormToggle}>
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
@@ -132,9 +134,10 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
                 </Form> 
             </div>
             : null}
+            </div>
         </div>
         
-         } 
+         
         
 
         

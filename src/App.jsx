@@ -62,7 +62,9 @@ useEffect(() => {
   },[]);
 
   
+  
 console.log(sports)
+
   function handleSelectedSport(sports) {
     setSelectedSport(sports)
 }

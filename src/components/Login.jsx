@@ -29,7 +29,7 @@ function Login({ loggedInPlayer, setLoggedInPlayer }) {
     };
 
   return (
-    <div>
+    <div className="start-page" >
         <div class="title-div">
             <img class="title" src={pnplogo}/>
             <button type="button" class="home-button" onClick={handleLoginToggle}>Get Started</button>

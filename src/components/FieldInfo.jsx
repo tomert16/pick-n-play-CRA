@@ -21,14 +21,14 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
     // })  
     // console.log(field)
     // console.log(fields)
-    const fetchFieldMeetUps = async() => {
-        const req = await fetch(`fields/${selectedField.id}`)
-        const resp = await req.json()
-        setFieldMeetUps(resp.meet_ups)
-    };
     useEffect(() => {
+        const fetchFieldMeetUps = () => {
+            fetch(`/fields/${selectedField.id}`)
+            .then ((r) => r.json())
+            .then((data) => setFieldMeetUps(data.meet_ups))
+        }
         fetchFieldMeetUps()
-    },[])
+    },[selectedField.id]);
     
   console.log(fieldMeetUps)
     const createMeetUp = () => {
@@ -36,7 +36,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
         const newMeetUp = {
             "date": new Date(date),
             "field_id": selectedField.id,
-            "sport_id": parseInt(sportInput),
+            "sport_id": sportInput,
             "player_id": loggedInPlayer.id
         }
 
@@ -61,7 +61,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
   return (
     <div>
         <NavBar loggedInPlayer={loggedInPlayer}/>
-        <h1 className="info-title">{selectedField?.field_name} meet ups:</h1>
+        <h1 className="field-info-title">{selectedField?.field_name} meet ups:</h1>
         <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter}/>
         <div className="meet-ups-list">{sportsDropdownFilter?.map((meetUp) => {
             return (
@@ -76,7 +76,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
                 />
             )
         })}</div>
-        <div>
+        <div className='new-meet-up-container'>
             <button className='learn-more' onClick={handleFormToggle}>
                 <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>

@@ -5,14 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #4d4574;
+  /* background-color: #4d4574; */
+  background-color: rgb(230, 229, 229);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+   
+ 
 
 /* .first-background {
   width: 100vw;
@@ -42,8 +44,9 @@ code {
 .title-div {
   background-color: #f9f9f9(15, 67, 211);
   position: absolute;
+  justify-content: center;
   top: 30%;
-  left: 30%;
+  left: 15%;
   /* position: relative;
   bottom: 28pc;
   width: 100vw;
@@ -290,6 +293,7 @@ code {
   padding-right: 30px;
   gap: 5em;
   background-color: white;
+ 
   z-index: 100;
 }
 .nav-bar > button{
@@ -302,7 +306,7 @@ code {
 }
 .header-logo {
   height: 10rem;
-  width: 20rem;
+  width: 30rem;
   padding-top: 10px;
   padding-left: 30px;
   position: relative;
@@ -312,7 +316,7 @@ code {
 .profile-nav{
   display: flex;
   position: absolute;
-  right: 20%;
+  right: 10%;
   top: 40%;
 }
 /* .profile-nav > h3 {
@@ -388,8 +392,18 @@ code {
   background-color: transparent;
   text-shadow: 2px 2px 3px rgb(255, 205, 98);
 }
+.field-info-title {
+  color: rgb(12, 12, 12);
+  text-align: center;
+  font-size: 5pc;
+  font-family: "Ultra", serif;
+  position: relative;
+  background-color: transparent;
+  text-shadow: 2px 2px 3px rgb(255, 205, 98);
+}
 .meet-ups-list{
   position: relative;
+  bottom: 20%;
 }
 .meet-ups{
   border-style: solid;
@@ -415,14 +429,23 @@ code {
   left: 55%;
   bottom: 5pc;
 }
+.search-field{
+  position: relative;
+  top:30pc;
+}
 /* new meet up form */
+.new-meet-up-container{
+  position: absolute;
+  top:70%;
+  right:10%;
+}
 .new-mu-form{
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 35%;
-  left: 73%;
-  width: 8%;
+  bottom: 1%;
+  right: 30%;
+  /* width: 8%; */
   background-color: transparent;
   border-style: solid;
   border-width: 20px;
@@ -684,7 +707,7 @@ code {
   position: relative;
   /* top: 15pc; */
   width: 300px;
-  
+  text-align: center;
   /* display: grid; */
   /* grid-template-columns: repeat(2, 1fr) */
 }
@@ -695,26 +718,31 @@ code {
   font-family: "Ultra", serif;
   color: rgb(255, 190, 130);
   font-size: 30px;
-  position: relative;
+ 
   /* left: 30%; */
-  right: 35%;
+  padding-right: 14%;
 }
 .scroll-meet-ups{
-  margin-left: -695px;
-  overflow: hidden;
+  /* margin-left: -695px; */
   overflow-x: scroll ;
   display: flex;
   gap: 1rem;
-  /* margin-left: 10pc; */
+  /* margin-left: 10pc;
   position: relative;
-  width: 700px;
+  width: 700px; */
+  width: 70%;
+    overflow-y: scroll;
+    display: flex;
+    gap: 1rem;
+    margin-left: 1pc;
 }
+
 .user-joined-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+  width: 60%;
  
   border-left: solid #ff51001c;
   text-align: right;
