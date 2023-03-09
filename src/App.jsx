@@ -73,20 +73,20 @@ console.log(sports)
   //   setMeetUps(newTeammateArray)
   // }
 
-  const handleAddTeammate = (selected, newTeammate) => {
-    // debugger
-    const newMeetUps = meetUps.map((meetUp) => {
-      if (meetUp.id === selected.meet_up_id) {
-        return {
-          ...meetUp, 
-          teammates: [...meetUp.teammates, newTeammate]
-        };
-      } else {
-        return meetUp;
-      }
-    });
-    setMeetUps(newMeetUps)
-  }
+  // const handleAddTeammate = (selected, newTeammate) => {
+  //   // debugger
+  //   const newMeetUps = meetUps.map((meetUp) => {
+  //     if (meetUp.id === selected.meet_up_id) {
+  //       return {
+  //         ...meetUp, 
+  //         teammates: [...meetUp.teammates, newTeammate]
+  //       };
+  //     } else {
+  //       return meetUp;
+  //     }
+  //   });
+  //   setMeetUps(newMeetUps)
+  // }
   //if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
 
   // All of the web routes
@@ -146,7 +146,7 @@ console.log(sports)
         setSelectedMeetUp={setSelectedMeetUp}
         fields={fields}
         setFields={setFields}
-        handleAddTeammate={handleAddTeammate}
+        // handleAddTeammate={handleAddTeammate}
         handleSelectedSport={handleSelectedSport}
       />
     },
@@ -172,7 +172,7 @@ console.log(sports)
         fields={fields}
         meetUps={meetUps}
         setMeetUps={setMeetUps}
-        handleAddTeammate={handleAddTeammate}
+        // handleAddTeammate={handleAddTeammate}
       />
     },
     {

@@ -21,9 +21,11 @@ function MeetUpCard({ loggedInPlayer, meetUp, setMeetUps, setShowMeetUp, meetUps
             "meet_up_id": meetUp.id,
             "player_id": loggedInPlayer.id
         }
-        handleAddTeammate(meetUp, loggedInPlayer)
+        // handleAddTeammate(meetUp, loggedInPlayer)
         console.log(join)
-        console.log(loggedInPlayer)
+        const playerName = `${loggedInPlayer.first_name} ${loggedInPlayer.last_name}`
+        meetUp.teammates = [...meetUp.teammates, playerName]
+        console.log(meetUp.teammates)
         // debugger
         fetch (`/player_meet_ups`, 
         {method: "POST",
@@ -51,17 +53,18 @@ function MeetUpCard({ loggedInPlayer, meetUp, setMeetUps, setShowMeetUp, meetUps
 
     const totalPlayers = meetUp?.teammates.length + 1;
     // debugger
+    console.log(meetUp.sport.sport_type)
 useEffect(() => {
-    if (meetUp?.sport.sport_type === 'Soccer' && totalPlayers === 14){
+    if (meetUp?.sport.sport_type === 'Soccer' && totalPlayers >= 14){
         console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
-    }else if (meetUp?.sport.sport_type === 'Basketball' && totalPlayers === 10){
+    }else if (meetUp?.sport.sport_type === 'Basketball' && totalPlayers >= 10){
         console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
-    }else if (meetUp?.sport.sport_type === 'Tennis' && totalPlayers === 4){
+    }else if (meetUp?.sport.sport_type === 'Tennis' && totalPlayers >= 4){
         console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
-    }else if (meetUp?.sport.sport_type === 'Football' && totalPlayers === 10){
+    }else if (meetUp?.sport.sport_type === 'Football' && totalPlayers >= 10){
         console.log('full meet up', meetUp.teammates.length);
         setJoinToggle(!joinToggle)
     }

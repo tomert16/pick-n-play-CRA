@@ -45,16 +45,16 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
   }
   const totalPlayers = meetUp?.teammates.length + 1;
   useEffect(() => {
-      if (meetUp?.sport.sport === 'Soccer' && totalPlayers === 14){
+      if (meetUp?.sport.sport === 'Soccer' && totalPlayers >= 14){
           console.log('full meet up', meetUp.teammates.length);
           setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.sport === 'Basketball' && totalPlayers === 10){
+      }else if (meetUp?.sport.sport === 'Basketball' && totalPlayers >= 10){
           console.log('full meet up', meetUp.teammates.length);
           setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.sport === 'Tennis' && totalPlayers === 4){
+      }else if (meetUp?.sport.sport === 'Tennis' && totalPlayers >= 4){
           console.log('full meet up', meetUp.teammates.length);
           setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.sport === 'Football' && totalPlayers === 10){
+      }else if (meetUp?.sport.sport === 'Football' && totalPlayers >= 10){
           console.log('full meet up', meetUp.teammates.length);
           setJoinToggle(!joinToggle)
       }
@@ -69,7 +69,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         <h4>Players:</h4>
         <p>{meetUp.player.name}</p>
         <div>{meetUp.teammates.map((teammate) => (<p>{teammate}</p>))}</div>
-        {joinToggle ? <button type="button" value="Join Meet Up" onClick={() => {handleJoinTeam()}
+        {joinToggle ? <button type="button" value="Join Meet Up" onClick={() => {handleJoinTeam(loggedInPlayer)}
            
             }>Join Meet Up</button>
           :
