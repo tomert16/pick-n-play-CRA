@@ -5,7 +5,7 @@ function FieldDropDownFilter({ fieldFilter, setFieldFilter }) {
       setFieldFilter(e.target.value);
   }
   return (
-    <div >
+    <div className="search-bar">
         <label>Field:</label>
         <select name="field-filter" value={fieldFilter} onChange={handleFieldFilter}>
             <option value="all">All</option>

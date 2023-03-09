@@ -13,7 +13,7 @@ function FieldList({ fields, selectedField, setSelectedField }) {
 
   return (
       <div>
-        <h1 className='home-prompt'>Where You Playing?</h1>
+        <h1 className='home-prompt'>Pick a Field</h1>
         <div className='fields-list'>
         {fields.map((field) => (
             <FieldCard 

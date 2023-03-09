@@ -13,34 +13,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-   
- 
-
-/* .first-background {
-  width: 100vw;
-  height: 60pc;
-  background-color: brown;
-  opacity: 50%;
-}
-.second-background {
-  position: relative;
-  bottom: 28pc;
-  width: 100vw;
-  height: 60pc;
-  opacity: 50%;
-}
-.motto {
-   position: relative;
-   bottom: 45pc;
-   left: 35%;
-   font-size: 90px;
-}
-.motto2 {
-   position: relative;
-   bottom: 60pc;
-   left: 40%;
-   font-size: 90px;
-} */
 .title-div {
   background-color: #f9f9f9(15, 67, 211);
   position: absolute;
@@ -60,6 +32,7 @@ code {
   position: relative;
   top: 15pc;
   left: 50%;
+  
 }
 .form-popup{
   background: rgba(0,0,0,.5);
@@ -361,7 +334,7 @@ code {
   font-size: larger;
   font-family:"Ultra", serif;
   height: 3em;
-  color: rgb(255, 205, 98);
+  color: rgb(0, 0, 0);
 }
 
 .sport-image, .field-image{
@@ -380,6 +353,13 @@ code {
   color: rgb(255, 205, 98);
   text-align: center;
   font-size: 60px;
+  color: rgb(12, 12, 12);
+  text-align: center;
+  font-size: 5pc;
+  font-family: "Ultra", serif;
+  position: relative;
+  background-color: transparent;
+  text-shadow: 2px 2px 3px rgb(255, 205, 98);
 }
 
 /* meet-ups list */
@@ -403,7 +383,8 @@ code {
 }
 .meet-ups-list{
   position: relative;
-  bottom: 20%;
+  bottom: 10%;
+  left: 2.5%;
 }
 .meet-ups{
   border-style: solid;
@@ -429,15 +410,16 @@ code {
   left: 55%;
   bottom: 5pc;
 }
-.search-field{
+.meet-filter{
   position: relative;
   top:30pc;
+  left: 20pc;
 }
 /* new meet up form */
 .new-meet-up-container{
   position: absolute;
-  top:70%;
-  right:10%;
+  top:50%;
+  right:15%;
 }
 .new-mu-form{
   align-items: center;
@@ -590,6 +572,15 @@ code {
   z-index: 1000;
   overflow-x: scroll;
 }
+.field-meet-up-card {
+  background-color: white;
+  border-style: solid;
+  width: 30pc;
+  height:20pc;
+  position: relative;
+  left: 45%;
+  top: 35pc;
+}
 .meet-up-card{
   background-color: white;
   border-style: solid;
@@ -613,8 +604,8 @@ code {
 }
 .back-btn{
   position: absolute;
-    top:-0.7rem;
-    right: -0.9rem;
+    top:-0.0rem;
+    right: -0.0rem;
 }
 /* Profile page */
 .account-info-page{
@@ -749,8 +740,122 @@ code {
   position: relative;
   left: 40%;
 }
-.mu-date{
-
+/* sign-up */
+.singup {
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  font-weight: bold;
+  font-size: x-large;
+  margin-top: 1.5em;
 }
 
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  width: 300px;
+  flex-direction: column;
+  gap: 35px;
+  border-radius: 15px;
+  background: #e3e3e3;
+  box-shadow: 16px 16px 32px #c8c8c8,
+        -16px -16px 32px #fefefe;
+  border-radius: 8px;
+}
+.container{
+  position: relative;
+  left:45%;
+  top: 20pc;
+  
+}
+
+.inputBox,
+.inputBox1 {
+  position: relative;
+  width: 250px;
+}
+
+.inputBox input,
+.inputBox1 input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  color: #000;
+  font-size: 1em;
+  background: transparent;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  transition: 0.1s;
+  border-bottom-left-radius: 8px;
+}
+
+.inputBox span,
+.inputBox1 span {
+  margin-top: 5px;
+  position: absolute;
+  left: 0;
+  transform: translateY(-4px);
+  margin-left: 10px;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #000;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 3px;
+  border-radius: 8px;
+}
+
+.inputBox input:valid~span,
+.inputBox input:focus~span {
+  transform: translateX(113px) translateY(-15px);
+  font-size: 0.8em;
+  padding: 5px 10px;
+  background: #000;
+  letter-spacing: 0.2em;
+  color: #fff;
+  border: 2px;
+}
+
+.inputBox1 input:valid~span,
+.inputBox1 input:focus~span {
+  transform: translateX(156px) translateY(-15px);
+  font-size: 0.8em;
+  padding: 5px 10px;
+  background: #000;
+  letter-spacing: 0.2em;
+  color: #fff;
+  border: 2px;
+}
+
+.inputBox input:valid,
+.inputBox input:focus,
+.inputBox1 input:valid,
+.inputBox1 input:focus {
+  border: 2px solid #000;
+  border-radius: 8px;
+}
+
+.enter {
+  height: 45px;
+  width: 100px;
+  border-radius: 5px;
+  border: 2px solid #000;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 3em;
+}
+
+.enter:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
 

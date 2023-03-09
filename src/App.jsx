@@ -68,9 +68,24 @@ console.log(sports)
   function handleSelectedSport(sports) {
     setSelectedSport(sports)
 }
-  const handleAddTeammate = (newTeammate) => {
-    const newTeammateArray = [...meetUps, newTeammate]
-    setMeetUps(newTeammateArray)
+  // const handleAddTeammate = (newTeammate) => {
+  //   const newTeammateArray = [...meetUps, newTeammate]
+  //   setMeetUps(newTeammateArray)
+  // }
+
+  const handleAddTeammate = (selected, newTeammate) => {
+    // debugger
+    const newMeetUps = meetUps.map((meetUp) => {
+      if (meetUp.id === selected.meet_up_id) {
+        return {
+          ...meetUp, 
+          teammates: [...meetUp.teammates, newTeammate]
+        };
+      } else {
+        return meetUp;
+      }
+    });
+    setMeetUps(newMeetUps)
   }
   //if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
 
@@ -157,12 +172,8 @@ console.log(sports)
         fields={fields}
         meetUps={meetUps}
         setMeetUps={setMeetUps}
-
+        handleAddTeammate={handleAddTeammate}
       />
-    },
-    {
-      path: '/fieldmeetup',
-      element: <FieldMeetUpCard />
     },
     {
       path: '/map',

@@ -28,8 +28,8 @@ const playersNumber = () => {
         <div className="meet-ups" onClick={() => handleMeetUpClick(meetUp)}>
           <img className="mu-field-img" src={meetUp?.field.img_url} />
           <div className="mu-info">
+            <h3>{meetUp.field.name}</h3>
             <p>{meetUp.date}</p>
-            <p>{meetUp.field.name}</p>
             <p>{playersNumber()}</p>
           </div>
         </div>

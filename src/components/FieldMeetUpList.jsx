@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FieldMeetUpCard from './FieldMeetUpCard'
 
-function FieldMeetUpList({meetUp, loggedInPlayer}) {
+function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate}) {
     const navigate = useNavigate();
     const [selectedFieldMeetUp, setSelectedFieldMeetUp] = useState();
     const [showMeetUp, setShowMeetUp] = useState(false);
@@ -37,6 +37,7 @@ function FieldMeetUpList({meetUp, loggedInPlayer}) {
           meetUp={meetUp} 
           loggedInPlayer={loggedInPlayer}
           setShowMeetUp={setShowMeetUp}
+          handleAddTeammate={handleAddTeammate}
           /> : null
       }
       </div>

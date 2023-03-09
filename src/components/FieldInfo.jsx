@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import SportDropdownFilter from './SportDropdownFilter';
 import { Form } from "semantic-ui-react";
 
-function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedField}) {
+function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedField, handleAddTeammate}) {
     const navigate = useNavigate();
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
@@ -73,6 +73,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
                     selectedField={selectedField}
                     setSelectedField={setSelectedField}
                     loggedInPlayer={loggedInPlayer}
+                    handleAddTeammate={handleAddTeammate}
                 />
             )
         })}</div>

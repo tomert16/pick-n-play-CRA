@@ -65,6 +65,8 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
             }
         })
     };
+
+    
     
   
     const fieldsDropdownFilter = meetUps.filter((sport) => {
@@ -87,9 +89,9 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
       :  */}
       <div className="bg-image" style={{backgroundImage: `url(${selectedSport?.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
         <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} />
+        <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
         <h1 className="info-title">{selectedSport?.sport_type} meet ups:</h1>
         <div className="meet-ups-list">
-        <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
           {fieldsDropdownFilter.map((meetUp) => {
               return (
                 // <div onClick={handleMeetUpClick}>  
