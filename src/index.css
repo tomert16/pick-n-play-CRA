@@ -18,7 +18,7 @@ code {
   position: absolute;
   justify-content: center;
   top: 30%;
-  left: 15%;
+  left: 17%;
   /* position: relative;
   bottom: 28pc;
   width: 100vw;
@@ -764,11 +764,12 @@ code {
   box-shadow: 16px 16px 32px #c8c8c8,
         -16px -16px 32px #fefefe;
   border-radius: 8px;
+  
 }
 .container{
   position: relative;
   left:45%;
-  top: 20pc;
+  top: 10pc;
   
 }
 
