@@ -1,41 +1,52 @@
 import {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FieldMeetUpList from './FieldMeetUpList';
 import NavBar from './NavBar';
 import SportDropdownFilter from './SportDropdownFilter';
 import { Form } from "semantic-ui-react";
 
 function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedField, handleAddTeammate}) {
-    const navigate = useNavigate();
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
+    const [individualField, setIndividualField] = useState();
     const [fieldMeetUps, setFieldMeetUps] = useState();
     const [sportFilter, setSportFilter] = useState("all");
     const [formToggle, setFormToggle] = useState(false);
-
-    // const field = fields.map((field) => {
-    //     return field.id
-    // })  
-    // const filterFields = field.filter((field) => {
-    //     return selectedField.id === field.id
-    // })  
-    // console.log(field)
-    // console.log(fields)
+    const { id } = useParams();
+   
     useEffect(() => {
-        const fetchFieldMeetUps = () => {
-            fetch(`/fields/${selectedField.id}`)
-            .then ((r) => r.json())
-            .then((data) => setFieldMeetUps(data.meet_ups))
+        async function fetchIndividualField() {
+            const req = fetch(`/fields/${id}`)
+            const resp = await req;
+            const parsed = await resp.json()
+            setIndividualField(parsed)
+        }
+        fetchIndividualField()
+    },[]);
+
+    useEffect(() => {
+        async function fetchFieldMeetUps() {
+            const req = fetch(`/fields/${id}`)
+            const resp = await req;
+            const parsed = await resp.json()
+            setFieldMeetUps(parsed.meet_ups)
         }
         fetchFieldMeetUps()
-    },[selectedField.id]);
+    },[]);
+
+    if (individualField === undefined){
+        return null;
+    }
+    if (fieldMeetUps === undefined){
+        return null;
+    }
     
   console.log(fieldMeetUps)
     const createMeetUp = () => {
         //e.preventDefault()
         const newMeetUp = {
             "date": new Date(date),
-            "field_id": selectedField.id,
+            "field_id": individualField.id,
             "sport_id": sportInput,
             "player_id": loggedInPlayer.id
         }
@@ -51,7 +62,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
         })
     };
     
-    const sportsDropdownFilter = fieldMeetUps?.filter((field) => {
+    const sportsDropdownFilter = fieldMeetUps.filter((field) => {
         if (sportFilter === 'all') return true;
         return field.sport.type.toLowerCase() === sportFilter.toLowerCase();
     })
@@ -61,9 +72,9 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
   return (
     <div>
         <NavBar loggedInPlayer={loggedInPlayer}/>
-        <h1 className="field-info-title">{selectedField?.field_name} meet ups:</h1>
+        <h1 className="field-info-title">{individualField.field_name} meet ups:</h1>
         <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter}/>
-        <div className="meet-ups-list">{sportsDropdownFilter?.map((meetUp) => {
+        <div className="meet-ups-list">{sportsDropdownFilter.map((meetUp) => {
             return (
                 <FieldMeetUpList 
                     meetUp={meetUp}

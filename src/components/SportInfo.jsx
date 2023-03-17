@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Form } from "semantic-ui-react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import MeetUpList from './MeetUpsList';
 import NavBar from './NavBar';
 import FieldDropDownFilter from './FieldDropDownFilter';
-import { SportsBar } from '@mui/icons-material';
+
 
 function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, fields, handleAddTeammate }) {
     const navigate = useNavigate();
@@ -13,6 +13,8 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
     const [locationInput, setLocationInput] = useState();
     const [formToggle, setFormToggle] = useState(false);
     const [fieldFilter, setFieldFilter] = useState("all");
+    const [individualSport, setIndividualSport] = useState();
+    const { id } = useParams();
     // const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
@@ -24,22 +26,35 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
    
     
     useEffect(() => {
+        async function fetchIndividualSport() {
+            // const params = new URLSearchParams({
+            //     sport_type: "soccer"
+            // })
+            const req = fetch(`/sports/${id}`)
+            const resp = await req;
+            const parsed = await resp.json();
+            setIndividualSport(parsed)
+        }
+        fetchIndividualSport()
+    },[]);
+
+    useEffect(() => {
         const fetchMeetUps = () => {
-            fetch(`/sports/${selectedSport.id}`)
+            // const params = new URLSearchParams({
+            //     sport_type: "soccer"
+            // })
+            fetch(`/sports/${id}`)
             .then ((r) => r.json())
             .then((data) => setMeetUps(data.meet_ups))
         }
         fetchMeetUps()
-    },[selectedSport.id]);
+    },[]);
 
-
-    // if (!meetUps[0]) return null;
+    if (individualSport === undefined){
+        return null;
+    }
     
-    // const filteredMeetUps = meetUps.filter((meetUp) =>{
-    //     //debugger
-    //     return meetUp?.sport?.id === selectedSport?.id
-    // })
-    
+    console.log(meetUps)
  
     const handleFormToggle = () => {
         setFormToggle(true)
@@ -50,7 +65,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
         const newMeetUp = {
             "date": new Date(dateInput),
             "field_id": locationInput,
-            "sport_id": selectedSport.id,
+            "sport_id": individualSport.id,
             "player_id": loggedInPlayer.id
             
         }
@@ -87,10 +102,10 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
         data-testid="loader"
       />
       :  */}
-      <div className="bg-image" style={{backgroundImage: `url(${selectedSport?.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
+      <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
         <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} />
         <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
-        <h1 className="info-title">{selectedSport?.sport_type} meet ups:</h1>
+        <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
         <div className="meet-ups-list">
           {fieldsDropdownFilter.map((meetUp) => {
               return (
@@ -130,7 +145,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
                     <button 
                         type="button" 
                         value="Create Meet Up" 
-                        onClick={() =>{ createMeetUps()}}
+                        onClick={() =>{ createMeetUps() }}
                     >Create</button>
                     <button className="back-btn" type='button' onClick={() => setFormToggle(false)}>X</button>
                 </Form> 

@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 
-function FieldCard({ field, handleSelectedField }) {
+function FieldCard({ field }) {
     const [mouseOverImage, setMouseOverImage] = useState(1)
     const [mouseOverInfo, setMouseOverInfo] = useState(0)
     const { field_name, img_url  } = field;
+    const navigate = useNavigate();
 
 
   return (
-    <div className="field-card" onClick={() => handleSelectedField(field)}  onMouseOver={()=>(
+    <div className="field-card" onClick={() => navigate(`/fields/${field.id}`)}  onMouseOver={()=>(
       setMouseOverImage(.3),
       setMouseOverInfo(1)
     )}

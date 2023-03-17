@@ -1,25 +1,41 @@
 import MeetUpCard from "./MeetUpCard";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams  } from 'react-router-dom';
 
 
-function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, loggedInPlayer, selectedSport, meetUps, handleAddTeammate }) {
+function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUps, handleAddTeammate }) {
   const navigate = useNavigate();
   const [showMeetUp, setShowMeetUp] = useState(false);
-
+  const [teammates, setTeammates] = useState();
+  const {id} = useParams();
   const handleMeetUpClick = (meetUp) => {
     setSelectedMeetUp(meetUp)
     setShowMeetUp(true)
 }
 
 
+
+    
+    
+
+const playersTotal = meetUp?.teammates?.length + 1
 const playersNumber = () => {
-  if (meetUp?.teammates?.length + 1 === 1){
-    return `${meetUp?.teammates?.length + 1} player`
-  } else{
-    return (`${meetUp?.teammates?.length + 1} players`)
-  }
+  if (meetUp.sport.sport_type === "Soccer") {
+    return (playersTotal + '/14')
+  } if 
+    (meetUp.sport.sport_type === "Basketball") {
+      return (playersTotal + '/10')
+  } if 
+  (meetUp.sport.sport_type === "Tennis") {
+    return (playersTotal + '/4')
+} if 
+(meetUp.sport.sport_type === "Football") {
+  return (playersTotal + '/10')
 }
+
+}
+
+
 
 
 
@@ -42,7 +58,8 @@ const playersNumber = () => {
         loggedInPlayer={loggedInPlayer}
         showMeetUp={showMeetUp}
         setShowMeetUp={setShowMeetUp}
-        handleAddTeammate={handleAddTeammate}
+        teammates={teammates}
+        setTeammates={setTeammates}
         /> : null}
         
     </div>

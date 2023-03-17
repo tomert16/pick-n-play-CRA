@@ -7,7 +7,7 @@ import NavBar from './NavBar';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-function Home({ sports, setSports, loggedInPlayer, setLoggedInPlayer, fields, setFields, selectedField, setSelectedField, handleSelectedSport}) {
+function Home({ sports, setSports, loggedInPlayer, setLoggedInPlayer, fields, setFields, selectedField, setSelectedField}) {
   const [sportFieldToggle, setSportFieldToggle] = useState(true);
  
   
@@ -15,14 +15,15 @@ function Home({ sports, setSports, loggedInPlayer, setLoggedInPlayer, fields, se
    
 
      // fetch fields 
-  const fetchFields = async() => {
-    const req = await fetch(`/fields`);
-    const resp = await req.json();
-    setFields(resp);
-  };
-  useEffect(() => {
-    fetchFields();
-  },[]);
+  // const fetchFields = async() => {
+  //   const req = await fetch(`/fields`);
+  //   const resp = await req.json();
+  //   setFields(resp);
+  // };
+  // useEffect(() => {
+  //   fetchFields();
+  // },[]);
+ 
 
     // const handleSportFieldToggle = () => {
     //   setSportFieldToggle(false)
@@ -50,14 +51,13 @@ function Home({ sports, setSports, loggedInPlayer, setLoggedInPlayer, fields, se
       {sportFieldToggle ? <SportsList 
         sports={sports} 
         setSports={setSports} 
-        handleSelectedSport={handleSelectedSport}
       />
       :
       <FieldList 
         fields={fields} 
         setFields={setFields} 
-        selectedField={selectedField} 
-        setSelectedField={setSelectedField}
+        // selectedField={selectedField} 
+        // setSelectedField={setSelectedField}
       />}
     </div>
   )

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "semantic-ui-react";
 import pnplogo from '../pnplogo.png';
 
-function Login({ loggedInPlayer, setLoggedInPlayer }) {
+function Login({ setLoggedInPlayer }) {
     const [loginToggle, setLoginToggle] = useState(false);
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
@@ -19,7 +19,8 @@ function Login({ loggedInPlayer, setLoggedInPlayer }) {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((user) => setLoggedInPlayer(user))
-                navigate('/home')
+                navigate('/welcome')
+                window.location.reload()
             }
         })
     }
@@ -55,22 +56,10 @@ function Login({ loggedInPlayer, setLoggedInPlayer }) {
                             autoComplete="current-password"
                             onChange={(e) => setPasswordInput(e.target.value)}
                         />
-                        {/* <a href="#">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Submit
-                        </a> */}
                         <Form.Button className="login-btn" type="submit">Login</Form.Button>
                         <br/>
-                        {/* <p>Don't have an account? <a href="" class="a2">Sign up!</a></p> */}
                         <p className="su-text">Don't have an account?   <button className="signup-btn" type="button" onClick={() => navigate('/signup')}> Signup </button></p>
                         <br/>
-                        {/* <button type="button" onClick={() => handleGuestLogin()}> Continue as Guest</button> */}
-                        <br/>
-                        {/* <button className="exit-form" onClick={handleToggle}>End Your Journey</button>
-                        {errors ? <div>{errors}</div>:null} */}
                         </Form> 
                     </div>
         </div> : null}

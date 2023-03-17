@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import FieldCard from './FieldCard';
 
 
-function FieldList({ fields, selectedField, setSelectedField }) {
+function FieldList({ fields}) {
     const navigate = useNavigate();
    
 
-    const handleSelectedField = (fields) => {
-        setSelectedField(fields);
-        navigate('/fieldinfo')
-    }
+    // const handleSelectedField = (fields) => {
+        
+    //     navigate('/fieldinfo')
+    // }
 
   return (
       <div>
@@ -19,9 +19,9 @@ function FieldList({ fields, selectedField, setSelectedField }) {
             <FieldCard 
                 key={field.id}
                 field={field}
-                selectedField={selectedField}
-                setSelectedField={setSelectedField}
-                handleSelectedField={handleSelectedField}
+                // selectedField={selectedField}
+                // setSelectedField={setSelectedField}
+                // handleSelectedField={handleSelectedField}
             />
         ))}
         </div>

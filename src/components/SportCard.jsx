@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //import SportInfo from './SportInfo';
 
-function SportCard({ sport, setSelectedSport, handleSelectedSport }) {
+function SportCard({ sport }) {
     const {sport_type, img_url} = sport
     const [mouseOverImage, setMouseOverImage] = useState(1)
     const [mouseOverInfo, setMouseOverInfo] = useState(0)
     const navigate = useNavigate()
 
-   
 
   return (
     <div className="sport-card"  
@@ -20,8 +19,8 @@ function SportCard({ sport, setSelectedSport, handleSelectedSport }) {
         setMouseOverImage(1),
         setMouseOverInfo(0)
       )} onClick={() =>{ 
-        handleSelectedSport(sport)
-        navigate('/sportinfo')
+        // handleSelectedSport(sport)
+        navigate(`/sports/${sport.id}`)
       }}
     >
         <h3 style={{opacity: mouseOverInfo}} >{sport_type}</h3>

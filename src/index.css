@@ -575,11 +575,10 @@ code {
 .field-meet-up-card {
   background-color: white;
   border-style: solid;
-  width: 30pc;
-  height:20pc;
+  width: fit-content;
   position: relative;
-  left: 45%;
-  top: 35pc;
+  left: 37%;
+  top: 15pc;
 }
 .meet-up-card{
   background-color: white;
@@ -592,6 +591,9 @@ code {
 .meet-up-card > img {
   width: 35pc;
   height: 40pc;
+}
+.teammates{
+  position: relative;
 }
 .bg-image{
   height: 100vh;

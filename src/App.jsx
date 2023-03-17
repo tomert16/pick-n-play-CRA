@@ -5,24 +5,22 @@ import Home from "./components/Home"
 import SportInfo from "./components/SportInfo";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import MeetUpCard from "./components/MeetUpCard";
+import WelcomePage from "./components/WelcomePage";
 import Account from "./components/Account";
 import FieldInfo from "./components/FieldInfo";
-import FieldMeetUpCard from "./components/FieldMeetUpList";
-import { set } from "date-fns";
 import Map2 from "./components/Map2";
 
 function App() {
-  const [sports, setSports] = useState([]);
+  const [sports, setSports] = useState();
   const [selectedSport, setSelectedSport] = useState();
-  const [meetUps, setMeetUps] = useState([]);
+  const [meetUps, setMeetUps] = useState();
   const [loggedInPlayer, setLoggedInPlayer] = useState();
   const [selectedMeetUp, setSelectedMeetUp] = useState();
   const [playerInfo, setPlayerInfo] = useState([]);
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState();
   const [selectedField, setSelectedField] = useState();
   const [meetUpTeammates, setMeetUpTeammates] = useState([])
-
+  const [locations, setLocations] = useState()
   /// OL map api 
   const [center, setCenter] = useState([-73.97, 40.72]);
   const [zoom, setZoom] = useState(13);
@@ -31,27 +29,6 @@ function App() {
   const [showLayer3, setShowLayer3] = useState(true);
   const [showLayer4, setShowLayer4] = useState(true);
 
-  useEffect(() => {
-    const fetchMeetUps = () => {
-        fetch(`/meet_ups`)
-        .then ((r) => r.json())
-    .then((data) => setMeetUps(data))
-    }
-    fetchMeetUps()
-  },[])
-   // fetch all sports 
-   function fetchSports() {
-    fetch('/sports')
-    .then ((r) => r.json())
-    .then((data) => setSports(data))
-};
-useEffect(() => {
-    fetchSports();
-},[]);
-  
-  
-  // if (!meetUps.length === 0) return null;
-  //auto-login function
   useEffect(() =>{
     fetch('/me')
     .then((r) => {
@@ -61,13 +38,52 @@ useEffect(() => {
     });
   },[]);
 
-  
-  
-console.log(sports)
+  useEffect(() => {
+    async function fetchLocations(){
+      const req = fetch('/locations');
+      const resp = await req;
+      const parsed = await resp.json();
+      setLocations(parsed)
+    }
+    fetchLocations();
+  },[])
 
-  function handleSelectedSport(sports) {
-    setSelectedSport(sports)
-}
+  useEffect(() => {
+    async function fetchSports() {
+      const req = fetch('/sports');
+      const resp = await req;
+      const parsed = await resp.json();
+      setSports(parsed)
+    }
+    fetchSports();
+  },[])
+  
+  useEffect(() => {
+    async function fetchField() {
+      const req = fetch('/fields');
+      const resp = await req;
+      const parsed = await resp.json();
+      setFields(parsed);
+    }
+    fetchField();
+  },[])
+
+  if (sports === undefined) {
+    return null;
+  }
+
+  if (fields === undefined) {
+    return null;
+  }
+
+  if (locations === undefined) {
+    return null;
+  }
+  
+  
+
+
+
   // const handleAddTeammate = (newTeammate) => {
   //   const newTeammateArray = [...meetUps, newTeammate]
   //   setMeetUps(newTeammateArray)
@@ -107,6 +123,14 @@ console.log(sports)
       element: <Signup loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer}/>
     },
     {
+      path: "/welcome",
+      element: <WelcomePage 
+        locations={locations}
+        setLocations={setLocations}
+        loggedInPlayer={loggedInPlayer}
+      />
+    },
+    {
       path: "/home",
       element: <Home 
         loggedInPlayer={loggedInPlayer}
@@ -118,7 +142,7 @@ console.log(sports)
         setFields={setFields}
         selectedField={selectedField}
         setSelectedField={setSelectedField}
-        handleSelectedSport={handleSelectedSport}
+        // handleSelectedSport={handleSelectedSport}
       />
     },
     {
@@ -133,7 +157,7 @@ console.log(sports)
       />
     },
     {
-      path: "/sportinfo",
+      path: `/sports/:id`,
       element: <SportInfo 
         sports={sports} 
         setSports={setSports}
@@ -147,21 +171,16 @@ console.log(sports)
         fields={fields}
         setFields={setFields}
         // handleAddTeammate={handleAddTeammate}
-        handleSelectedSport={handleSelectedSport}
+        // handleSelectedSport={handleSelectedSport}
       />
     },
     // {
-    //   path: `/meetup`,
+    //   path: `/sports/:id/meet_ups/:id`,
     //   element: <MeetUpCard 
-    //     meetUps={meetUps} 
-    //     setMeetUps={setMeetUps}
-    //     selectedMeetUp={selectedMeetUp}
-    //     setSelectedMeetUp={setSelectedMeetUp}
-    //     loggedInPlayer={loggedInPlayer}
     //     />
     // },
     {
-      path: '/fieldinfo',
+      path: '/fields/:id',
       element: <FieldInfo 
         // fieldMeetUps={fieldMeetUps}
         // setFieldMeetUps={setFieldMeetUps}
