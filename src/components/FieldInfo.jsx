@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import SportDropdownFilter from './SportDropdownFilter';
 import { Form } from "semantic-ui-react";
 
-function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedField, handleAddTeammate}) {
+function FieldInfo({selectedField, loggedInPlayer, sports, setSelectedField, handleAddTeammate, individualLocation}) {
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
     const [individualField, setIndividualField] = useState();
@@ -71,7 +71,7 @@ function FieldInfo({selectedField, loggedInPlayer, sports, fields, setSelectedFi
     }
   return (
     <div>
-        <NavBar loggedInPlayer={loggedInPlayer}/>
+        <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation}/>
         <h1 className="field-info-title">{individualField.field_name} meet ups:</h1>
         <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter}/>
         <div className="meet-ups-list">{sportsDropdownFilter.map((meetUp) => {

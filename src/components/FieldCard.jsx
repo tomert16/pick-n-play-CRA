@@ -9,16 +9,22 @@ function FieldCard({ field }) {
 
 
   return (
-    <div className="field-card" onClick={() => navigate(`/fields/${field.id}`)}  onMouseOver={()=>(
-      setMouseOverImage(.3),
-      setMouseOverInfo(1)
-    )}
-    onMouseLeave={()=>(
-      setMouseOverImage(1),
-      setMouseOverInfo(0)
-    )}>
+    <div className="field-card" >
         <h3 style={{opacity: mouseOverInfo}}>{field_name}</h3>
-        <img className="field-image" src={img_url} alt={field_name} style={{opacity: mouseOverImage}}/>
+        <img 
+          className="field-image" 
+          src={img_url} alt={field_name} 
+          style={{opacity: mouseOverImage}}
+          onClick={() => navigate(`/fields/${field.id}`)}  
+          onMouseOver={()=>(
+            setMouseOverImage(.3),
+            setMouseOverInfo(1)
+          )}
+          onMouseLeave={()=>(
+            setMouseOverImage(1),
+            setMouseOverInfo(0)
+          )}
+        />
     </div>
   )
 }

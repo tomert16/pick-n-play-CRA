@@ -10,22 +10,25 @@ function SportCard({ sport }) {
 
 
   return (
-    <div className="sport-card"  
-      onMouseOver={()=>(
-        setMouseOverImage(.3),
-        setMouseOverInfo(1)
-      )}
-      onMouseLeave={()=>(
-        setMouseOverImage(1),
-        setMouseOverInfo(0)
-      )} onClick={() =>{ 
-        // handleSelectedSport(sport)
-        navigate(`/sports/${sport.id}`)
-      }}
-    >
-        <h3 style={{opacity: mouseOverInfo}} >{sport_type}</h3>
-        <img className="sport-image" src={img_url} alt={sport_type} style={{opacity: mouseOverImage}}/>
-        
+    <div className="sport-card" >
+        <h3 style={{opacity: mouseOverInfo}}>{sport_type}</h3>
+          <img className="sport-image" 
+            src={img_url} 
+            alt={sport_type} 
+            style={{opacity: mouseOverImage}}
+            onClick={() =>{ 
+              navigate(`/sports/${sport.id}`)
+            }}
+            onMouseOver={()=>(
+              setMouseOverImage(.3),
+              setMouseOverInfo(1)
+            )}
+            onMouseLeave={()=>(
+              setMouseOverImage(1),
+              setMouseOverInfo(0)
+            )} 
+          />
+
     </div>
   )
 }

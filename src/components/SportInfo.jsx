@@ -7,7 +7,7 @@ import NavBar from './NavBar';
 import FieldDropDownFilter from './FieldDropDownFilter';
 
 
-function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, fields, handleAddTeammate }) {
+function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, fields, handleAddTeammate, individualLocation }) {
     const navigate = useNavigate();
     const [dateInput, setDateInput] = useState("");
     const [locationInput, setLocationInput] = useState();
@@ -27,9 +27,6 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
     
     useEffect(() => {
         async function fetchIndividualSport() {
-            // const params = new URLSearchParams({
-            //     sport_type: "soccer"
-            // })
             const req = fetch(`/sports/${id}`)
             const resp = await req;
             const parsed = await resp.json();
@@ -103,7 +100,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
       />
       :  */}
       <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
-        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} />
+        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} individualLocation={individualLocation}/>
         <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
         <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
         <div className="meet-ups-list">
@@ -137,10 +134,10 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
                     <input fluid type="datetime-local" name="date" value={dateInput}  onChange={(e) => setDateInput(e.target.value)}/>
                     <select onChange={(e) => setLocationInput(e.target.value)} >
                         <option >Pick you field/court</option>
-                        <option value={fields[0]?.id}>Bushwick Inlet Park</option>
-                        <option value={fields[1]?.id}>Central Park</option>
-                        <option value={fields[2]?.id}>Riverside Park</option>
-                        <option value={fields[3]?.id}>Globall Sports Center</option>
+                        <option value={individualLocation.fields[0].id}>{individualLocation.fields[0].field_name}</option>
+                        <option value={individualLocation.fields[1].id}>{individualLocation.fields[1].field_name}</option>
+                        <option value={individualLocation.fields[2].id}>{individualLocation.fields[2].field_name}</option>
+                        <option value={individualLocation.fields[3].id}>{individualLocation.fields[3].field_name}</option>
                     </select>
                     <button 
                         type="button" 

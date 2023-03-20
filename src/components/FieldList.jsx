@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import FieldCard from './FieldCard';
 
 
-function FieldList({ fields}) {
+function FieldList({ individualLocation}) {
     const navigate = useNavigate();
    
 
@@ -15,7 +15,7 @@ function FieldList({ fields}) {
       <div>
         <h1 className='home-prompt'>Pick a Field</h1>
         <div className='fields-list'>
-        {fields.map((field) => (
+        {individualLocation.fields.map((field) => (
             <FieldCard 
                 key={field.id}
                 field={field}

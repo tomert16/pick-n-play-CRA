@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../pnplogo.png';
 import FieldDropDownFilter from './FieldDropDownFilter';
-function NavBar({ loggedInPlayer, setLoggedInPlayer }) {
+function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation }) {
     const navigate = useNavigate();
     const [iconToggle, setIconToggle] = useState(false);
 
@@ -24,10 +24,10 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer }) {
             }
         })
     }
-
+    console.log(individualLocation)
   return (
     <div className="nav-bar">
-        <img className="header-logo" src={pnplogo} onClick={() => navigate('/home')}/>
+        <img className="header-logo" src={pnplogo} onClick={() => navigate(`/locations/${individualLocation.id}`)}/>
         <div className='profile-nav'>
             <h3>Welcome, {loggedInPlayer?.first_name}</h3>
             <div className='profile-icon'>

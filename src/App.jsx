@@ -21,6 +21,7 @@ function App() {
   const [selectedField, setSelectedField] = useState();
   const [meetUpTeammates, setMeetUpTeammates] = useState([])
   const [locations, setLocations] = useState()
+  const [individualLocation, setIndividualLocation] = useState();
   /// OL map api 
   const [center, setCenter] = useState([-73.97, 40.72]);
   const [zoom, setZoom] = useState(13);
@@ -67,6 +68,7 @@ function App() {
     }
     fetchField();
   },[])
+  
 
   if (sports === undefined) {
     return null;
@@ -131,7 +133,7 @@ function App() {
       />
     },
     {
-      path: "/home",
+      path: "/locations/:id",
       element: <Home 
         loggedInPlayer={loggedInPlayer}
         sports={sports} 
@@ -142,7 +144,9 @@ function App() {
         setFields={setFields}
         selectedField={selectedField}
         setSelectedField={setSelectedField}
-        // handleSelectedSport={handleSelectedSport}
+        locations={locations}
+        individualLocation={individualLocation}
+        setIndividualLocation={setIndividualLocation}
       />
     },
     {
@@ -170,6 +174,7 @@ function App() {
         setSelectedMeetUp={setSelectedMeetUp}
         fields={fields}
         setFields={setFields}
+        individualLocation={individualLocation}
         // handleAddTeammate={handleAddTeammate}
         // handleSelectedSport={handleSelectedSport}
       />
@@ -191,6 +196,7 @@ function App() {
         fields={fields}
         meetUps={meetUps}
         setMeetUps={setMeetUps}
+        individualLocation={individualLocation}
         // handleAddTeammate={handleAddTeammate}
       />
     },
