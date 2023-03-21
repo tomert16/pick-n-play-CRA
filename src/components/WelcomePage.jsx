@@ -4,7 +4,7 @@ import LocationCard from "./LocationCard";
 function WelcomePage({ locations, loggedInPlayer }) {
   return (
     <div>
-      <NavBar loggedInPlayer={loggedInPlayer} />
+      <NavBar loggedInPlayer={loggedInPlayer} locations={locations}/>
       <h1>Welcome to Pick N' Play {loggedInPlayer.first_name}!</h1>
       <h2>Pick Your Location</h2>
       {locations.map((location) => (

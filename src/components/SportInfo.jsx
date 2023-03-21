@@ -7,7 +7,7 @@ import NavBar from './NavBar';
 import FieldDropDownFilter from './FieldDropDownFilter';
 
 
-function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, fields, handleAddTeammate, individualLocation }) {
+function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handleAddTeammate, individualLocation, locations }) {
     const navigate = useNavigate();
     const [dateInput, setDateInput] = useState("");
     const [locationInput, setLocationInput] = useState();
@@ -36,28 +36,28 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
     },[]);
 
     useEffect(() => {
-        const fetchMeetUps = () => {
-            // const params = new URLSearchParams({
-            //     sport_type: "soccer"
-            // })
-            fetch(`/sports/${id}`)
-            .then ((r) => r.json())
-            .then((data) => setMeetUps(data.meet_ups))
+        async function fetchMeetUps(){
+            const req = fetch(`/sports/${id}`)
+            const resp = await req;
+            const parsed = await resp.json();
+            setMeetUps(parsed.meet_ups);
         }
-        fetchMeetUps()
+        fetchMeetUps();
     },[]);
 
     if (individualSport === undefined){
         return null;
     }
+    if (meetUps === undefined){
+        return null;
+    }
     
-    console.log(meetUps)
  
     const handleFormToggle = () => {
         setFormToggle(true)
     }
     
-    const createMeetUps = (e) => {
+    const createMeetUps = () => {
         
         const newMeetUp = {
             "date": new Date(dateInput),
@@ -79,7 +79,7 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
     };
 
     
-    
+    console.log(meetUps)
   
     const fieldsDropdownFilter = meetUps.filter((sport) => {
         if (fieldFilter === 'all') return true;
@@ -100,8 +100,8 @@ function SportInfo({ sports, selectedSport, meetUps, setMeetUps, loggedInPlayer,
       />
       :  */}
       <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
-        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} individualLocation={individualLocation}/>
-        <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} />
+        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} individualLocation={individualLocation} locations={locations}/>
+        {/* <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} individualLocation={individualLocation}/> */}
         <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
         <div className="meet-ups-list">
           {fieldsDropdownFilter.map((meetUp) => {

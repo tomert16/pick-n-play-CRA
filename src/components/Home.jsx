@@ -12,6 +12,7 @@ function Home({ sports, setSports, loggedInPlayer, fields, setFields, locations,
   // const [individualLocation, setIndividualLocation] = useState();
   const {id} = useParams(); 
   
+  console.log(locations)
 
    //fetch individual state
    useEffect(() => {
@@ -23,6 +24,7 @@ function Home({ sports, setSports, loggedInPlayer, fields, setFields, locations,
      }
      fetchIndiviualLocation();
    },[])
+
    if (individualLocation == undefined){
      return null;
    }
@@ -33,7 +35,7 @@ console.log(individualLocation)
   return (
     
     <div>
-      <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} />
+      <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} locations={locations}/>
       <div >
       <ToggleButtonGroup
         color="primary"

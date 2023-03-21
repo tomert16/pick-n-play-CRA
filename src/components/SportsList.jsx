@@ -5,7 +5,7 @@ import SportCard from './SportCard';
 function SportsList({  handleSelectedSport, individualLocation}) {
 
     
-
+console.log(individualLocation)
   
 
   return (

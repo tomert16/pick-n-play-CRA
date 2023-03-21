@@ -1,4 +1,4 @@
-import {createBrowserRouter,RouterProvider,} from "react-router-dom";
+import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import { useState, useEffect } from "react";
 import './App.css';
 import Home from "./components/Home"
@@ -68,6 +68,7 @@ function App() {
     }
     fetchField();
   },[])
+
   
 
   if (sports === undefined) {
@@ -174,6 +175,7 @@ function App() {
         setSelectedMeetUp={setSelectedMeetUp}
         fields={fields}
         setFields={setFields}
+        locations={locations}
         individualLocation={individualLocation}
         // handleAddTeammate={handleAddTeammate}
         // handleSelectedSport={handleSelectedSport}
@@ -197,6 +199,7 @@ function App() {
         meetUps={meetUps}
         setMeetUps={setMeetUps}
         individualLocation={individualLocation}
+        locations={locations}
         // handleAddTeammate={handleAddTeammate}
       />
     },

@@ -5,10 +5,14 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../pnplogo.png';
 import FieldDropDownFilter from './FieldDropDownFilter';
-function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation }) {
+function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locations }) {
     const navigate = useNavigate();
     const [iconToggle, setIconToggle] = useState(false);
-
+    const [locationFilter, setLocationFilter] = useState("change");
+    
+    const handleLocationFilter = (e) => {
+        setLocationFilter(e.target.value)
+    }
     const handleProfileMenuOpen = () => {
         setIconToggle(!iconToggle);
       };
@@ -24,12 +28,22 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation }) {
             }
         })
     }
-    console.log(individualLocation)
+    console.log(locationFilter)
   return (
     <div className="nav-bar">
-        <img className="header-logo" src={pnplogo} onClick={() => navigate(`/locations/${individualLocation.id}`)}/>
+        <img className="header-logo" src={pnplogo} onClick={() => navigate(-1)}/>
+        <select name="location-filter" value={locationFilter} onChange={(e) => {
+            handleLocationFilter(e)
+            navigate(`/locations/${e.target.value}`)
+            window.location.reload()
+        }}>
+            <option value="change">Change Location</option>
+            <option value={locations[0].id}>{locations[0].state}</option>
+            <option value={locations[1].id}>{locations[1].state}</option>
+            <option value={locations[2].id}>{locations[2].state}</option>
+        </select>
         <div className='profile-nav'>
-            <h3>Welcome, {loggedInPlayer?.first_name}</h3>
+            <h3>Welcome, {loggedInPlayer.first_name}</h3>
             <div className='profile-icon'>
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
