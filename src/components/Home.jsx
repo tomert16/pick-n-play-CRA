@@ -43,11 +43,11 @@ console.log(individualLocation)
         exclusive
         aria-label="Large sizes"
     >
-      <ToggleButton className='sport-field-toggle' value="sport" onClick={() => setSportFieldToggle(true)}>Sports</ToggleButton>
+      <ToggleButton value="sport" onClick={() => setSportFieldToggle(true)}>Sports</ToggleButton>
       <ToggleButton value="field" onClick={() => setSportFieldToggle(false)}>Fields</ToggleButton>
     </ToggleButtonGroup>
     </div>
-    <h1>{individualLocation.state}</h1>
+    <h1 className="location-name">{individualLocation.state}</h1>
       {sportFieldToggle ? <SportsList 
         sports={sports} 
         setSports={setSports} 

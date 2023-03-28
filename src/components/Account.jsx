@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 
-function Account({ loggedInPlayer, playerInfo, setPlayerInfo, meetUps, meetUpTeammates, setMeetUpTeammates }) {
+function Account({ loggedInPlayer, locations }) {
     
     // const fetchTeammates = () => {
     //     fetch (`/player_meet_ups`)
@@ -18,7 +18,7 @@ function Account({ loggedInPlayer, playerInfo, setPlayerInfo, meetUps, meetUpTea
   return (
     <div className="account-info-page">
       <div className='header-div'>
-        <NavBar loggedInPlayer={loggedInPlayer} />
+        <NavBar loggedInPlayer={loggedInPlayer} locations={locations}/>
       </div>
        <div className="bar-info-container">
           <h1 className="bar-info-name"> Profile  Info</h1>
@@ -35,8 +35,8 @@ function Account({ loggedInPlayer, playerInfo, setPlayerInfo, meetUps, meetUpTea
             <h3 className='your-reviews'>Your Created Meet Ups</h3>
             <div className='scroll-reviews'>{loggedInPlayer.meet_ups.map((meetUp) => (<div className="your-meet-ups">
                 <h2>{meetUp.sport.sport_type}</h2>
-                <h3 className='mu-date'>{meetUp.date}</h3>
-                <h3>{meetUp.field.name}</h3>
+                <p className='mu-date'>{meetUp.date}</p>
+                <p>{meetUp.field.name}</p>
             </div>))}
             </div>
           </div>

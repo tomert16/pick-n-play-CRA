@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react'
 import FieldMeetUpList from './FieldMeetUpList';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, setFieldMeetUps}) {
   const [joinToggle, setJoinToggle] = useState(true);
@@ -79,7 +85,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
 
   return (
     <div className='meet-up-card-div'>
-      <div className="field-meet-up-card">
+      {/* <div className="field-meet-up-card">
         <h3>{meetUp.sport.type}</h3>
         <img src={meetUp.sport.image} />
         <h4>{meetUp.date}</h4>
@@ -93,7 +99,41 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
           <p>Full</p>}
            <button type='button' onClick={() => handleDropMeetUp()}>Drop Meet Up</button>
         <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
-      </div>
+      </div> */}
+      <Card sx={{ maxWidth: 345 }} className="field-meet-up-card">
+      <CardMedia
+        sx={{ height: 300 }}
+        image={meetUp.sport.image}
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {meetUp.sport.type}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {meetUp.date}<br></br>
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Total Players: {totalPlayers}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <li>{meetUp.player.name}</li>
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+          :
+          <p>Full</p>}
+        <Button size="small" onClick={() => {
+          handleDropMeetUp()
+          window.location.reload()
+          }}>Leave</Button>
+        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
+      </CardActions>
+    </Card>
     </div>
   )
 }

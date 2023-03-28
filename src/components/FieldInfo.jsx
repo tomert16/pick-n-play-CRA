@@ -73,7 +73,7 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
     <div>
         <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} locations={locations}/>
         <h1 className="field-info-title">{individualField.field_name} meet ups:</h1>
-        <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter}/>
+        {/* <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter} /> */}
         <div className="meet-ups-list">{sportsDropdownFilter.map((meetUp) => {
             return (
                 <FieldMeetUpList 
@@ -100,10 +100,10 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
                 <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
                 <select onChange={(e) => setSportInput(e.target.value)}>
                     <option >Pick a Sport</option>
-                    <option value={individualLocation.sports[0]?.id}>Soccer</option>
-                    <option value={individualLocation.sports[1]?.id}>Basketball</option>
-                    <option value={individualLocation.sports[2]?.id}>Tennis</option>
-                    <option value={individualLocation.sports[3]?.id}>Football</option>
+                    <option value={individualLocation.sports[0].id}>Soccer</option>
+                    <option value={individualLocation.sports[1].id}>Basketball</option>
+                    <option value={individualLocation.sports[2].id}>Tennis</option>
+                    <option value={individualLocation.sports[3].id}>Football</option>
                 </select><br></br>
                 <button 
                     type="button" 

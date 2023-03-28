@@ -2,6 +2,12 @@ import { format, set } from 'date-fns'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams} from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeammates, meetUps, setMeetUps}) {
     const navigate = useNavigate();
@@ -12,21 +18,21 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
     const totalPlayers = meetUp.teammates.length + 1;
     useEffect(() => {
         if (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14){
+          setJoinToggle(false)
             console.log('full meet up', meetUp.teammates.length);
-            setJoinToggle(!joinToggle)
         }else if (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10){
+          setJoinToggle(false)
             console.log('full meet up', meetUp.teammates.length);
-            setJoinToggle(!joinToggle)
         }else if (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4){
+          setJoinToggle(false)
             console.log('full meet up', meetUp.teammates.length);
-            setJoinToggle(!joinToggle)
         }else if (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10){
+          setJoinToggle(false)
             console.log('full meet up', meetUp.teammates.length);
-            setJoinToggle(!joinToggle)
         }
     },[])
 
-   
+
 
     const handleJoinTeam = () => {
         const join = {
@@ -89,7 +95,7 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
 
   return (
     <div className='meet-up-card-div'>
-      <div className="meet-up-card">
+      {/* <div className="meet-up-card">
         <h3>{meetUp.field.name}</h3>
         <img src={meetUp.field.img_url} />
         <h4>{meetUp.date}</h4>
@@ -101,10 +107,45 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
           <p>Full</p>}
         <button type='button' onClick={() => handleDropMeetUp()}>Drop Meet Up</button>
         <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
-    </div>
+    </div> */}
+    <Card sx={{ maxWidth: 345 }} className="meet-up-card">
+      <CardMedia
+        sx={{ height: 300 }}
+        image={meetUp.field.img_url}
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {meetUp.field.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {meetUp.date}<br></br>
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Total Players: {totalPlayers}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <li>{meetUp.player.name}</li>
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+          :
+          <p>Full</p>}
+        <Button size="small" onClick={() => {
+          handleDropMeetUp()
+          window.location.reload()
+          }}>Leave</Button>
+        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
+      </CardActions>
+    </Card>
     </div>  
     
   )
 }
 
-export default MeetUpCard
+
+export default MeetUpCard;

@@ -159,6 +159,7 @@ function App() {
         setPlayerInfo={setPlayerInfo}
         meetUpTeammates={meetUpTeammates}
         setMeetUpTeammates={setMeetUpTeammates}
+        locations={locations}
       />
     },
     {

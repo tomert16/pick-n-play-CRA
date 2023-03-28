@@ -4,7 +4,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../pnplogo.png';
-import FieldDropDownFilter from './FieldDropDownFilter';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+
+
 function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locations }) {
     const navigate = useNavigate();
     const [iconToggle, setIconToggle] = useState(false);
@@ -32,16 +36,24 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
   return (
     <div className="nav-bar">
         <img className="header-logo" src={pnplogo} onClick={() => navigate(-1)}/>
-        <select name="location-filter" value={locationFilter} onChange={(e) => {
-            handleLocationFilter(e)
-            navigate(`/locations/${e.target.value}`)
-            window.location.reload()
-        }}>
-            <option value="change">Change Location</option>
-            <option value={locations[0].id}>{locations[0].state}</option>
-            <option value={locations[1].id}>{locations[1].state}</option>
-            <option value={locations[2].id}>{locations[2].state}</option>
-        </select>
+      <FormControl sx={{ m: 1, minWidth: 80 }} className="location-filter">
+        <InputLabel id="demo-simple-select-label">Location</InputLabel>
+        <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={locationFilter}
+            label="Location"
+            onChange={(e) => {
+                handleLocationFilter(e)
+                navigate(`/locations/${e.target.value}`)
+                window.location.reload()
+            }}
+        >
+            <MenuItem value={locations[0].id}>{locations[0].state}</MenuItem>
+            <MenuItem value={locations[1].id}>{locations[1].state}</MenuItem>
+            <MenuItem value={locations[2].id}>{locations[2].state}</MenuItem>
+        </Select>
+      </FormControl>
         <div className='profile-nav'>
             <h3>Welcome, {loggedInPlayer.first_name}</h3>
             <div className='profile-icon'>
