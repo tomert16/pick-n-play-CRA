@@ -1,16 +1,16 @@
 import Map from "./Map";
 import Layers from './Layers';
-import VectorLayer from "./VectorLayer";
-import TileLayer from "./TileLayer";
+import VectorLayer from "../VectorLayer";
+import TileLayer from "../TileLayer";
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import osm from "../source/osm";
-import vector from "../source/vector";
+import osm from "../../source/osm";
+import vector from "../../source/vector";
 import { fromLonLat, get } from 'ol/proj'; 
 import Controls from './Controls';
 import FullScreenControl from "./FullScreenControl";
 import { zoomByDelta } from "ol/interaction/Interaction";
 import GeoJSON from "ol/format/GeoJSON";
-import mapConfig from "../config.json";
+import mapConfig from "../../config.json";
 let styles = { 
   'MultiPolygon': new Style({
     stroke: new Stroke({

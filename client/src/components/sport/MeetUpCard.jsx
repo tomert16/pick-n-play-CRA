@@ -87,6 +87,7 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
           });
       }
 
+
     const handleBackClick = () => {
         setShowMeetUp(false)
     }

@@ -82,6 +82,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
           setJoinToggle(!joinToggle)
       }
   },[])
+  console.log(meetUp.teammates)
 
   return (
     <div className='meet-up-card-div'>

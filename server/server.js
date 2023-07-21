@@ -21,10 +21,10 @@ app.use(cors());
 //routes
 app.use('/sports', sportsRoutes);
 app.use('/locations', locationsRoutes);
-app.use('/fields', fieldsRoutes)
+app.use('/fields', fieldsRoutes);
 
 
 //start server
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}...`)
+    console.log(`listening on port ${PORT}...`);
 })

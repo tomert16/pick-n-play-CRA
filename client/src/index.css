@@ -13,6 +13,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Fixed styled options */
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.j-between {
+  justify-content: space-between;
+}
+
+.j-center {
+  justify-content: center;
+}
+
+.a-center {
+  align-items: center;
+}
+/* //////////////////////////// */
 .title-div {
   background-color: #f9f9f9(15, 67, 211);
   position: absolute;

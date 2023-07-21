@@ -2,12 +2,9 @@ import { useState } from 'react';
 
 import SportCard from './SportCard';
 
-function SportsList({  handleSelectedSport, individualLocation}) {
+function SportsList({  handleSelectedSport, individualLocation }) {
 
-    
-console.log(individualLocation)
-  
-
+      
   return (
       <div>
         <h1 className='home-prompt'>Pick Your Sport</h1>

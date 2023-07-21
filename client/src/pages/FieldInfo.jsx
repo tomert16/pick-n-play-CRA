@@ -1,28 +1,26 @@
 import {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import FieldMeetUpList from './FieldMeetUpList';
-import NavBar from './NavBar';
-import SportDropdownFilter from './SportDropdownFilter';
+import FieldMeetUpList from '../components/field/FieldMeetUpList';
+import NavBar from '../components/NavBar';
+import SportDropdownFilter from '../components/field/SportDropdownFilter';
 import { Form } from "semantic-ui-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFieldById, selectFieldById } from '../redux/fields/fieldsSlice';
 
 function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTeammate, individualLocation, locations}) {
+    const dispatch = useDispatch();
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
-    const [individualField, setIndividualField] = useState();
     const [fieldMeetUps, setFieldMeetUps] = useState();
     const [sportFilter, setSportFilter] = useState("all");
     const [formToggle, setFormToggle] = useState(false);
     const { id } = useParams();
    
+    // fetch individual field
+    const individualField = useSelector(selectFieldById);
     useEffect(() => {
-        async function fetchIndividualField() {
-            const req = fetch(`/fields/${id}`)
-            const resp = await req;
-            const parsed = await resp.json()
-            setIndividualField(parsed)
-        }
-        fetchIndividualField()
-    },[]);
+        dispatch(fetchFieldById(id))
+    },[dispatch])
 
     useEffect(() => {
         async function fetchFieldMeetUps() {

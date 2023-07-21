@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "semantic-ui-react";
 import pnplogo from '../pnplogo.png';
 
-function Login({ setLoggedInPlayer }) {
+function Login({ setLoggedInPlayer, loggedInPlayer }) {
     const [loginToggle, setLoginToggle] = useState(false);
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
@@ -29,6 +29,7 @@ function Login({ setLoggedInPlayer }) {
         setLoginToggle(!loginToggle);
     };
 
+    console.log(loggedInPlayer)
   return (
     <div className="start-page" >
         <div class="title-div">

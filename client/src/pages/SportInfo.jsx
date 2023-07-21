@@ -2,18 +2,21 @@ import { useEffect, useState } from 'react';
 import { Form } from "semantic-ui-react";
 import { useNavigate, useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
-import MeetUpList from './MeetUpsList';
-import NavBar from './NavBar';
-import FieldDropDownFilter from './FieldDropDownFilter';
+import MeetUpList from '../components/sport/MeetUpsList';
+import NavBar from '../components/NavBar';
+import FieldDropDownFilter from '../components/sport/FieldDropDownFilter';
+import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
 
 
-function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handleAddTeammate, individualLocation, locations }) {
+function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handleAddTeammate, locations }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [dateInput, setDateInput] = useState("");
     const [locationInput, setLocationInput] = useState();
     const [formToggle, setFormToggle] = useState(false);
     const [fieldFilter, setFieldFilter] = useState("all");
-    const [individualSport, setIndividualSport] = useState();
     const { id } = useParams();
     // const [loading, setLoading] = useState(false);
 
@@ -23,34 +26,39 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
     //         setLoading(false);
     //     }, 6000)
     // },[])
-   
     
+    // fetch individual sport
+    const individualSport = useSelector(selectSportById);
     useEffect(() => {
-        async function fetchIndividualSport() {
-            const req = fetch(`/sports/${id}`)
-            const resp = await req;
-            const parsed = await resp.json();
-            setIndividualSport(parsed)
-        }
-        fetchIndividualSport()
-    },[]);
+        dispatch(fetchSportById(id));
+    },[dispatch]);
 
+    
+    // useEffect(() => {
+    //     async function fetchMeetUps(){
+    //         const req = fetch(`/sports/${id}`)
+    //         const resp = await req;
+    //         const parsed = await resp.json();
+    //         setMeetUps(parsed.meet_ups);
+    //     }
+    //     fetchMeetUps();
+    // },[]);
+
+    const individualLocation = useSelector(selectLocationById);
     useEffect(() => {
-        async function fetchMeetUps(){
-            const req = fetch(`/sports/${id}`)
-            const resp = await req;
-            const parsed = await resp.json();
-            setMeetUps(parsed.meet_ups);
-        }
-        fetchMeetUps();
-    },[]);
+        dispatch(fetchLocationById(id));
+    },[dispatch])
 
     if (individualSport === undefined){
         return null;
     }
-    if (meetUps === undefined){
-        return null;
-    }
+    // if (individualLocation == undefined){
+    //     return null;
+    //   }
+      
+    // if ( === undefined){
+    //     return null;
+    // }
     
  
     const handleFormToggle = () => {
@@ -76,19 +84,13 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
                 r.json() .then((meetUp) => setMeetUps([...meetUps, meetUp]))
             }
         })
-    };
-
-    
-    console.log(meetUps)
-  
-    const fieldsDropdownFilter = meetUps.filter((sport) => {
+    };  
+    const fieldsDropdownFilter = individualSport.meet_ups.filter((sport) => {
         if (fieldFilter === 'all') return true;
         return sport.field.name.toLowerCase() === fieldFilter.toLowerCase();
     })
-   //debugger
       return (
         <div >
-           
         {/* {
             loading ?
             <ClipLoader
@@ -100,7 +102,7 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
       />
       :  */}
       <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
-        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer} individualLocation={individualLocation} locations={locations}/>
+        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer}  locations={locations}/>
         {/* <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} individualLocation={individualLocation}/> */}
         <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
         <div className="meet-ups-list">
@@ -116,7 +118,6 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
                     setMeetUps={setMeetUps}
                     handleAddTeammate={handleAddTeammate}
                 />
-                // </div>
                 )
             })}
         </div>
@@ -133,11 +134,10 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
                     <h3>Create a Meet Up</h3> 
                     <input fluid type="datetime-local" name="date" value={dateInput}  onChange={(e) => setDateInput(e.target.value)}/>
                     <select onChange={(e) => setLocationInput(e.target.value)} >
-                        <option >Pick you field/court</option>
-                        <option value={individualLocation.fields[0].id}>{individualLocation.fields[0].field_name}</option>
-                        <option value={individualLocation.fields[1].id}>{individualLocation.fields[1].field_name}</option>
-                        <option value={individualLocation.fields[2].id}>{individualLocation.fields[2].field_name}</option>
-                        <option value={individualLocation.fields[3].id}>{individualLocation.fields[3].field_name}</option>
+                        <option >Pick your field/court</option>
+                        {individualLocation.fields.map((field) => (
+                            <option value={field.id}>{field.field_name}</option>
+                        ))}
                     </select>
                     <button 
                         type="button" 
@@ -150,14 +150,8 @@ function SportInfo({ meetUps, setMeetUps, loggedInPlayer, setLoggedInPlayer, set
             : null}
             </div>
         </div>
-        
-         
-        
-
-        
       </div>
       );
-      
 }
 
 export default SportInfo;

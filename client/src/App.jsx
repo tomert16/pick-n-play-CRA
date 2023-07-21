@@ -1,34 +1,34 @@
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import { useState, useEffect } from "react";
 import './App.css';
-import Home from "./components/Home"
-import SportInfo from "./components/SportInfo";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import WelcomePage from "./components/WelcomePage";
-import Account from "./components/Account";
-import FieldInfo from "./components/FieldInfo";
-import Map2 from "./components/Map2";
+import Home from "./pages/Home"
+import SportInfo from "./pages/SportInfo";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import WelcomePage from "./pages/WelcomePage";
+import Account from "./pages/Account";
+import FieldInfo from "./pages/FieldInfo";
+// import Map2 from "./components/map/Map2";
 
 function App() {
-  const [sports, setSports] = useState();
   const [selectedSport, setSelectedSport] = useState();
   const [meetUps, setMeetUps] = useState();
   const [loggedInPlayer, setLoggedInPlayer] = useState();
   const [selectedMeetUp, setSelectedMeetUp] = useState();
   const [playerInfo, setPlayerInfo] = useState([]);
-  const [fields, setFields] = useState();
+  // const [fields, setFields] = useState();
   const [selectedField, setSelectedField] = useState();
   const [meetUpTeammates, setMeetUpTeammates] = useState([])
-  const [locations, setLocations] = useState()
+  // const [locations, setLocations] = useState()
   const [individualLocation, setIndividualLocation] = useState();
+  
   /// OL map api 
-  const [center, setCenter] = useState([-73.97, 40.72]);
-  const [zoom, setZoom] = useState(13);
-  const [showLayer1, setShowLayer1] = useState(true);
-  const [showLayer2, setShowLayer2] = useState(true);
-  const [showLayer3, setShowLayer3] = useState(true);
-  const [showLayer4, setShowLayer4] = useState(true);
+  // const [center, setCenter] = useState([-73.97, 40.72]);
+  // const [zoom, setZoom] = useState(13);
+  // const [showLayer1, setShowLayer1] = useState(true);
+  // const [showLayer2, setShowLayer2] = useState(true);
+  // const [showLayer3, setShowLayer3] = useState(true);
+  // const [showLayer4, setShowLayer4] = useState(true);
 
   useEffect(() =>{
     fetch('/me')
@@ -39,49 +39,49 @@ function App() {
     });
   },[]);
 
-  useEffect(() => {
-    async function fetchLocations(){
-      const req = fetch('/locations');
-      const resp = await req;
-      const parsed = await resp.json();
-      setLocations(parsed)
-    }
-    fetchLocations();
-  },[])
+  // useEffect(() => {
+  //   async function fetchLocations(){
+  //     const req = fetch('/locations');
+  //     const resp = await req;
+  //     const parsed = await resp.json();
+  //     setLocations(parsed)
+  //   }
+  //   fetchLocations();
+  // },[])
 
-  useEffect(() => {
-    async function fetchSports() {
-      const req = fetch('/sports');
-      const resp = await req;
-      const parsed = await resp.json();
-      setSports(parsed)
-    }
-    fetchSports();
-  },[])
+  // useEffect(() => {
+  //   async function fetchSports() {
+  //     const req = fetch('/sports');
+  //     const resp = await req;
+  //     const parsed = await resp.json();
+  //     setSports(parsed)
+  //   }
+  //   fetchSports();
+  // },[])
   
-  useEffect(() => {
-    async function fetchField() {
-      const req = fetch('/fields');
-      const resp = await req;
-      const parsed = await resp.json();
-      setFields(parsed);
-    }
-    fetchField();
-  },[])
+  // useEffect(() => {
+  //   async function fetchField() {
+  //     const req = fetch('/fields');
+  //     const resp = await req;
+  //     const parsed = await resp.json();
+  //     setFields(parsed);
+  //   }
+  //   fetchField();
+  // },[])
 
   
 
-  if (sports === undefined) {
-    return null;
-  }
+  // if (sports === undefined) {
+  //   return null;
+  // }
 
-  if (fields === undefined) {
-    return null;
-  }
+  // if (fields === undefined) {
+  //   return null;
+  // }
 
-  if (locations === undefined) {
-    return null;
-  }
+  // if (locations === undefined) {
+  //   return null;
+  // }
   
   
 
@@ -128,8 +128,8 @@ function App() {
     {
       path: "/welcome",
       element: <WelcomePage 
-        locations={locations}
-        setLocations={setLocations}
+        // locations={locations}
+        // setLocations={setLocations}
         loggedInPlayer={loggedInPlayer}
       />
     },
@@ -137,15 +137,13 @@ function App() {
       path: "/locations/:id",
       element: <Home 
         loggedInPlayer={loggedInPlayer}
-        sports={sports} 
-        setSports={setSports}
         selectedSport={selectedSport}
         setSelectedSport={setSelectedSport}
-        fields={fields}
-        setFields={setFields}
+        // fields={fields}
+        // setFields={setFields}
         selectedField={selectedField}
         setSelectedField={setSelectedField}
-        locations={locations}
+        // locations={locations}
         individualLocation={individualLocation}
         setIndividualLocation={setIndividualLocation}
       />
@@ -159,14 +157,14 @@ function App() {
         setPlayerInfo={setPlayerInfo}
         meetUpTeammates={meetUpTeammates}
         setMeetUpTeammates={setMeetUpTeammates}
-        locations={locations}
+        // locations={locations}
       />
     },
     {
       path: `/sports/:id`,
       element: <SportInfo 
-        sports={sports} 
-        setSports={setSports}
+        // sports={sports} 
+        // setSports={setSports}
         selectedSport={selectedSport}
         setSelectedSport={setSelectedSport}
         meetUps={meetUps}
@@ -174,9 +172,9 @@ function App() {
         loggedInPlayer={loggedInPlayer}
         selectedMeetUp={selectedMeetUp}
         setSelectedMeetUp={setSelectedMeetUp}
-        fields={fields}
-        setFields={setFields}
-        locations={locations}
+        // fields={fields}
+        // setFields={setFields}
+        // locations={locations}
         individualLocation={individualLocation}
         // handleAddTeammate={handleAddTeammate}
         // handleSelectedSport={handleSelectedSport}
@@ -194,31 +192,31 @@ function App() {
         // setFieldMeetUps={setFieldMeetUps}
         selectedField={selectedField}
         setSelectedField={setSelectedField}
-        sports={sports}
+        // sports={sports}
         loggedInPlayer={loggedInPlayer}
-        fields={fields}
+        // fields={fields}
         meetUps={meetUps}
         setMeetUps={setMeetUps}
         individualLocation={individualLocation}
-        locations={locations}
+        // locations={locations}
         // handleAddTeammate={handleAddTeammate}
       />
     },
-    {
-      path: '/map',
-      element: <Map2 
-        center={center}
-        setCenter={setCenter}
-        zoom={zoom}
-        setZoom={setZoom}
-        showLayer1={showLayer1}
-        setShowLayer1={setShowLayer1}
-        showLayer2={showLayer2}
-        setShowLayer2={setShowLayer2}
-        showLayer3={showLayer3}
-        showLayer4={showLayer4}
-      />
-    }
+    // {
+    //   path: '/map',
+    //   element: <Map2 
+    //     center={center}
+    //     setCenter={setCenter}
+    //     zoom={zoom}
+    //     setZoom={setZoom}
+    //     showLayer1={showLayer1}
+    //     setShowLayer1={setShowLayer1}
+    //     showLayer2={showLayer2}
+    //     setShowLayer2={setShowLayer2}
+    //     showLayer3={showLayer3}
+    //     showLayer4={showLayer4}
+    //   />
+    // }
   ])
   return (
     <div>

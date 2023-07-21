@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import NavBar from './NavBar'
+import NavBar from '../components/NavBar'
 
 function Account({ loggedInPlayer, locations }) {
     
