@@ -39,7 +39,6 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
         return null;
     }
     
-  console.log(fieldMeetUps)
     const createMeetUp = () => {
         //e.preventDefault()
         const newMeetUp = {

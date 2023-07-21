@@ -29,7 +29,12 @@ function Login({ setLoggedInPlayer, loggedInPlayer }) {
         setLoginToggle(!loginToggle);
     };
 
-    console.log(loggedInPlayer)
+    if (loggedInPlayer) {
+        navigate('/welcome')
+    } else{
+        navigate('/login')
+    }
+
   return (
     <div className="start-page" >
         <div class="title-div">

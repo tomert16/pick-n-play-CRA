@@ -42,7 +42,7 @@ function Home({ loggedInPlayer }) {
     
     <div>
       <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} setSportFieldToggle={setSportFieldToggle}/>
-    <h1 className="location-name">{individualLocation.state}</h1>
+    {/* <h1 className="location-name">{individualLocation.state}</h1> */}
       {sportFieldToggle ? <SportsList 
         sports={sports}
         individualLocation={individualLocation}  
