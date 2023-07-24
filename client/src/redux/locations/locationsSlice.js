@@ -2,15 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAllLocations = createAsyncThunk(
-    'fetchAllLocations',
-    async() => {
+    'locations/fetchAllLocations',
+async() => {
         const req = await axios.get('/locations');
         return req.data;
     }
 );
 
 export const fetchLocationById = createAsyncThunk(
-    'fetchLocationById',
+    'locations/fetchLocationById',
     async(id) => {
         const req = await axios.get(`/locations/${id}`);
         return req.data;

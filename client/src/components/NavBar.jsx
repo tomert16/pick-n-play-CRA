@@ -77,7 +77,9 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
             </Select>
         </FormControl> */}
             <div className="right flex a-center">
-                <h4>Welcome, {loggedInPlayer.first_name}</h4>
+                <button className="request">
+                    <span>Request Sport or Field</span>
+                </button>
                 <div className="account-icon">
                     <MenuItem onClick={handleProfileMenuOpen}>
                         <IconButton
@@ -90,7 +92,7 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
                         <AccountCircle />
                             {iconToggle ? <div>
                                 <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
-                                <MenuItem type="button" onClick={handleLogout}>Logout</MenuItem>
+                                <MenuItem type="button" onClick={() =>handleLogout()}>Logout</MenuItem>
                             </div>: null}
                         </IconButton>
                     </MenuItem>
@@ -141,6 +143,45 @@ const Container = styled.div`
         .right {
             .account-icon {
                 padding-right: 2rem;
+            }
+            .request {
+                display: inline-block;
+                border-radius: 4px;
+                background-color: #3d405b;
+                border: none;
+                color: #FFFFFF;
+                text-align: center;
+                font-size: 17px;
+                padding: 16px;
+                width: 15rem;
+                transition: all 0.5s;
+                cursor: pointer;
+                margin: 5px;
+                }
+
+            .request span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+
+            .request span:after {
+                content: '»';
+                position: absolute;
+                opacity: 0;
+                top: 0;
+                right: -15px;
+                transition: 0.5s;
+            }
+
+            .request:hover span {
+                padding-right: 15px;
+            }
+
+            .request:hover span:after {
+                opacity: 1;
+                right: 0;
             }
         }
     }

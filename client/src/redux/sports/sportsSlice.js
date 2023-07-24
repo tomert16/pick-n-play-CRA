@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAllSports = createAsyncThunk(
-    'fetchAllSports',
+    'sports/fetchAllSports',
     async() => {
         const req = await axios.get('/sports');
         return req.data;
@@ -10,7 +10,7 @@ export const fetchAllSports = createAsyncThunk(
 )
 
 export const fetchSportById = createAsyncThunk(
-    'fetchSportById',
+    'sport/fetchSportById',
     async(id) => {
         const req = await axios.get(`/sports/${id}`);
         return req.data;

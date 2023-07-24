@@ -29,11 +29,11 @@ function Login({ setLoggedInPlayer, loggedInPlayer }) {
         setLoginToggle(!loginToggle);
     };
 
-    if (loggedInPlayer) {
-        navigate('/welcome')
-    } else{
-        navigate('/login')
-    }
+    // if (loggedInPlayer) {
+    //     navigate('/welcome')
+    // } else{
+    //     navigate('/')
+    // }
 
   return (
     <div className="start-page" >

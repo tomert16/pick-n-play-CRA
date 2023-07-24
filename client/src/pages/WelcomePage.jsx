@@ -3,6 +3,7 @@ import LocationCard from "../components/LocationCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLocations, selectAllLocations } from "../redux/locations/locationsSlice";
 import { useEffect } from "react";
+import styled from "styled-components";
 
 function WelcomePage({ loggedInPlayer }) {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function WelcomePage({ loggedInPlayer }) {
   // if (locations === undefined) return null;
 
   return (
-    <div>
+    <Container>
       <NavBar loggedInPlayer={loggedInPlayer} locations={locations}/>
       <h1 className='home-prompt'>Welcome to Pick N' Play {loggedInPlayer.first_name}!</h1>
       <h2 className='home-location'>Pick Your Location:</h2>
@@ -23,11 +24,19 @@ function WelcomePage({ loggedInPlayer }) {
         <LocationCard key={location.id} location={location} />
       ))}</div>
       
-    </div>
+    </Container>
   )
 }
 
-
+const Container = styled.div`
+  .locations-list {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minMax(10rem, 20rem));
+    grid-gap: 3rem;
+    font-family: "Ultra", serif;
+    justify-content: center;
+  }
+`;
 
 
 

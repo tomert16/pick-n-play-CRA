@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAllFields = createAsyncThunk(
-    'fetchAllFields',
+    'fields/fetchAllFields',
     async() => {
         const req = await axios.get('/fields');
         return req.data;
@@ -10,7 +10,7 @@ export const fetchAllFields = createAsyncThunk(
 )
 
 export const fetchFieldById = createAsyncThunk(
-    'fetchFieldById',
+    'fields/fetchFieldById',
     async(id) => {
         const req = await axios.get(`/fields/${id}`);
         return req.data;

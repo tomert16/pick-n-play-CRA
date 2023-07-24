@@ -22,22 +22,22 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
         dispatch(fetchFieldById(id))
     },[dispatch])
 
-    useEffect(() => {
-        async function fetchFieldMeetUps() {
-            const req = fetch(`/fields/${id}`)
-            const resp = await req;
-            const parsed = await resp.json()
-            setFieldMeetUps(parsed.meet_ups)
-        }
-        fetchFieldMeetUps()
-    },[]);
+    // useEffect(() => {
+    //     async function fetchFieldMeetUps() {
+    //         const req = fetch(`/fields/${id}`)
+    //         const resp = await req;
+    //         const parsed = await resp.json()
+    //         setFieldMeetUps(parsed.meet_ups)
+    //     }
+    //     fetchFieldMeetUps()
+    // },[]);
 
-    if (individualField === undefined){
-        return null;
-    }
-    if (fieldMeetUps === undefined){
-        return null;
-    }
+    // if (individualField === undefined){
+    //     return null;
+    // }
+    // if (fieldMeetUps === undefined){
+    //     return null;
+    // }
     
     const createMeetUp = () => {
         //e.preventDefault()
@@ -59,7 +59,7 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
         })
     };
     
-    const sportsDropdownFilter = fieldMeetUps.filter((field) => {
+    const sportsDropdownFilter = individualField.meet_ups.filter((field) => {
         if (sportFilter === 'all') return true;
         return field.sport.type.toLowerCase() === sportFilter.toLowerCase();
     })
