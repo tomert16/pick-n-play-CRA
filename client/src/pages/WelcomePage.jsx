@@ -14,7 +14,7 @@ function WelcomePage({ loggedInPlayer }) {
     dispatch(fetchAllLocations())
   }, [dispatch])
   // if (locations === undefined) return null;
-
+  
   return (
     <Container>
       <NavBar loggedInPlayer={loggedInPlayer} locations={locations}/>

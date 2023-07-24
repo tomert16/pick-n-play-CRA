@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import pnplogo from '../pnplogo.png';
+import pnplogo from '../assets/pnplogo.png';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -30,7 +30,7 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
         }).then((r) => {
             if (r.ok){
                 navigate('/')
-                setLoggedInPlayer(null)
+                setLoggedInPlayer(undefined)
             }
         })
     }
@@ -92,7 +92,7 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
                         <AccountCircle />
                             {iconToggle ? <div>
                                 <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
-                                <MenuItem type="button" onClick={() =>handleLogout()}>Logout</MenuItem>
+                                <MenuItem type="button" onClick={() => handleLogout()}>Logout</MenuItem>
                             </div>: null}
                         </IconButton>
                     </MenuItem>

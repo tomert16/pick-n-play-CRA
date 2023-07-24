@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import WelcomePage from "./pages/WelcomePage";
 import Account from "./pages/Account";
 import FieldInfo from "./pages/FieldInfo";
+import Landing from "./pages/Landing";
 // import Map2 from "./components/map/Map2";
 
 function App() {
@@ -116,10 +117,11 @@ function App() {
     },
     {
       path: "/",
-      element:  <Login 
-        loggedInPlayer={loggedInPlayer} 
-        setLoggedInPlayer={setLoggedInPlayer}
-      />
+      element:  <Landing loggedInPlayer={loggedInPlayer}/>
+    },
+    {
+      path: "/login",
+      element: <Login setLoggedInPlayer={setLoggedInPlayer}/>
     },
     {
       path: "/signup",

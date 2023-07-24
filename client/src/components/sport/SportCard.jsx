@@ -36,4 +36,4 @@ function SportCard({ sport }) {
 
 
 
-export default SportCard
+export default SportCard;
