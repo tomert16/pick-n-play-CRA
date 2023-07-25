@@ -55,7 +55,7 @@ const Container = styled.div`
         left: 10%;
     }
     .cssbuttons-io-button {
-        background: #A370F0;
+        background: #724f72;
         color: white;
         font-family: inherit;
         padding: 0.35em;

@@ -4,34 +4,21 @@ import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 import sportsbg from '../assets/sportsbg.jpeg';
 import Header from "../components/Header";
+import { useDispatch } from "react-redux";
+import { logIn } from '../redux/players/playersSlice';
 
 function Login({ setLoggedInPlayer, loggedInPlayer }) {
     const [loginToggle, setLoginToggle] = useState(false);
-    const [emailInput, setEmailInput] = useState("");
-    const [passwordInput, setPasswordInput] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function handleLogin(){
-        fetch('/login',{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify( { "email": emailInput, "password": passwordInput } )
-        }).then((r) => {
-            if (r.ok) {
-                r.json().then((user) => setLoggedInPlayer(user))
-                navigate('/welcome')
-                window.location.reload()
-            }
-        })
+        const data = { email, password };
+        dispatch(logIn(data));
+        navigate('/welcome');
     }
-
-    const handleLoginToggle= () => {
-        setLoginToggle(!loginToggle);
-    };
-
-    
 
   return (
     <Container>
@@ -45,14 +32,14 @@ function Login({ setLoggedInPlayer, loggedInPlayer }) {
                         handleLogin()
                     }}>
                         <div class="inputBox1">
-                            <input type="email" required="required" value={emailInput} 
-                            onChange={(e) => setEmailInput(e.target.value)} />
+                            <input type="email" required="required" value={email} 
+                            onChange={(e) => setEmail(e.target.value)} />
                             <span class="user">Email</span>
                         </div><br></br><br></br>
 
                         <div class="inputBox">
-                            <input type="password" required="required" value={passwordInput} 
-                            onChange={(e) => setPasswordInput(e.target.value)} />
+                            <input type="password" required="required" value={password} 
+                            onChange={(e) => setPassword(e.target.value)} />
                             <span>Password</span>
                         </div><br></br><br></br>
                         <button class="enter">Enter</button>

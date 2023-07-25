@@ -30,7 +30,7 @@ const Container = styled.div`
     }
     button {
         padding: 0.5rem 1rem;
-        background-color: purple;
+        background-color: #724f72;
         border: none;
         cursor: pointer;
         color: white;

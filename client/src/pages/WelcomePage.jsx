@@ -3,17 +3,23 @@ import LocationCard from "../components/LocationCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLocations, selectAllLocations } from "../redux/locations/locationsSlice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { selectLoggedInPlayer } from "../redux/players/playersSlice";
 
-function WelcomePage({ loggedInPlayer }) {
+function WelcomePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  // get logged in user info
+  const loggedInPlayer = useSelector(selectLoggedInPlayer);
   // fetch all locations
   const locations = useSelector(selectAllLocations);
   useEffect(() => {
-    dispatch(fetchAllLocations())
+    dispatch(fetchAllLocations());
   }, [dispatch])
-  // if (locations === undefined) return null;
+  
+  if (loggedInPlayer === undefined) return null;
   
   return (
     <Container>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
@@ -8,10 +9,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import styled from 'styled-components';
+import { logOut } from '../redux/players/playersSlice';
 
 
-function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locations, setSportFieldToggle }) {
+function NavBar({ setSportFieldToggle }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [iconToggle, setIconToggle] = useState(false);
     const [locationFilter, setLocationFilter] = useState();
 
@@ -25,14 +28,8 @@ function NavBar({ loggedInPlayer, setLoggedInPlayer, individualLocation, locatio
 
      // Logout function 
      function handleLogout(){
-        fetch ('/logout',{
-            method: "DELETE"
-        }).then((r) => {
-            if (r.ok){
-                navigate('/')
-                setLoggedInPlayer(undefined)
-            }
-        })
+        dispatch(logOut());
+        navigate('/');
     }
 
     //nav bar links
