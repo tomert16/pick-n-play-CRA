@@ -1,5 +1,6 @@
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import './App.css';
 import Home from "./pages/Home"
 import SportInfo from "./pages/SportInfo";
@@ -9,12 +10,15 @@ import WelcomePage from "./pages/WelcomePage";
 import Account from "./pages/Account";
 import FieldInfo from "./pages/FieldInfo";
 import Landing from "./pages/Landing";
+import { stayLoggedIn } from "./redux/players/playersSlice";
+
 // import Map2 from "./components/map/Map2";
 
 function App() {
+  const dispatch = useDispatch();
+  // const loggedInPlayer = useSelector(selectLoggedInPlayer);
   const [selectedSport, setSelectedSport] = useState();
   const [meetUps, setMeetUps] = useState();
-  const [loggedInPlayer, setLoggedInPlayer] = useState();
   const [selectedMeetUp, setSelectedMeetUp] = useState();
   const [playerInfo, setPlayerInfo] = useState([]);
   // const [fields, setFields] = useState();
@@ -35,10 +39,12 @@ function App() {
     fetch('/me')
     .then((r) => {
       if (r.ok) {
-        r.json().then((user) => setLoggedInPlayer(user))
+        r.json().then((user) => {
+          dispatch(stayLoggedIn(user))
+        })
       }
     });
-  },[]);
+  },[dispatch]);
 
   // useEffect(() => {
   //   async function fetchLocations(){
@@ -117,28 +123,23 @@ function App() {
     },
     {
       path: "/",
-      element:  <Landing loggedInPlayer={loggedInPlayer}/>
+      element:  <Landing />
     },
     {
       path: "/login",
-      element: <Login setLoggedInPlayer={setLoggedInPlayer}/>
+      element: <Login />
     },
     {
       path: "/signup",
-      element: <Signup loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer}/>
+      element: <Signup />
     },
     {
       path: "/welcome",
-      element: <WelcomePage 
-        // locations={locations}
-        // setLocations={setLocations}
-        loggedInPlayer={loggedInPlayer}
-      />
+      element: <WelcomePage />
     },
     {
       path: "/locations/:id",
       element: <Home 
-        loggedInPlayer={loggedInPlayer}
         selectedSport={selectedSport}
         setSelectedSport={setSelectedSport}
         // fields={fields}
@@ -153,7 +154,6 @@ function App() {
     {
       path: '/profile',
       element: <Account 
-        loggedInPlayer={loggedInPlayer}
         meetUps={meetUps}
         playerInfo={playerInfo}
         setPlayerInfo={setPlayerInfo}
@@ -171,7 +171,6 @@ function App() {
         setSelectedSport={setSelectedSport}
         meetUps={meetUps}
         setMeetUps={setMeetUps} 
-        loggedInPlayer={loggedInPlayer}
         selectedMeetUp={selectedMeetUp}
         setSelectedMeetUp={setSelectedMeetUp}
         // fields={fields}
@@ -195,7 +194,6 @@ function App() {
         selectedField={selectedField}
         setSelectedField={setSelectedField}
         // sports={sports}
-        loggedInPlayer={loggedInPlayer}
         // fields={fields}
         meetUps={meetUps}
         setMeetUps={setMeetUps}

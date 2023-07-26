@@ -322,44 +322,28 @@ code {
   left:85%;
   bottom: 65%;
 }
-/* sport list */
-.sports-list, .fields-list{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(auto, 1fr);
-  align-items: stretch;
-  gap: 1rem;
-  justify-content: center;
-  width: 100%;
-  gap: 2rem
-}
-
+/* sport/field cards */
 .sport-card, .field-card{
+  justify-content: center;
   border-style: solid;
   border-radius: 3px;
   border-color: transparent;
-  height: fit-content;
   text-align: center;
   cursor: pointer;
-  position: relative;
-  left: 3%;
-  bottom: 80px;
+
 }
 .sport-card > h3, .field-card > h3 {
-  text-align:  center;
-  display: grid;
   position: relative;
-  top: 13em;
-  font-size: larger;
+  left: 4rem;
+  top: 15rem;
+  font-size: 2rem;
   font-family:"Ultra", serif;
   height: 3em;
   color: rgb(0, 0, 0);
 }
-
 .sport-image, .field-image{
-  height: 20pc;
-  width: 40%;
-  margin: 5%;
+  height: 18rem;
+  width: 150%;
   border-style: solid;
   border-radius: .5rem;
   border-color: rgb(255, 205, 98);
@@ -367,17 +351,6 @@ code {
 }
 .sport-field-toggle{
   color: rgb(2, 2, 2);
-}
-.home-prompt {
-  text-align: center;
-  font-size: 60px;
-  color: rgb(12, 12, 12);
-  text-align: center;
-  font-size: 5pc;
-  font-family: "Ultra", serif;
-  position: relative;
-  background-color: transparent;
-  text-shadow: 2px 2px 3px rgb(255, 205, 98);
 }
 .home-location {
   text-align: center;

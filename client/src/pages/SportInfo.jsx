@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Form } from "semantic-ui-react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import MeetUpList from '../components/sport/MeetUpsList';
 import NavBar from '../components/NavBar';
@@ -9,72 +9,37 @@ import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
+import { selectLoggedInPlayer, stayLoggedIn } from '../redux/players/playersSlice';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-function SportInfo({ loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handleAddTeammate, locations }) {
-    const navigate = useNavigate();
+function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
+    // const containerRef = useRef(null);
     const dispatch = useDispatch();
+    const { id } = useParams();
     const [date, setDate] = useState("");
     const [location, setLocation] = useState();
     const [formToggle, setFormToggle] = useState(false);
     const [fieldFilter, setFieldFilter] = useState("all");
-    const { id } = useParams();
+    const loggedInPlayer = useSelector(selectLoggedInPlayer)
     // infinite scrolling for meet-ups
     const [visible, setVisible] = useState(5);
-    const containerRef = useRef(null);
+    // const [loading, setLoading] = useState(false);
     
-    // useEffect(() => {
-    //         setTimeout(() => {
-    //                 setLoading(false);
-    //             }, 3000)
-    //         },[])
-            
+
+
     // fetch individual sport
     const individualSport = useSelector(selectSportById);
     useEffect(() => {
         dispatch(fetchSportById(id));
     },[dispatch]);
 
-
-    // useEffect(() => {
-    //     async function fetchMeetUps(){
-    //         const req = fetch(`/sports/${id}`)
-    //         const resp = await req;
-    //         const parsed = await resp.json();
-    //         setMeetUps(parsed.meet_ups);
-    //     }
-    //     fetchMeetUps();
-    // },[]);
-
-    const individualLocation = useSelector(selectLocationById);
-    useEffect(() => {
-        dispatch(fetchLocationById(id));
-    },[dispatch])
-
-    // if (individualLocation == undefined){
-        //     return null;
-        //   }
+        const individualLocation = useSelector(selectLocationById);
+        useEffect(() => {
+            dispatch(fetchLocationById(id));
+        },[dispatch])
+          
         
-        // if ( === undefined){
-            //     return null;
-            // }
-            
-        // function to handle infinite scrolling
-        const handleScroll = () => {
-            const container = containerRef.current
-            const isScrollAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 1
-            if (isScrollAtBottom) {
-                setVisible((prev) => prev + 3)
-            }
-          }
-          useEffect(() => {
-            const container = containerRef.current
-            container.addEventListener('scroll', handleScroll)
-
-            return () => container.removeEventListener('scroll', handleScroll)
-          },[])
-        
-
         if (individualSport === undefined){
             return null;
         }
@@ -90,7 +55,6 @@ function SportInfo({ loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handl
             "sport_id": parseInt(individualSport.id),
             "player_id": parseInt(loggedInPlayer.id)  
         };
-        console.log(newMeetUp);
         dispatch(addNewMeetUp(newMeetUp));
     };  
     // const fieldsDropdownFilter = individualSport.meet_ups.filter((sport) => {
@@ -98,25 +62,26 @@ function SportInfo({ loggedInPlayer, setLoggedInPlayer, setSelectedMeetUp, handl
     //     return sport.field.name.toLowerCase() === fieldFilter.toLowerCase();
     // })
       return (
-      <div ref={containerRef} className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
-        <NavBar loggedInPlayer={loggedInPlayer} setLoggedInPlayer={setLoggedInPlayer}  locations={locations}/>
+      <div  className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
+        <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
         {/* <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} individualLocation={individualLocation}/> */}
         <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
-        <div  className="meet-ups-list">
-          {individualSport.meet_ups.slice(0, visible).map((meetUp) => {
-              return (
-                // <div onClick={handleMeetUpClick}>  
-                <MeetUpList 
-                    setSelectedMeetUp={setSelectedMeetUp}
-                    // meetUps={meetUps}
-                    meetUp={meetUp}
-                    key={meetUp.id}
-                    loggedInPlayer={loggedInPlayer}
-                    // setMeetUps={setMeetUps}
-                    handleAddTeammate={handleAddTeammate}
-                />
-                )
-            })}
+            <div className="meet-ups-list">
+
+            {individualSport.meet_ups.map((meetUp) => {
+                return (
+                    // <div onClick={handleMeetUpClick}>  
+                    <MeetUpList 
+                        setSelectedMeetUp={setSelectedMeetUp}
+                        // meetUps={meetUps}
+                        meetUp={meetUp}
+                        key={meetUp.id}
+                        loggedInPlayer={loggedInPlayer}
+                        // setMeetUps={setMeetUps}
+                        handleAddTeammate={handleAddTeammate}
+                    />
+                    )
+                })}
         </div>
         <div className='new-meet-up-container'>
             <button className='learn-more' onClick={handleFormToggle}>

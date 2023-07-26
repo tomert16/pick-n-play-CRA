@@ -10,13 +10,30 @@ export const logIn = createAsyncThunk(
     }
 );
 
+export const stayLoggedIn = createAsyncThunk(
+    'players/stayLoggedIn',
+    async() => {
+        const req = await axios.get('/me');
+        return req.data
+    }
+);
+
 export const logOut = createAsyncThunk(
     'players/logOut',
     async() => {
         const req = await axios.delete('/logout');
         return req.data;
     }
-)
+);
+
+export const createNewPlayer = createAsyncThunk(
+    'users/createNewUser',
+    async({ first_name, last_name, email, password, password_confirmation }) => {
+        const reqBody = { first_name, last_name, email, password, password_confirmation };
+        const req = await axios.post('/signup', reqBody);
+        return req.data;
+    }
+);
 
 const playersSlice = createSlice(
     {
@@ -30,13 +47,24 @@ const playersSlice = createSlice(
                 .addCase(logIn.fulfilled, (state, action) => {
                     state.player = action.payload;
                 })
+                .addCase(stayLoggedIn.fulfilled, (state, action) => {
+                    state.player = action.payload;
+                })
+                .addCase(stayLoggedIn.rejected, (state, action) => {
+                    console.log('Error:', action.error.message)
+                })
                 .addCase(logOut.fulfilled, (state, action) => {
                     state.player = null;
+                })
+                .addCase(createNewPlayer.fulfilled, (state, action) => {
+                    state.data.push(action.payload);
+                    state.player = action.payload;
                 })
         }
     }
 );
 
 export const selectLoggedInPlayer = (state) => state.players.player;
+// export const selectCreateNewPlayer = (state) => state.players.data;
 
 export default playersSlice.reducer;

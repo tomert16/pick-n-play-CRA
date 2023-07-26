@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import sportsbg from '../assets/sportsbg.jpeg';
+import { createNewPlayer } from '../redux/players/playersSlice';
 
 
 function Signup({ setLoggedInPlayer }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const [firstNameInput, setFirstNameInput] = useState("");
     const [lastNameInput, setLastNameInput] = useState("");
@@ -24,18 +27,19 @@ function Signup({ setLoggedInPlayer }) {
             passwordConfirmation: passwordConfirmationInput
         };
 
-        fetch ('/signup',{
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newPlayer)
-        })
-        .then((r) => {
-            if (r.ok) {
-                r.json().then((player) => setLoggedInPlayer(player));
-                navigate('/');
-            }
-        });
-
+        // fetch ('/signup',{
+        //     method: 'POST',
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(newPlayer)
+        // })
+        // .then((r) => {
+        //     if (r.ok) {
+        //         r.json().then((player) => setLoggedInPlayer(player));
+        //         navigate('/');
+        //     }
+        // });
+        dispatch(createNewPlayer(newPlayer));
+        navigate('/welcome');
     }
 
   return (
@@ -45,7 +49,7 @@ function Signup({ setLoggedInPlayer }) {
                 <Header login/>
                 <div class="card">
                     <a class="signup">Sign Up</a>
-                    <form onClick={handleSignup}>
+                    <form onClick={() => handleSignup()}>
                         <div class="inputBox1">
                             <input type="text" required="required" alue={firstNameInput} 
                             onChange={(e) => setFirstNameInput(e.target.value)} />

@@ -59,7 +59,7 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
             setMeetUps(updatedMeetUps)
           })
       }
-    
+
     const handleDropMeetUp = (id) => {
         fetch(`/player_meet_ups/${id}`, {
           method: "DELETE",

@@ -4,7 +4,7 @@ import axios from "axios";
 export const addNewMeetUp = createAsyncThunk(
     'meetUps/createNewMeetUp',
     async({date, field_id, sport_id, player_id}) => {
-        const reqBody = JSON.stringify({ date, field_id, sport_id, player_id });
+        const reqBody = { date, field_id, sport_id, player_id };
         const req  = await axios.post('/meet_ups', reqBody);
         return req.data;
     }
