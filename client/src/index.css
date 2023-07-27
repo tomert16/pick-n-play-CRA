@@ -383,32 +383,36 @@ code {
   text-shadow: 2px 2px 3px rgb(255, 205, 98);
 }
 .meet-ups-list{
+  display: flex;
+  /* flex-wrap: nowrap; */
   position: relative;
   bottom: 10%;
+  gap: 1rem;
 }
 .meet-ups{
   border-style: solid;
   border-radius: 2pc;
-  width: 35pc;
+  width: 20rem;
+  height: 30rem;
   position: relative;
-  top: 15pc;
+  top: 5rem;
   left: 35%;
   margin-bottom: 5pc;
   cursor: pointer;
   background-color: white;
-  overflow-x: scroll;
 }
 .mu-field-img{
-  width: 15pc;
-  height: 10pc;
+  width: 16.7vw;
+  height: 13pc;
   position: relative;
-  top: 5pc;
-  left: 2pc;
+  border-top-left-radius: 1pc;
+  border-top-right-radius: 1pc;
+
 }
 .mu-info{
-  position: relative;
-  left: 55%;
-  bottom: 5pc;
+  /* position: relative; */
+  margin-top: 3rem;
+  text-align: center;
 }
 .meet-filter{
   position: relative;
@@ -416,7 +420,7 @@ code {
   left: 20pc;
 }
 /* new meet up form */
-.new-meet-up-container{
+/* .new-meet-up-container{
   position: absolute;
   top:50%;
   right: 10%;
@@ -427,7 +431,7 @@ code {
   position: absolute;
   bottom:-20pc;
   right: 30%;
-  /* width: 8%; */
+  width: 8%;
   background-color: transparent;
   border-style: solid;
   border-width: 20px;
@@ -459,8 +463,8 @@ code {
   color: white;
   font-size: larger;
   font-family: 'Ultra', serif;
-  padding-bottom: 20px;
-}
+  padding-bottom: 20px; */
+/* } */
 .learn-more {
   position: absolute;
   top: 30%;
@@ -489,7 +493,7 @@ code {
   margin: 0;
   width: 3rem;
   height: 5rem;
-  background: #282936;
+  background: white;
   border-radius: 1.625rem;
  }
  
@@ -499,7 +503,7 @@ code {
   top: 0;
   bottom: 0;
   margin: auto;
-  background: #fff;
+  background: black;
  }
  
  button.learn-more .circle .icon.arrow {
@@ -517,8 +521,8 @@ code {
   right: 0.0625rem;
   width: 0.625rem;
   height: 0.625rem;
-  border-top: 0.125rem solid #fff;
-  border-right: 0.125rem solid #fff;
+  border-top: 0.125rem solid black;
+  border-right: 0.125rem solid black;
   transform: rotate(45deg);
  }
  
@@ -531,7 +535,7 @@ code {
   bottom: 0;
   padding: 0.75rem 0;
   margin: 0 0 0 1.85rem;
-  color: #282936;
+  color: transparent;
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
@@ -543,16 +547,15 @@ code {
  }
  
  button:hover .circle .icon.arrow {
-  background: #fff;
+  background: black;
   transform: translate(1rem, 0);
  }
  
  button:hover .button-text {
-  color: #fff;
+  color: black;
  }
  .new-mu-btn{
    position: absolute;
-
    color: blue
  }
 /* meet-up card */

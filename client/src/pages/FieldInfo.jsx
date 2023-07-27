@@ -6,8 +6,9 @@ import SportDropdownFilter from '../components/field/SportDropdownFilter';
 import { Form } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFieldById, selectFieldById } from '../redux/fields/fieldsSlice';
+import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
 
-function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTeammate, individualLocation, locations}) {
+function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTeammate, locations}) {
     const dispatch = useDispatch();
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
@@ -21,6 +22,16 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
     useEffect(() => {
         dispatch(fetchFieldById(id))
     },[dispatch])
+
+     // fetch location data 
+     const individualLocation = useSelector(selectLocationById);
+     useEffect(() => {
+         dispatch(fetchLocationById(id));
+     },[dispatch])
+     
+
+    if (individualField === undefined) return null;
+    if (individualLocation === undefined) return null;
 
     // useEffect(() => {
     //     async function fetchFieldMeetUps() {
@@ -97,10 +108,12 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
                 <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
                 <select onChange={(e) => setSportInput(e.target.value)}>
                     <option >Pick a Sport</option>
-                    <option value={individualLocation.sports[0].id}>Soccer</option>
-                    <option value={individualLocation.sports[1].id}>Basketball</option>
-                    <option value={individualLocation.sports[2].id}>Tennis</option>
-                    <option value={individualLocation.sports[3].id}>Football</option>
+                    {individualLocation.sports.map((sport) => (
+                        <option value={sport.id}>{sport.sport_type}</option>
+                    ))}
+                        {/* <option value={individualLocation.sports[1].id}>Basketball</option> */}
+                    {/* <option value={individualLocation.sports[2].id}>Tennis</option>
+                    <option value={individualLocation.sports[3].id}>Football</option> */}
                 </select><br></br>
                 <button 
                     type="button" 

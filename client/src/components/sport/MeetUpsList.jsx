@@ -40,6 +40,7 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
           <div className="mu-info">
             <h3>{meetUp.field.name}</h3>
             <p>{meetUp.date}</p>
+            <p>Host: {meetUp.player.name}</p>
             <p>{playersNumber()}</p>
           </div>
         </div>

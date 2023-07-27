@@ -105,7 +105,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
       <CardMedia
         sx={{ height: 300 }}
         image={meetUp.sport.image}
-        title="green iguana"
+        title="Meet Up"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
