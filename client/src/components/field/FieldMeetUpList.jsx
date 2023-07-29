@@ -35,7 +35,8 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
           <img className='mu-field-img' src={meetUp.sport.image} />
             <div className="mu-info">
               <h3>{meetUp.sport.type}</h3>
-              <h4>{meetUp.date}</h4>
+              <p> {meetUp.date}</p>
+              <p>Host: {meetUp.player.name}</p>
               <p>{playersNumber()}</p>
             </div>
           </div>

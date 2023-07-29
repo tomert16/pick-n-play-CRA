@@ -24,7 +24,6 @@ function WelcomePage() {
   //   };
   //   fetchLoggedInCustomer()
   // },[dispatch])
-  console.log(loggedInPlayer)
   // fetch all locations
   const locations = useSelector(selectAllLocations);
   useEffect(() => {
@@ -32,7 +31,12 @@ function WelcomePage() {
   }, [dispatch])
   
   if (loggedInPlayer === undefined) return null;
-  
+  // if (loggedInPlayer.location != null) {
+  //   navigate(`/locations/${loggedInPlayer.location.id}`)
+  // } else {
+
+  // }
+
   return (
     <Container>
       <NavBar loggedInPlayer={loggedInPlayer} locations={locations}/>

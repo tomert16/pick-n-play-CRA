@@ -1,15 +1,29 @@
 import { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
+import { selectLoggedInPlayer, setLocation } from '../redux/players/playersSlice';
 
 function LocationCard({ location }){
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const loggedInPlayer = useSelector(selectLoggedInPlayer)
     const [mouseOverImage, setMouseOverImage] = useState(1);
     const [mouseOverInfo, setMouseOverInfo] = useState(0);
 
+    const handleSetLocation = () => {
+      const id = loggedInPlayer.id
+      dispatch(setLocation({location, id})); 
+    }
+
   return (
     <Container>
-        <div className="location-card flex j-center j-between" onClick={() => navigate(`/locations/${location.id}`)}>
+        <div className="location-card flex j-center j-between" onClick={() => {
+          navigate(`/locations/${location.id}`)
+          handleSetLocation(location)
+          window.location.reload()
+        }}
+          >
             <h3 style={{opacity: mouseOverInfo}}>{location.state}</h3>
             <img 
               src={location.img_url} 
@@ -25,7 +39,6 @@ function LocationCard({ location }){
               )}
             />
         </div>
-       
     </Container>
   )
 }

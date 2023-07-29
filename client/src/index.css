@@ -373,7 +373,7 @@ code {
   background-color: transparent;
   text-shadow: 2px 2px 3px rgb(255, 205, 98);
 }
-.field-info-title {
+/* .field-info-title {
   color: rgb(12, 12, 12);
   text-align: center;
   font-size: 5pc;
@@ -381,14 +381,14 @@ code {
   position: relative;
   background-color: transparent;
   text-shadow: 2px 2px 3px rgb(255, 205, 98);
-}
-.meet-ups-list{
+} */
+/* .meet-ups-list{
   display: flex;
-  /* flex-wrap: nowrap; */
+  flex-wrap: nowrap;
   position: relative;
   bottom: 10%;
   gap: 1rem;
-}
+} */
 .meet-ups{
   border-style: solid;
   border-radius: 2pc;
@@ -405,8 +405,8 @@ code {
   width: 16.7vw;
   height: 13pc;
   position: relative;
-  border-top-left-radius: 1pc;
-  border-top-right-radius: 1pc;
+  border-top-left-radius: 2pc;
+  border-top-right-radius: 2pc;
 
 }
 .mu-info{
@@ -559,7 +559,7 @@ code {
    color: blue
  }
 /* meet-up card */
-.meet-up-card-div {
+/* .meet-up-card-div {
   border-style: solid;
   border-radius: 3px;
   border-color: black;
@@ -574,15 +574,15 @@ code {
   width: 100%;
   z-index: 1000;
   overflow-x: scroll;
-}
-.field-meet-up-card {
+} */
+/* .field-meet-up-card {
   background-color: white;
   border-style: solid;
   position: relative;
   left: 37%;
   top: 15pc;
-}
-.meet-up-card{
+} */
+/* .meet-up-card{
   background-color: white;
   border-style: solid;
   justify-content: center;
@@ -590,7 +590,7 @@ code {
   left: 37%;
   top: 15pc;
   height: max-content;
-}
+} */
 .meet-up-card > img {
   width: 35pc;
   height: 40pc; 

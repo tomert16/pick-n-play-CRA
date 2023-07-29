@@ -27,13 +27,22 @@ export const logOut = createAsyncThunk(
 );
 
 export const createNewPlayer = createAsyncThunk(
-    'users/createNewUser',
+    'players/createNewUser',
     async({ first_name, last_name, email, password, password_confirmation }) => {
         const reqBody = { first_name, last_name, email, password, password_confirmation };
         const req = await axios.post('/signup', reqBody);
         return req.data;
     }
 );
+// make a post first to set location
+export const setLocation = createAsyncThunk(
+    'players/setLocation',
+    async({ location, id }) => {
+        const reqBody = { location };
+        const req = await axios.patch(`/players/${id}`, reqBody);
+        return req.data;
+    }
+)
 
 const playersSlice = createSlice(
     {
@@ -59,6 +68,9 @@ const playersSlice = createSlice(
                 .addCase(createNewPlayer.fulfilled, (state, action) => {
                     state.data.push(action.payload);
                     state.player = action.payload;
+                })
+                .addCase(setLocation.fulfilled, (state, action) => {
+                    state.player.location = action.payload;
                 })
         }
     }

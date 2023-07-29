@@ -7,7 +7,6 @@ import NavBar from '../components/NavBar';
 import FieldDropDownFilter from '../components/sport/FieldDropDownFilter';
 import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import { selectLoggedInPlayer, stayLoggedIn } from '../redux/players/playersSlice';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -24,7 +23,6 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const [formToggle, setFormToggle] = useState(false);
     const [fieldFilter, setFieldFilter] = useState("all");
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
-    const [visible, setVisible] = useState(5);
     const [amountOfMeetUps] = useState(5);
     const [currentSlide, setCurrentSlide] = useState(1);
     
@@ -35,16 +33,11 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     useEffect(() => {
         dispatch(fetchSportById(id));
     },[dispatch]);
-    // fetch location data 
-    const individualLocation = useSelector(selectLocationById);
-    useEffect(() => {
-        dispatch(fetchLocationById(id));
-    },[dispatch])
-    
+
     if (individualSport === undefined){
         return null;
     }
-    
+
     // Pagination variables and values 
     const indexOfLastCard = currentSlide * amountOfMeetUps;
     const indexOfFirstCard = indexOfLastCard - amountOfMeetUps;
@@ -65,29 +58,32 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
             "sport_id": parseInt(individualSport.id),
             "player_id": parseInt(loggedInPlayer.id)  
         };
-        dispatch(addNewMeetUp(newMeetUp));
+        dispatch(addNewMeetUp(newMeetUp))
+            .then(() => {
+                dispatch(fetchSportById(id));
+            })
+        setFormToggle(false);
     };  
     // const fieldsDropdownFilter = individualSport.meet_ups.filter((sport) => {
     //     if (fieldFilter === 'all') return true;
     //     return sport.field.name.toLowerCase() === fieldFilter.toLowerCase();
     // })
+
       return (
         <Container>
             <div  className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
                 <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
                 {/* <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} individualLocation={individualLocation}/> */}
-                <h1 className="info-title">{individualSport.sport_type} meet ups:</h1>
+                <h1 className="info-title">{individualSport.sport_type}:</h1>
                     <div className="meet-ups-list">
                     {individualSport.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
                         (
                             // <div onClick={handleMeetUpClick}>  
                             <MeetUpList 
                                 setSelectedMeetUp={setSelectedMeetUp}
-                                // meetUps={meetUps}
                                 meetUp={meetUp}
                                 key={meetUp.id}
                                 loggedInPlayer={loggedInPlayer}
-                                // setMeetUps={setMeetUps}
                                 handleAddTeammate={handleAddTeammate}
                             />
                             )
@@ -117,7 +113,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                         <input fluid type="datetime-local" name="date" value={date}  onChange={(e) => setDate(e.target.value)}/>
                         <select onChange={(e) => setLocation(e.target.value)} >
                             <option >Pick your field/court</option>
-                            {individualLocation.fields.map((field) => (
+                            {loggedInPlayer.location.fields.map((field) => (
                                 <option value={field.id}>{field.field_name}</option>
                             ))}
                         </select>
@@ -138,7 +134,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
 const Container = styled.div`
     .bg-image{
         height: 100vh;
-        width: 100%;
+        width: 100vw;
         position: fixed;
         overflow-x: scroll;
     }

@@ -4,20 +4,20 @@ import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 import sportsbg from '../assets/sportsbg.jpeg';
 import Header from "../components/Header";
-import { useDispatch } from "react-redux";
-import { logIn } from '../redux/players/playersSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { logIn, selectLoggedInPlayer, stayLoggedIn } from '../redux/players/playersSlice';
 
-function Login({ setLoggedInPlayer, loggedInPlayer }) {
-    const [loginToggle, setLoginToggle] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const loggedInPlayer = useSelector(selectLoggedInPlayer)
 
     function handleLogin(){
         const data = { email, password };
-        dispatch(logIn(data));
-        navigate('/welcome');
+        dispatch(logIn(data))
     }
 
   return (
@@ -30,6 +30,7 @@ function Login({ setLoggedInPlayer, loggedInPlayer }) {
                     <form onSubmit={(e) => {
                         e.preventDefault()
                         handleLogin()
+                        navigate(`/locations/${loggedInPlayer.location.id}`)
                     }}>
                         <div class="inputBox1">
                             <input type="email" required="required" value={email} 

@@ -7,48 +7,38 @@ import { Form } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFieldById, selectFieldById } from '../redux/fields/fieldsSlice';
 import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
+import { selectLoggedInPlayer } from '../redux/players/playersSlice';
+import styled from 'styled-components';
+import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
+import Pagination from '../components/Pagination';
 
-function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTeammate, locations}) {
+function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {
     const dispatch = useDispatch();
+    const { id } = useParams();
+    const loggedInPlayer = useSelector(selectLoggedInPlayer)
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
-    const [fieldMeetUps, setFieldMeetUps] = useState();
     const [sportFilter, setSportFilter] = useState("all");
     const [formToggle, setFormToggle] = useState(false);
-    const { id } = useParams();
+    const [currentSlide, setCurrentSlide] = useState(1);
+    const [amountOfMeetUps, setAmountOfMeetUps] = useState(5)
    
     // fetch individual field
     const individualField = useSelector(selectFieldById);
     useEffect(() => {
         dispatch(fetchFieldById(id))
     },[dispatch])
-
-     // fetch location data 
-     const individualLocation = useSelector(selectLocationById);
-     useEffect(() => {
-         dispatch(fetchLocationById(id));
-     },[dispatch])
-     
-
+    
     if (individualField === undefined) return null;
-    if (individualLocation === undefined) return null;
-
-    // useEffect(() => {
-    //     async function fetchFieldMeetUps() {
-    //         const req = fetch(`/fields/${id}`)
-    //         const resp = await req;
-    //         const parsed = await resp.json()
-    //         setFieldMeetUps(parsed.meet_ups)
-    //     }
-    //     fetchFieldMeetUps()
-    // },[]);
-
-    // if (individualField === undefined){
-    //     return null;
-    // }
-    // if (fieldMeetUps === undefined){
-    //     return null;
-    // }
+     
+    // pagination variables and values
+    const indexOfLastCard = currentSlide * amountOfMeetUps;
+    const indexOfFirstCard = indexOfLastCard - amountOfMeetUps;
+    // // change slides functionalities
+    const nextSlide = () => setCurrentSlide(currentSlide + 1);
+    const previousSlide = () => setCurrentSlide(currentSlide - 1);
+    const end = indexOfLastCard >= individualField.meet_ups.length
+    const beginning = currentSlide === 1;
     
     const createMeetUp = () => {
         //e.preventDefault()
@@ -58,44 +48,49 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
             "sport_id": sportInput,
             "player_id": loggedInPlayer.id
         }
-
-        fetch('/meet_ups',{
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newMeetUp)
-        }) .then((r) => {
-            if (r.ok) {
-                r.json() .then((meetUp) => setFieldMeetUps([...fieldMeetUps, meetUp]))
-            }
-        })
+        dispatch(addNewMeetUp(newMeetUp))
+            .then(() => {
+                dispatch(fetchFieldById(id));
+            })
+        setFormToggle(false);
     };
     
-    const sportsDropdownFilter = individualField.meet_ups.filter((field) => {
-        if (sportFilter === 'all') return true;
-        return field.sport.type.toLowerCase() === sportFilter.toLowerCase();
-    })
+    // const sportsDropdownFilter = individualField.meet_ups.filter((field) => {
+    //     if (sportFilter === 'all') return true;
+    //     return field.sport.type.toLowerCase() === sportFilter.toLowerCase();
+    // })
     const handleFormToggle = () => {
         setFormToggle(true)
     }
   return (
-    <div>
-        <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} locations={locations}/>
-        <h1 className="field-info-title">{individualField.field_name} meet ups:</h1>
+    <Container>
+        <NavBar locations={locations}/>
+        <h1 className="field-info-title">{individualField.field_name}:</h1>
         {/* <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter} /> */}
-        <div className="meet-ups-list">{sportsDropdownFilter.map((meetUp) => {
-            return (
+        <div className="meet-ups-list">{individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
+            (
                 <FieldMeetUpList 
                     meetUp={meetUp}
                     key={meetUp.id}
-                    fieldMeetUps={fieldMeetUps}
-                    setFieldMeetUps={setFieldMeetUps}
                     selectedField={selectedField}
                     setSelectedField={setSelectedField}
                     loggedInPlayer={loggedInPlayer}
                     handleAddTeammate={handleAddTeammate}
                 />
             )
-        })}</div>
+        )}
+        </div>
+        <div className="pagination">
+            <Pagination 
+                amount={amountOfMeetUps}
+                next={nextSlide}
+                prev={previousSlide}
+                total={individualField.meet_ups.length}
+                beginning={beginning}
+                end={end}
+                currentSlide={currentSlide}
+            />
+        </div>
         <div className='new-meet-up-container'>
             <button className='learn-more' onClick={handleFormToggle}>
                 <span class="circle" aria-hidden="true">
@@ -108,12 +103,9 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
                 <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
                 <select onChange={(e) => setSportInput(e.target.value)}>
                     <option >Pick a Sport</option>
-                    {individualLocation.sports.map((sport) => (
+                    {loggedInPlayer.location.sports.map((sport) => (
                         <option value={sport.id}>{sport.sport_type}</option>
                     ))}
-                        {/* <option value={individualLocation.sports[1].id}>Basketball</option> */}
-                    {/* <option value={individualLocation.sports[2].id}>Tennis</option>
-                    <option value={individualLocation.sports[3].id}>Football</option> */}
                 </select><br></br>
                 <button 
                     type="button" 
@@ -124,8 +116,79 @@ function FieldInfo({selectedField, loggedInPlayer, setSelectedField, handleAddTe
                  <button className="back-btn" type='button' onClick={() => setFormToggle(false)}>X</button>
             </Form> : null}
         </div>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+    .field-info-title {
+        color: rgb(12, 12, 12);
+        text-align: center;
+        font-size: 5pc;
+        font-family: "Ultra", serif;
+        position: relative;
+        background-color: transparent;
+        text-shadow: 2px 2px 3px rgb(255, 205, 98);
+    }
+    .meet-ups-list{
+        display: flex;
+        /* flex-wrap: nowrap; */
+        position: relative;
+        bottom: 10%;
+        gap: 1rem;
+    }
+    .new-meet-up-container{
+        position: absolute;
+        top: 10rem;
+        right: 10%;
+    }
+    .new-meet-up-container{
+        position: absolute;
+        top: 10rem;
+        right: 10%;
+    }
+.new-mu-form{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    /* top: 10rem; */
+    right: 1rem;
+    width: 15vw;
+    border-style: solid;
+    border-width: 20px;
+    border-radius: 10px;
+    border-color: rgb(8, 7, 7);
+    background-color: black;
+}
+    .new-mu-form > button {
+        margin-bottom: 15px;
+        height: 35px;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-family: 'Ultra', serif;
+        color: #4d4574;
+        background-color: aliceblue;
+        border-color: rgb(255, 205, 98);
+        border-radius: 40px;
+        text-align: center;
+    }
+    .new-mu-form > input {
+        margin-bottom: 15px;
+        height: 25px;
+    }
+    .new-mu-form > select {
+        margin-bottom: 15px;
+        height: 25px;
+    }
+    .new-mu-form > h3 {
+        color: white;
+        font-size: larger;
+        font-family: 'Ultra', serif;
+        padding-bottom: 20px;
+    }
+    .pagination {
+        margin-top: 5rem;
+    }
+`;
 
 export default FieldInfo;

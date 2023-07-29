@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import styled from 'styled-components';
 
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeammates, meetUps, setMeetUps}) {
     const navigate = useNavigate();
@@ -95,58 +96,72 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
 
 
   return (
-    <div className='meet-up-card-div'>
-      {/* <div className="meet-up-card">
-        <h3>{meetUp.field.name}</h3>
-        <img src={meetUp.field.img_url} />
-        <h4>{meetUp.date}</h4>
-        <h4>Total Players: {totalPlayers}</h4>
-        <li>{meetUp.player.name}</li> 
-        <div>{meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}</div>
-        {joinToggle ? <button type="button" value="Join Meet Up" onClick={() => handleJoinTeam(loggedInPlayer)}>Join Meet Up</button>
-          :
-          <p>Full</p>}
-        <button type='button' onClick={() => handleDropMeetUp()}>Drop Meet Up</button>
-        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
-    </div> */}
-    <Card sx={{ maxWidth: 345 }} className="meet-up-card">
-      <CardMedia
-        sx={{ height: 300 }}
-        image={meetUp.field.img_url}
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        {meetUp.field.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {meetUp.date}<br></br>
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        Total Players: {totalPlayers}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <li>{meetUp.player.name}</li>
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
-          :
-          <p>Full</p>}
-        <Button size="small" onClick={() => {
-          handleDropMeetUp()
-          window.location.reload()
-          }}>Leave</Button>
-        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
-      </CardActions>
-    </Card>
-    </div>  
-    
+    <Container >
+        <Card className="meet-up-card">
+          <CardMedia
+            sx={{ height: 300 }}
+            image={meetUp.field.img_url}
+            title="meet-up"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+            {meetUp.field.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {meetUp.date}<br></br>
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+            Total Players: {totalPlayers}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              <li>{meetUp.player.name}</li>
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+            {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+              :
+              <p>Full</p>}
+            <Button size="small" onClick={() => {
+              handleDropMeetUp()
+              window.location.reload()
+              }}>Leave</Button>
+            <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
+          </CardActions>
+        </Card>
+    </Container>
   )
 }
 
+const Container = styled.div`
+    border-style: solid;
+    border-radius: 3px;
+    border-color: black;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    background: rgba(0,0,0,.5);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow-x: scroll;
+  .meet-up-card{
+    background-color: white;
+    border-style: solid;
+    border-radius: 10px;
+    justify-content: center;
+    position: relative;
+    height: max-content;
+    width: 30%;
+  }
+.meet-up-card > img {
+    /* width: 15vw; */
+  }
+`;
 
 export default MeetUpCard;

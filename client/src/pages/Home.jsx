@@ -34,8 +34,7 @@ function Home({ loggedInPlayer }) {
    if (individualLocation == undefined){
      return null;
    }
-   
-
+  
   return (
     
     <Container>
@@ -54,7 +53,7 @@ function Home({ loggedInPlayer }) {
 };
 
 const Container = styled.div`
-  
+
 `;
 
 export default Home;

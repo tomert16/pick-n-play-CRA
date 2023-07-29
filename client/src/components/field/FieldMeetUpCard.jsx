@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import styled from 'styled-components';
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, setFieldMeetUps}) {
   const [joinToggle, setJoinToggle] = useState(true);
@@ -82,26 +83,10 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
           setJoinToggle(!joinToggle)
       }
   },[])
-  console.log(meetUp.teammates)
 
   return (
-    <div className='meet-up-card-div'>
-      {/* <div className="field-meet-up-card">
-        <h3>{meetUp.sport.type}</h3>
-        <img src={meetUp.sport.image} />
-        <h4>{meetUp.date}</h4>
-        <div>Total Player: {totalPlayers}</div>
-        <li>{meetUp.player.name}</li>
-        <div>{meetUp.teammates.map((teammate) => (<li className="teammates">{teammate}</li>))}</div>
-        {joinToggle ? <button type="button" value="Join Meet Up" onClick={() => {handleJoinTeam(loggedInPlayer)}
-           
-            }>Join Meet Up</button>
-          :
-          <p>Full</p>}
-           <button type='button' onClick={() => handleDropMeetUp()}>Drop Meet Up</button>
-        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
-      </div> */}
-      <Card sx={{ maxWidth: 345 }} className="field-meet-up-card">
+    <Container>
+      <Card className="field-meet-up-card">
       <CardMedia
         sx={{ height: 300 }}
         image={meetUp.sport.image}
@@ -135,8 +120,36 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
       </CardActions>
     </Card>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+    border-style: solid;
+    border-radius: 3px;
+    border-color: black;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    background: rgba(0,0,0,.5);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    overflow-x: scroll;
+    .field-meet-up-card {
+      background-color: white;
+      border-style: solid;
+      border-radius: 10px;
+      justify-content: center;
+      position: relative;
+      left: 37%;
+      top: 15pc;
+      height: max-content;
+      width: 30%;
+    }
+`;
 
 export default FieldMeetUpCard;
