@@ -10,12 +10,14 @@ export const fetchAllSports = createAsyncThunk(
 )
 
 export const fetchSportById = createAsyncThunk(
-    'sport/fetchSportById',
+    'sports/fetchSportById',
     async(id) => {
         const req = await axios.get(`/sports/${id}`);
         return req.data;
     }
 )
+
+
 
 export const sportsSlice = createSlice(
     {

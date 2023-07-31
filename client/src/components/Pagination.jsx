@@ -53,7 +53,7 @@ const Container = styled.div`
         color: rgb(255, 205, 98);
         font-size: 1.5rem;
         position: relative;
-        bottom: 6rem;
+        bottom: 11rem;
         gap: 0.5rem;
     }
     .slide-num h2.active {

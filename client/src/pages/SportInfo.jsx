@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { Form } from "semantic-ui-react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import MeetUpList from '../components/sport/MeetUpsList';
 import NavBar from '../components/NavBar';
-import FieldDropDownFilter from '../components/sport/FieldDropDownFilter';
 import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
-import { selectLoggedInPlayer, stayLoggedIn } from '../redux/players/playersSlice';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import Pagination from '../components/Pagination';
 import styled from 'styled-components';
+import { IoArrowBackCircleOutline } from 'react-icons/io5'
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+
 
 
 function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
-    // const containerRef = useRef(null);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const [date, setDate] = useState("");
@@ -70,11 +71,13 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     // })
 
       return (
-        <Container>
-            <div  className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
+          <Container>
+              <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
                 <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
-                {/* <FieldDropDownFilter fieldFilter={fieldFilter} setFieldFilter={setFieldFilter} individualLocation={individualLocation}/> */}
                 <h1 className="info-title">{individualSport.sport_type}:</h1>
+                <button className="back-btn" onClick={() => navigate(-1)}>
+                    <IoArrowBackCircleOutline />
+                </button>
                     <div className="meet-ups-list">
                     {individualSport.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
                         (
@@ -120,9 +123,12 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                         <button 
                             type="button" 
                             value="Create Meet Up" 
+                            className="create"
                             onClick={() =>{ createMeetUps() }}
                         >Create</button>
-                        <button className="back-btn" type='button' onClick={() => setFormToggle(false)}>X</button>
+                        <button className="close-form" type='button' onClick={() => setFormToggle(false)}>
+                            <AiOutlineCloseCircle />
+                        </button>
                     </Form> 
                 : null}
                 </div>
@@ -146,6 +152,18 @@ const Container = styled.div`
         position: relative;
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
+    }
+    .back-btn {
+        position: relative;
+        left: 1rem;
+        top: -12rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        svg {
+            color: white;
+            font-size: 4rem;
+        }
     }
     .meet-ups-list{
         display: flex;
@@ -172,7 +190,7 @@ const Container = styled.div`
     border-color: rgb(8, 7, 7);
     background-color: black;
 }
-.new-mu-form > button {
+.create {
   margin-bottom: 15px;
   height: 35px;
   padding-left: 12px;
@@ -183,6 +201,19 @@ const Container = styled.div`
   border-color: rgb(255, 205, 98);
   border-radius: 40px;
   text-align: center;
+  cursor: pointer;
+}
+.close-form {
+    background-color: transparent;
+    border: none;
+    color: white;
+    position: relative;
+    top: -14rem;
+    left: 8rem;
+    cursor: pointer;
+    svg {
+        font-size: 2rem;
+    }
 }
 .new-mu-form > input {
   margin-bottom: 15px;

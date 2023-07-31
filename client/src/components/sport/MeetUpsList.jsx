@@ -46,8 +46,6 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
         </div>
         {showMeetUp ? <MeetUpCard 
         meetUp={meetUp} 
-        meetUps={meetUps}
-        setMeetUps={setMeetUps}
         selectedMeetUp={selectedMeetUp}
         setSelectedMeetUp={setSelectedMeetUp}
         loggedInPlayer={loggedInPlayer}

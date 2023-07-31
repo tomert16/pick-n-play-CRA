@@ -10,16 +10,30 @@ export const addNewMeetUp = createAsyncThunk(
     }
 );
 
+export const joinMeetUp = createAsyncThunk(
+    'meetUps/joinMeetUp',
+    async({meet_up_id, player_id}) => {
+        const reqBody = { meet_up_id, player_id };
+        const req = await axios.post('/join_meet_up', reqBody);
+        return req.data;
+    }
+)
+
+
 const meetUpsSlice = createSlice(
     {
         name: "meetUps",
         initialState: {
-            list: []
+            list: [],
+            teammates: []
         },
         extraReducers: (builder) =>{
             builder
                 .addCase(addNewMeetUp.fulfilled, (state, action) => {
                     state.list.push(action.payload)
+                })
+                .addCase(joinMeetUp.fulfilled, (state, action) => {
+                    state.teammates.push(action.payload)
                 })
         }
     }

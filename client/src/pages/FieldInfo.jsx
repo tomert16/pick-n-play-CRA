@@ -11,8 +11,11 @@ import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import styled from 'styled-components';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import Pagination from '../components/Pagination';
+import { IoArrowBackCircleOutline } from 'react-icons/io5'
+
 
 function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
@@ -66,6 +69,9 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     <Container>
         <NavBar locations={locations}/>
         <h1 className="field-info-title">{individualField.field_name}:</h1>
+        <button className="back-btn" onClick={() => navigate(-1)}>
+            <IoArrowBackCircleOutline />
+        </button>
         {/* <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter} /> */}
         <div className="meet-ups-list">{individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
             (
@@ -129,6 +135,18 @@ const Container = styled.div`
         position: relative;
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
+    }
+    .back-btn {
+        position: relative;
+        left: 1rem;
+        top: -12rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        svg {
+            color: black;
+            font-size: 4rem;
+        }
     }
     .meet-ups-list{
         display: flex;

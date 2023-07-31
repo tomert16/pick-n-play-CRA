@@ -30,12 +30,15 @@ function WelcomePage() {
     dispatch(fetchAllLocations());
   }, [dispatch])
   
-  if (loggedInPlayer === undefined) return null;
   // if (loggedInPlayer.location != null) {
-  //   navigate(`/locations/${loggedInPlayer.location.id}`)
-  // } else {
-
-  // }
+    //   navigate(`/locations/${loggedInPlayer.location.id}`)
+    // }
+  useEffect(() => {
+    if (loggedInPlayer?.location?.id) {
+      navigate(`/locations/${loggedInPlayer.location.id}`)
+    }
+  },[loggedInPlayer])
+  if (loggedInPlayer === undefined) return null;
 
   return (
     <Container>

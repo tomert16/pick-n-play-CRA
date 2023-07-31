@@ -30,7 +30,7 @@ function Login() {
                     <form onSubmit={(e) => {
                         e.preventDefault()
                         handleLogin()
-                        navigate(`/locations/${loggedInPlayer.location.id}`)
+                        navigate(`/welcome`)
                     }}>
                         <div class="inputBox1">
                             <input type="email" required="required" value={email} 

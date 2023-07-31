@@ -7,8 +7,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
+import { fetchFieldById } from '../../redux/fields/fieldsSlice';
+
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, setFieldMeetUps}) {
+  const dispatch = useDispatch();
+  const {id} = useParams();
   const [joinToggle, setJoinToggle] = useState(true);
   const handleBackClick = () => {
     setShowMeetUp(false)
@@ -18,53 +26,30 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
       "meet_up_id": meetUp.id,
       "player_id": loggedInPlayer.id
     }
-  
-    fetch('/join_meet_up', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(join)
-    })
-      .then((resp) => resp.json())
-      .then((newTeammate) => {
-        const updatedMeetUps = fieldMeetUps.map((mu) => {
-          if (mu.id === meetUp.id) {
-            return {
-              ...mu,
-              teammates: [...mu.teammates, `${loggedInPlayer.first_name} ${loggedInPlayer.last_name}`]
-            }
-          }
-          return mu
-        })
-        setFieldMeetUps(updatedMeetUps)
+    dispatch(joinMeetUp(join))
+      .then(() => {
+        dispatch(fetchFieldById(id));
       })
   }
 
   const handleDropMeetUp = (id) => {
-    fetch(`/player_meet_ups/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        "meet_up_id": meetUp.id,
-        "player_id": loggedInPlayer.id
+    let text = "Are you sure you want to leave this meet up?"
+    if (window.confirm(text) === true) {
+      text = "Drop successfull";
+      fetch(`/player_meet_ups/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "meet_up_id": meetUp.id,
+          "player_id": loggedInPlayer.id
+        })
       })
-    })
-      .then(data => {
-        // Filter out the deleted player from the meetUps state
-        const updatedMeetUps = fieldMeetUps.map(meetUp => {
-          return {
-            ...meetUp,
-            teammates: meetUp.teammates.filter(teammate => teammate.id !== id)
-          }
-        });
-  
-        // Update the meetUps state with the new data
-        setFieldMeetUps(updatedMeetUps);
-        alert("Meet Up Dropped!");
-      })
-      .catch(error => {
-        console.error("Error deleting player:", error);
-      });
-  }
+      alert(text);
+      window.location.reload();
+    } else {
+      alert("Drop request cancelled");
+    }
+  };
 
   
   const totalPlayers = meetUp?.teammates.length + 1;
@@ -93,6 +78,9 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         title="Meet Up"
       />
       <CardContent>
+        <button className="close" type='button' onClick={() => handleBackClick()}>
+              <AiOutlineCloseCircle />
+        </button>
         <Typography gutterBottom variant="h5" component="div">
         {meetUp.sport.type}
         </Typography>
@@ -113,11 +101,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
           :
           <p>Full</p>}
-        <Button size="small" onClick={() => {
-          handleDropMeetUp()
-          window.location.reload()
-          }}>Leave</Button>
-        <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
+        <Button size="small" onClick={() => handleDropMeetUp()}>Leave</Button>
       </CardActions>
     </Card>
     </Container>
@@ -145,11 +129,23 @@ const Container = styled.div`
       border-radius: 10px;
       justify-content: center;
       position: relative;
-      left: 37%;
-      top: 15pc;
+      left: 35%;
+      top: 15rem;
       height: max-content;
       width: 30%;
     }
+    .close {
+      border: none;
+      background-color: transparent;
+      position: relative;
+      top: -1rem;
+      left: 48%;
+      z-index: 1;
+      svg {
+        font-size: 2rem;
+        color: #000000;
+      }
+  }
 `;
 
 export default FieldMeetUpCard;

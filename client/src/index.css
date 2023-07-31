@@ -322,33 +322,8 @@ code {
   left:85%;
   bottom: 65%;
 }
-/* sport/field cards */
-.sport-card, .field-card{
-  justify-content: center;
-  border-style: solid;
-  border-radius: 3px;
-  border-color: transparent;
-  text-align: center;
-  cursor: pointer;
 
-}
-.sport-card > h3, .field-card > h3 {
-  position: relative;
-  left: 4rem;
-  top: 15rem;
-  font-size: 2rem;
-  font-family:"Ultra", serif;
-  height: 3em;
-  color: rgb(0, 0, 0);
-}
-.sport-image, .field-image{
-  height: 18rem;
-  width: 150%;
-  border-style: solid;
-  border-radius: .5rem;
-  border-color: rgb(255, 205, 98);
-  background-color: transparent;
-}
+
 .sport-field-toggle{
   color: rgb(2, 2, 2);
 }
@@ -395,7 +370,7 @@ code {
   width: 20rem;
   height: 30rem;
   position: relative;
-  top: 5rem;
+  /* top: 3rem; */
   left: 35%;
   margin-bottom: 5pc;
   cursor: pointer;
@@ -605,11 +580,11 @@ code {
   overflow-x: scroll;
 }
 
-.back-btn{
+/* .back-btn{
   position: absolute;
     top:-0.0rem;
     right: -0.0rem;
-}
+} */
 /* Profile page */
 .account-info-page{
   /* background-color: antiquewhite; */

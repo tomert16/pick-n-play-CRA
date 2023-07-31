@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 //import SportInfo from './SportInfo';
 
 function SportCard({ sport }) {
@@ -10,7 +11,16 @@ function SportCard({ sport }) {
 
 
   return (
-      <div className="sport-card" >
+      <Container 
+        onMouseOver={()=>(
+          setMouseOverImage(.3),
+          setMouseOverInfo(1)
+        )}
+        onMouseLeave={()=>(
+          setMouseOverImage(1),
+          setMouseOverInfo(0)
+        )} 
+      >
           <h3 style={{opacity: mouseOverInfo}}>{sport_type}</h3>
             <img className="sport-image" 
               src={img_url} 
@@ -19,19 +29,36 @@ function SportCard({ sport }) {
               onClick={() =>{ 
                 navigate(`/sports/${sport.id}`)
               }}
-              onMouseOver={()=>(
-                setMouseOverImage(.3),
-                setMouseOverInfo(1)
-              )}
-              onMouseLeave={()=>(
-                setMouseOverImage(1),
-                setMouseOverInfo(0)
-              )} 
             />
-      </div>
+      </Container>
   )
 }
 
+const Container = styled.div`
+  /* justify-content: center; */
+  border-style: solid;
+  border-radius: 3px;
+  border-color: transparent;
+  text-align: center; 
+  cursor: pointer;
+  h3 {
+    position: relative;
+    /* left: 4rem; */
+    top: 15rem;
+    font-size: 2rem;
+    font-family:"Ultra", serif;
+    height: 3em;
+    color: rgb(0, 0, 0);
+  }
+  img {
+    height: 18rem;
+    width: 20rem;
+    border-style: solid;
+    border-radius: .5rem;
+    border-color: rgb(255, 205, 98);
+    background-color: transparent;
+  }
+`;
 
 
 

@@ -32,13 +32,13 @@ function FieldList({ individualLocation}) {
 
 const Container = styled.div`
   .fields-list {
-    display: grid;
-    grid-template-columns: 15rem 15rem;
+    display: flex;
+    /* grid-template-columns: 15rem 15rem;
     grid-gap: 14rem;
-    grid-row-gap: 1rem;
+    grid-row-gap: 1rem; */
     margin: -8rem;
-    margin-right: 0rem;
     justify-content: center;
+    gap: 1.5rem;
   }
   .home-prompt {
   font-size: 60px;

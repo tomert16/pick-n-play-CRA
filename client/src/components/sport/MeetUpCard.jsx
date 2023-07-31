@@ -9,29 +9,26 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
+import { toast } from 'react-toastify';
+import { fetchSportById } from '../../redux/sports/sportsSlice';
 
-function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeammates, meetUps, setMeetUps}) {
-    const navigate = useNavigate();
+
+function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
+    const {id} = useParams();
+    const dispatch = useDispatch();
     const [joinToggle, setJoinToggle] = useState(true);
-    
+    // toastify animation
 
    
     const totalPlayers = meetUp.teammates.length + 1;
-    useEffect(() => {
-        if (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14){
-          setJoinToggle(false)
-            console.log('full meet up', meetUp.teammates.length);
-        }else if (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10){
-          setJoinToggle(false)
-            console.log('full meet up', meetUp.teammates.length);
-        }else if (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4){
-          setJoinToggle(false)
-            console.log('full meet up', meetUp.teammates.length);
-        }else if (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10){
-          setJoinToggle(false)
-            console.log('full meet up', meetUp.teammates.length);
-        }
-    },[])
+    const isMeetUpFull = 
+        (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14) ||
+        (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10) ||
+        (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4) ||
+        (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) 
 
 
 
@@ -39,61 +36,37 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
         const join = {
           "meet_up_id": meetUp.id,
           "player_id": loggedInPlayer.id
-        }
-      
-        fetch('/join_meet_up', {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(join)
-        })
-          .then((resp) => resp.json())
-          .then((newTeammate) => {
-            const updatedMeetUps = meetUps.map((mu) => {
-              if (mu.id === meetUp.id) {
-                return {
-                  ...mu,
-                  teammates: [...mu.teammates, `${loggedInPlayer.first_name} ${loggedInPlayer.last_name}`]
-                }
-              }
-              return mu
-            })
-            setMeetUps(updatedMeetUps)
+        };
+        dispatch(joinMeetUp(join))
+          .then(() => {
+            dispatch(fetchSportById(id))
           })
-      }
+      };
 
     const handleDropMeetUp = (id) => {
-        fetch(`/player_meet_ups/${id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            "meet_up_id": meetUp.id,
-            "player_id": loggedInPlayer.id
-          })
-        })
-          .then(data => {
-            // Filter out the deleted player from the meetUps state
-            const updatedMeetUps = meetUps.map(meetUp => {
-              return {
-                ...meetUp,
-                teammates: meetUp.teammates.filter(teammate => teammate.id !== id)
-              }
-            });
-      
-            // Update the meetUps state with the new data
-            setMeetUps(updatedMeetUps);
-            alert("Meet Up Dropped!");
-          })
-          .catch(error => {
-            console.error("Error deleting player:", error);
-          });
+          let text = "Are you sure you want to leave this meet up?"
+          if (window.confirm(text) === true) {
+            text = "Drop successfull";
+            fetch(`/player_meet_ups/${id}`, {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                "meet_up_id": meetUp.id,
+                "player_id": loggedInPlayer.id
+              })
+            })
+            alert(text);
+            window.location.reload()
+          } else {
+            alert("Drop request cancelled");
+          }
       }
 
+  
 
     const handleBackClick = () => {
         setShowMeetUp(false)
     }
-
-
 
   return (
     <Container >
@@ -104,6 +77,9 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
             title="meet-up"
           />
           <CardContent>
+            <button className="close" type='button' onClick={() => handleBackClick()}>
+              <AiOutlineCloseCircle />
+            </button>
             <Typography gutterBottom variant="h5" component="div">
             {meetUp.field.name}
             </Typography>
@@ -121,14 +97,10 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, teammates, setTeamm
             </Typography>
           </CardContent>
           <CardActions>
-            {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+            {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam()}>Join</Button>
               :
               <p>Full</p>}
-            <Button size="small" onClick={() => {
-              handleDropMeetUp()
-              window.location.reload()
-              }}>Leave</Button>
-            <button className="back-btn" type='button' onClick={() => handleBackClick()}>X</button>
+            <Button size="small" onClick={() => handleDropMeetUp()}>Leave</Button>
           </CardActions>
         </Card>
     </Container>
@@ -139,7 +111,6 @@ const Container = styled.div`
     border-style: solid;
     border-radius: 3px;
     border-color: black;
-    text-align: center;
     cursor: pointer;
     position: relative;
     background: rgba(0,0,0,.5);
@@ -150,17 +121,29 @@ const Container = styled.div`
     width: 100%;
     z-index: 1000;
     overflow-x: scroll;
+    text-align: center;
   .meet-up-card{
     background-color: white;
     border-style: solid;
     border-radius: 10px;
     justify-content: center;
     position: relative;
+    left: 35%;
+    top: 15rem;
     height: max-content;
     width: 30%;
   }
-.meet-up-card > img {
-    /* width: 15vw; */
+  .close {
+    border: none;
+    background-color: transparent;
+    position: relative;
+    top: -1rem;
+    left: 48%;
+    z-index: 1;
+    svg {
+      font-size: 2rem;
+      color: #000000;
+    }
   }
 `;
 
