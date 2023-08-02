@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { selectLoggedInPlayer, setLocation } from '../redux/players/playersSlice';
+import { selectLoggedInPlayer, updateLocation } from '../../redux/players/playersSlice';
 
 function LocationCard({ location }){
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ function LocationCard({ location }){
 
     const handleSetLocation = () => {
       const id = loggedInPlayer.id
-      dispatch(setLocation({location, id})); 
+      dispatch(updateLocation({location, id})); 
     }
 
   return (

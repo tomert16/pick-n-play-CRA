@@ -153,14 +153,7 @@ function App() {
     },
     {
       path: '/profile',
-      element: <Account 
-        meetUps={meetUps}
-        playerInfo={playerInfo}
-        setPlayerInfo={setPlayerInfo}
-        meetUpTeammates={meetUpTeammates}
-        setMeetUpTeammates={setMeetUpTeammates}
-        // locations={locations}
-      />
+      element: <Account />
     },
     {
       path: `/sports/:id`,

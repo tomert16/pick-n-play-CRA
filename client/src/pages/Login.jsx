@@ -26,7 +26,7 @@ function Login() {
             <div className="content">
                 <Header />
                 <div class="card">
-                    <a class="signup">Login</a>
+                    <a class="signup">Log in</a>
                     <form onSubmit={(e) => {
                         e.preventDefault()
                         handleLogin()

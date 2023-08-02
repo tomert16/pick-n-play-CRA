@@ -7,7 +7,7 @@ import sportsbg from '../assets/sportsbg.jpeg';
 import { createNewPlayer } from '../redux/players/playersSlice';
 
 
-function Signup({ setLoggedInPlayer }) {
+function Signup() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
@@ -17,8 +17,7 @@ function Signup({ setLoggedInPlayer }) {
     const [passwordInput, setPasswordInput] = useState("");
     const [passwordConfirmationInput, setPasswordConfirmationInput] = useState("");
 
-    const handleSignup = (e) => {
-        e.preventDefault();
+    const handleSignup = () => {
         const newPlayer = {
             first_name: firstNameInput,
             last_name: lastNameInput,
@@ -27,19 +26,8 @@ function Signup({ setLoggedInPlayer }) {
             passwordConfirmation: passwordConfirmationInput
         };
 
-        // fetch ('/signup',{
-        //     method: 'POST',
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(newPlayer)
-        // })
-        // .then((r) => {
-        //     if (r.ok) {
-        //         r.json().then((player) => setLoggedInPlayer(player));
-        //         navigate('/');
-        //     }
-        // });
         dispatch(createNewPlayer(newPlayer));
-        navigate('/welcome');
+        
     }
 
   return (
@@ -49,7 +37,11 @@ function Signup({ setLoggedInPlayer }) {
                 <Header login/>
                 <div class="card">
                     <a class="signup">Sign Up</a>
-                    <form onClick={() => handleSignup()}>
+                    <form onSubmit={(e) => {   
+                            e.preventDefault();
+                             handleSignup()
+                             navigate('/welcome')
+                        }}>
                         <div class="inputBox1">
                             <input type="text" required="required" alue={firstNameInput} 
                             onChange={(e) => setFirstNameInput(e.target.value)} />
@@ -80,7 +72,7 @@ function Signup({ setLoggedInPlayer }) {
                             <span>Confirm Password</span>
                         </div><br></br><br></br>
 
-                        <button class="enter" onClick={handleSignup}>Enter</button>
+                        <button class="enter">Enter</button>
                     </form>
                 </div>
             </div>

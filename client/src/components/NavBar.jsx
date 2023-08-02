@@ -5,9 +5,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../assets/pnplogo.png';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
+
 import styled from 'styled-components';
 import { logOut } from '../redux/players/playersSlice';
 
@@ -16,12 +14,8 @@ function NavBar({ setSportFieldToggle }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [iconToggle, setIconToggle] = useState(false);
-    const [locationFilter, setLocationFilter] = useState();
 
     
-    const handleLocationFilter = (e) => {
-        setLocationFilter(e.target.value)
-    }
     const handleProfileMenuOpen = () => {
         setIconToggle(!iconToggle);
       };
@@ -43,7 +37,7 @@ function NavBar({ setSportFieldToggle }) {
         <nav className="flex j-between">
             <div className="left flex a-center">
                 <div className="brand flex a-center j-center">
-                    <img className="header-logo" src={pnplogo} alt='logo' onClick={() => navigate(-1)}/>
+                    <img className="header-logo" src={pnplogo} alt='logo' />
                 </div>
                 <ul className="links flex">
                     {links.map(({name, value}) =>{
@@ -55,24 +49,6 @@ function NavBar({ setSportFieldToggle }) {
                     })}
                 </ul>
             </div>
-        {/* <FormControl sx={{ m: 1, minWidth: 80 }} className="location-filter">
-            <InputLabel id="demo-simple-select-label">Location</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={locationFilter}
-                label="Location"
-                onChange={(e) => {
-                    handleLocationFilter(e)
-                    navigate(`/locations/${e.target.value}`)
-                    window.location.reload()
-                }}
-            >
-                {locations && locations.map(location => (
-                    <MenuItem value={location.id}>{location.state}</MenuItem>
-                ))}
-            </Select>
-        </FormControl> */}
             <div className="right flex a-center">
                 <button className="request">
                     <span>Request Sport or Field</span>
@@ -88,7 +64,10 @@ function NavBar({ setSportFieldToggle }) {
                         >
                         <AccountCircle />
                             {iconToggle ? <div>
-                                <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
+                                <MenuItem onClick={() => {
+                                    navigate('/profile')
+                                    window.location.reload()
+                                }}>Profile</MenuItem>
                                 <MenuItem type="button" onClick={() => handleLogout()}>Logout</MenuItem>
                             </div>: null}
                         </IconButton>

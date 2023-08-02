@@ -12,6 +12,8 @@ import styled from 'styled-components';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import Pagination from '../components/Pagination';
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+
 
 
 function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {
@@ -46,7 +48,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const createMeetUp = () => {
         //e.preventDefault()
         const newMeetUp = {
-            "date": new Date(date),
+            "date": date,
             "field_id": individualField.id,
             "sport_id": sportInput,
             "player_id": loggedInPlayer.id
@@ -88,6 +90,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
         </div>
         <div className="pagination">
             <Pagination 
+                displayNum={true}
                 amount={amountOfMeetUps}
                 next={nextSlide}
                 prev={previousSlide}
@@ -114,12 +117,15 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
                     ))}
                 </select><br></br>
                 <button 
+                    className="create"
                     type="button" 
                     value="Create Meet Up" 
                     onClick={() => {
                         createMeetUp()}}
                 >Create</button>
-                 <button className="back-btn" type='button' onClick={() => setFormToggle(false)}>X</button>
+                 <button className="close-form" type='button' onClick={() => setFormToggle(false)}>
+                     <AiOutlineCloseCircle />
+                 </button>
             </Form> : null}
         </div>
     </Container>
@@ -178,7 +184,7 @@ const Container = styled.div`
     border-color: rgb(8, 7, 7);
     background-color: black;
 }
-    .new-mu-form > button {
+    .create {
         margin-bottom: 15px;
         height: 35px;
         padding-left: 12px;
@@ -203,6 +209,18 @@ const Container = styled.div`
         font-size: larger;
         font-family: 'Ultra', serif;
         padding-bottom: 20px;
+    }
+    .close-form {
+    background-color: transparent;
+    border: none;
+    color: white;
+    position: relative;
+    top: -14rem;
+    left: 8rem;
+    cursor: pointer;
+    svg {
+        font-size: 2rem;
+    }
     }
     .pagination {
         margin-top: 5rem;

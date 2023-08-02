@@ -35,7 +35,7 @@ export const createNewPlayer = createAsyncThunk(
     }
 );
 // make a post first to set location
-export const setLocation = createAsyncThunk(
+export const updateLocation = createAsyncThunk(
     'players/setLocation',
     async({ location, id }) => {
         const reqBody = { location };
@@ -49,7 +49,7 @@ const playersSlice = createSlice(
         name: 'players',
         initialState: {
             data: [],
-            player: undefined
+            player: undefined,
         },
         extraReducers: (builder) => {
             builder
@@ -69,7 +69,7 @@ const playersSlice = createSlice(
                     state.data.push(action.payload);
                     state.player = action.payload;
                 })
-                .addCase(setLocation.fulfilled, (state, action) => {
+                .addCase(updateLocation.fulfilled, (state, action) => {
                     state.player.location = action.payload;
                 })
         }

@@ -25,13 +25,18 @@ export const sportsSlice = createSlice(
         initialState: {
             list: [],
             byId: undefined,
+            isLoading: false
         },
         extraReducers: (builder) => {
             builder
                 .addCase(fetchAllSports.fulfilled, (state, action) => {
                     state.list = action.payload;
                 })
+                .addCase(fetchSportById.pending, (state, action) => {
+                    state.isLoading = true;
+                })
                 .addCase(fetchSportById.fulfilled, (state, action) => {
+                    state.isLoading = false;
                     state.byId = action.payload;
                 })
         }
@@ -40,4 +45,5 @@ export const sportsSlice = createSlice(
 
 export const selectAllSports = (state) => state.sports.list;
 export const selectSportById = (state) => state.sports.byId;
+export const isLoadingData = (state) => state.sports.isLoading;
 export default sportsSlice.reducer;

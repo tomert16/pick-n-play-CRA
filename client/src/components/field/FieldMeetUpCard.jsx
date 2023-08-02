@@ -10,14 +10,14 @@ import styled from 'styled-components';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
+import { joinMeetUp} from '../../redux/meetUps/meetUpsSlice';
 import { fetchFieldById } from '../../redux/fields/fieldsSlice';
 
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, setFieldMeetUps}) {
   const dispatch = useDispatch();
   const {id} = useParams();
-  const [joinToggle, setJoinToggle] = useState(true);
+  
   const handleBackClick = () => {
     setShowMeetUp(false)
   }
@@ -53,21 +53,12 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
 
   
   const totalPlayers = meetUp?.teammates.length + 1;
-  useEffect(() => {
-      if (meetUp?.sport.type === 'Soccer' && totalPlayers >= 14){
-          console.log('full meet up', meetUp.teammates.length);
-          setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.type === 'Basketball' && totalPlayers >= 10){
-          console.log('full meet up', meetUp.teammates.length);
-          setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.type === 'Tennis' && totalPlayers >= 4){
-          console.log('full meet up', meetUp.teammates.length);
-          setJoinToggle(!joinToggle)
-      }else if (meetUp?.sport.type === 'Football' && totalPlayers >= 10){
-          console.log('full meet up', meetUp.teammates.length);
-          setJoinToggle(!joinToggle)
-      }
-  },[])
+  const isMeetUpFull = 
+      (meetUp?.sport.type === 'Soccer' && totalPlayers >= 14) ||
+      (meetUp?.sport.type === 'Basketball' && totalPlayers >= 10) ||
+      (meetUp?.sport.type === 'Tennis' && totalPlayers >= 4) ||
+      (meetUp?.sport.type === 'Football' && totalPlayers >= 10)
+      
 
   return (
     <Container>
@@ -98,7 +89,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         </Typography>
       </CardContent>
       <CardActions>
-        {joinToggle ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+        {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
           :
           <p>Full</p>}
         <Button size="small" onClick={() => handleDropMeetUp()}>Leave</Button>

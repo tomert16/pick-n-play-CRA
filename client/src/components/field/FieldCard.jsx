@@ -33,7 +33,7 @@ function FieldCard({ field }) {
 }
 
 const Container = styled.div`
-  justify-content: center;
+  /* justify-content: center; */
   border-style: solid;
   border-radius: 3px;
   border-color: transparent;

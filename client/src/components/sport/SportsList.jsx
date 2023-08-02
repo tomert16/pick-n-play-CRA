@@ -16,7 +16,7 @@ function SportsList({  handleSelectedSport, individualLocation }) {
                 sport={sport} 
                 handleSelectedSport={handleSelectedSport}
             />
-        ))}
+      ))}
         </div>
       </Container>
   )

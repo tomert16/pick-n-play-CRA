@@ -1,5 +1,5 @@
 import NavBar from "../components/NavBar";
-import LocationCard from "../components/LocationCard";
+import LocationCard from "../components/location/LocationCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLocations, selectAllLocations } from "../redux/locations/locationsSlice";
 import { useEffect } from "react";

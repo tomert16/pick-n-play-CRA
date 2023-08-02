@@ -12,6 +12,8 @@ import Pagination from '../components/Pagination';
 import styled from 'styled-components';
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -26,8 +28,29 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
     const [amountOfMeetUps] = useState(5);
     const [currentSlide, setCurrentSlide] = useState(1);
+    const [loading, setLoading] = useState(false);
+
+    // loading function
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
+    },[])
     
-    // const [loading, setLoading] = useState(false);
+
+    const notify = () => {
+        toast.success('Meet Up created ✅', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
     
     // fetch individual sport
     const individualSport = useSelector(selectSportById);
@@ -54,7 +77,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const createMeetUps = () => {
         
         const newMeetUp = {
-            "date": new Date(date),
+            "date": date,
             "field_id": parseInt(location),
             "sport_id": parseInt(individualSport.id),
             "player_id": parseInt(loggedInPlayer.id)  
@@ -63,17 +86,26 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
             .then(() => {
                 dispatch(fetchSportById(id));
             })
+        notify();
         setFormToggle(false);
+        setDate("")
     };  
-    // const fieldsDropdownFilter = individualSport.meet_ups.filter((sport) => {
-    //     if (fieldFilter === 'all') return true;
-    //     return sport.field.name.toLowerCase() === fieldFilter.toLowerCase();
-    // })
-
+ 
       return (
           <Container>
-              <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
-                <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
+            <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
+            {loading ? 
+             <div class="loader">
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+                <div class="loader-square"></div>
+            </div>
+            :
+            <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
                 <h1 className="info-title">{individualSport.sport_type}:</h1>
                 <button className="back-btn" onClick={() => navigate(-1)}>
                     <IoArrowBackCircleOutline />
@@ -94,6 +126,8 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     </div>
                 <div className="pagination">
                     <Pagination 
+                        isSport={true}
+                        displayNum={true}
                         amount={amountOfMeetUps}
                         next={nextSlide}
                         prev={previousSlide}
@@ -104,6 +138,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     />
                 </div>
             <div className='new-meet-up-container'>
+            <ToastContainer />
                 <button className='learn-more' onClick={handleFormToggle}>
                     <span class="circle" aria-hidden="true">
                     <span class="icon arrow"></span>
@@ -117,7 +152,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                         <select onChange={(e) => setLocation(e.target.value)} >
                             <option >Pick your field/court</option>
                             {loggedInPlayer.location.fields.map((field) => (
-                                <option value={field.id}>{field.field_name}</option>
+                                <option key={field.id }value={field.id}>{field.field_name}</option>
                             ))}
                         </select>
                         <button 
@@ -132,7 +167,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     </Form> 
                 : null}
                 </div>
-            </div>
+            </div>}
         </Container>
       );
 };
@@ -174,7 +209,7 @@ const Container = styled.div`
     }
     .new-meet-up-container{
         position: absolute;
-        top: 10rem;
+        top: 4rem;
         right: 10%;
     }
 .new-mu-form{

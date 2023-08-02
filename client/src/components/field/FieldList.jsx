@@ -20,9 +20,6 @@ function FieldList({ individualLocation}) {
             <FieldCard 
                 key={field.id}
                 field={field}
-                // selectedField={selectedField}
-                // setSelectedField={setSelectedField}
-                // handleSelectedField={handleSelectedField}
             />
         ))}
         </div>
