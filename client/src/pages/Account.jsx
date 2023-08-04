@@ -192,9 +192,9 @@ const Container = styled.div`
     background-color: white;
     border-style: solid;
     border-radius: 10px;
-    width: 45%;
+    width: 20%;
     left: 37%;
-    height: 20vh;
+    height: 21vh;
     /* gap: 0.5rem; */
     text-align: center;
   }

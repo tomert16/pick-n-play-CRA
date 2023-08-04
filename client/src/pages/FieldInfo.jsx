@@ -2,17 +2,16 @@ import {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FieldMeetUpList from '../components/field/FieldMeetUpList';
 import NavBar from '../components/NavBar';
-import SportDropdownFilter from '../components/field/SportDropdownFilter';
 import { Form } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFieldById, selectFieldById } from '../redux/fields/fieldsSlice';
-import { fetchLocationById, selectLocationById } from '../redux/locations/locationsSlice';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import styled from 'styled-components';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import Pagination from '../components/Pagination';
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import Loader from '../components/Loader';
 
 
 
@@ -23,10 +22,19 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
     const [date, setDate] = useState("");
     const [sportInput, setSportInput] = useState();
-    const [sportFilter, setSportFilter] = useState("all");
     const [formToggle, setFormToggle] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(1);
-    const [amountOfMeetUps, setAmountOfMeetUps] = useState(5)
+    const [amountOfMeetUps] = useState(5);
+    const [loading, setLoading] = useState(false);
+
+    // loader functionality
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        },2000)
+    },[])
+
    
     // fetch individual field
     const individualField = useSelector(selectFieldById);
@@ -70,64 +78,69 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
   return (
     <Container>
         <NavBar locations={locations}/>
-        <h1 className="field-info-title">{individualField.field_name}:</h1>
-        <button className="back-btn" onClick={() => navigate(-1)}>
-            <IoArrowBackCircleOutline />
-        </button>
-        {/* <SportDropdownFilter sportFilter={sportFilter} setSportFilter={setSportFilter} /> */}
-        <div className="meet-ups-list">{individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
-            (
-                <FieldMeetUpList 
-                    meetUp={meetUp}
-                    key={meetUp.id}
-                    selectedField={selectedField}
-                    setSelectedField={setSelectedField}
-                    loggedInPlayer={loggedInPlayer}
-                    handleAddTeammate={handleAddTeammate}
-                />
-            )
-        )}
-        </div>
-        <div className="pagination">
-            <Pagination 
-                displayNum={true}
-                amount={amountOfMeetUps}
-                next={nextSlide}
-                prev={previousSlide}
-                total={individualField.meet_ups.length}
-                beginning={beginning}
-                end={end}
-                currentSlide={currentSlide}
-            />
-        </div>
-        <div className='new-meet-up-container'>
-            <button className='learn-more' onClick={handleFormToggle}>
-                <span class="circle" aria-hidden="true">
-                <span class="icon arrow"></span>
-                </span>
-                <span class="button-text">Want To Create Your Own</span>
+        {loading ? 
+            <Loader />
+        :
+        <>
+            <h1 className="field-info-title">{individualField.field_name}:</h1>
+            <button className="back-btn" onClick={() => navigate(-1)}>
+                <IoArrowBackCircleOutline />
             </button>
-            {formToggle ? <Form className='new-mu-form'>
-                <h3>Create a Meet Up</h3> 
-                <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
-                <select onChange={(e) => setSportInput(e.target.value)}>
-                    <option >Pick a Sport</option>
-                    {loggedInPlayer.location.sports.map((sport) => (
-                        <option value={sport.id}>{sport.sport_type}</option>
-                    ))}
-                </select><br></br>
-                <button 
-                    className="create"
-                    type="button" 
-                    value="Create Meet Up" 
-                    onClick={() => {
-                        createMeetUp()}}
-                >Create</button>
-                 <button className="close-form" type='button' onClick={() => setFormToggle(false)}>
-                     <AiOutlineCloseCircle />
-                 </button>
-            </Form> : null}
-        </div>
+            <div className="meet-ups-list">{individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
+                (
+                    <FieldMeetUpList 
+                        meetUp={meetUp}
+                        key={meetUp.id}
+                        selectedField={selectedField}
+                        setSelectedField={setSelectedField}
+                        loggedInPlayer={loggedInPlayer}
+                        handleAddTeammate={handleAddTeammate}
+                    />
+                )
+            )}
+            </div>
+            <div id="pagination">
+                <Pagination 
+                    displayNum={true}
+                    amount={amountOfMeetUps}
+                    next={nextSlide}
+                    prev={previousSlide}
+                    total={individualField.meet_ups.length}
+                    beginning={beginning}
+                    end={end}
+                    currentSlide={currentSlide}
+                />
+            </div>
+            <div className='new-meet-up-container'>
+                <button className='learn-more' onClick={handleFormToggle}>
+                    <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Want To Create Your Own</span>
+                </button>
+                {formToggle ? <Form className='new-mu-form'>
+                    <h3>Create a Meet Up</h3> 
+                    <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
+                    <select onChange={(e) => setSportInput(e.target.value)}>
+                        <option >Pick a Sport</option>
+                        {loggedInPlayer.location.sports.map((sport) => (
+                            <option value={sport.id}>{sport.sport_type}</option>
+                        ))}
+                    </select><br></br>
+                    <button 
+                        className="create"
+                        type="button" 
+                        value="Create Meet Up" 
+                        onClick={() => {
+                            createMeetUp()}}
+                    >Create</button>
+                    <button className="close-form" type='button' onClick={() => setFormToggle(false)}>
+                        <AiOutlineCloseCircle />
+                    </button>
+                </Form> : null}
+            </div>
+        </>
+        }
     </Container>
   )
 }
@@ -222,7 +235,7 @@ const Container = styled.div`
         font-size: 2rem;
     }
     }
-    .pagination {
+    #pagination {
         margin-top: 5rem;
     }
 `;

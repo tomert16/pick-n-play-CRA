@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../assets/pnplogo.png';
-
 import styled from 'styled-components';
 import { logOut } from '../redux/players/playersSlice';
+import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 
 
 function NavBar({ setSportFieldToggle }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [iconToggle, setIconToggle] = useState(false);
+
 
     
     const handleProfileMenuOpen = () => {
@@ -40,17 +41,17 @@ function NavBar({ setSportFieldToggle }) {
                     <img className="header-logo" src={pnplogo} alt='logo' />
                 </div>
                 <ul className="links flex">
-                    {links.map(({name, value}) =>{
+                    {links.map(({name, value, link}) =>{
                         return (
-                            <li key={name}>
-                                <h4 onClick={() => setSportFieldToggle(value)}>{name}</h4>
+                            <li onClick={() => setSportFieldToggle(value)} key={name}>
+                                <h4 to={link} >{name}</h4>
                             </li>
                         )
                     })}
                 </ul>
             </div>
             <div className="right flex a-center">
-                <button className="request">
+                <button className="request" onClick={() => navigate('/requests')}>
                     <span>Request Sport or Field</span>
                 </button>
                 <div className="account-icon">

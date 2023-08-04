@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import Pagination from '../components/Pagination';
+import Loader from '../components/Loader';
 import styled from 'styled-components';
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -24,7 +25,6 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const [date, setDate] = useState("");
     const [location, setLocation] = useState();
     const [formToggle, setFormToggle] = useState(false);
-    const [fieldFilter, setFieldFilter] = useState("all");
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
     const [amountOfMeetUps] = useState(5);
     const [currentSlide, setCurrentSlide] = useState(1);
@@ -95,15 +95,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
           <Container>
             <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
             {loading ? 
-             <div class="loader">
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-                <div class="loader-square"></div>
-            </div>
+             <Loader />
             :
             <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
                 <h1 className="info-title">{individualSport.sport_type}:</h1>
@@ -113,7 +105,6 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     <div className="meet-ups-list">
                     {individualSport.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
                         (
-                            // <div onClick={handleMeetUpClick}>  
                             <MeetUpList 
                                 setSelectedMeetUp={setSelectedMeetUp}
                                 meetUp={meetUp}
@@ -124,7 +115,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                             )
                         )}
                     </div>
-                <div className="pagination">
+                <div id="pagination">
                     <Pagination 
                         isSport={true}
                         displayNum={true}

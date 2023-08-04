@@ -11,6 +11,8 @@ import Account from "./pages/Account";
 import FieldInfo from "./pages/FieldInfo";
 import Landing from "./pages/Landing";
 import { stayLoggedIn } from "./redux/players/playersSlice";
+import Requests from "./pages/Requests";
+import Management from "./pages/Management";
 
 // import Map2 from "./components/map/Map2";
 
@@ -18,12 +20,8 @@ function App() {
   const dispatch = useDispatch();
   // const loggedInPlayer = useSelector(selectLoggedInPlayer);
   const [selectedSport, setSelectedSport] = useState();
-  const [meetUps, setMeetUps] = useState();
   const [selectedMeetUp, setSelectedMeetUp] = useState();
-  const [playerInfo, setPlayerInfo] = useState([]);
-  // const [fields, setFields] = useState();
   const [selectedField, setSelectedField] = useState();
-  const [meetUpTeammates, setMeetUpTeammates] = useState([])
   // const [locations, setLocations] = useState()
   const [individualLocation, setIndividualLocation] = useState();
   
@@ -46,74 +44,6 @@ function App() {
     });
   },[dispatch]);
 
-  // useEffect(() => {
-  //   async function fetchLocations(){
-  //     const req = fetch('/locations');
-  //     const resp = await req;
-  //     const parsed = await resp.json();
-  //     setLocations(parsed)
-  //   }
-  //   fetchLocations();
-  // },[])
-
-  // useEffect(() => {
-  //   async function fetchSports() {
-  //     const req = fetch('/sports');
-  //     const resp = await req;
-  //     const parsed = await resp.json();
-  //     setSports(parsed)
-  //   }
-  //   fetchSports();
-  // },[])
-  
-  // useEffect(() => {
-  //   async function fetchField() {
-  //     const req = fetch('/fields');
-  //     const resp = await req;
-  //     const parsed = await resp.json();
-  //     setFields(parsed);
-  //   }
-  //   fetchField();
-  // },[])
-
-  
-
-  // if (sports === undefined) {
-  //   return null;
-  // }
-
-  // if (fields === undefined) {
-  //   return null;
-  // }
-
-  // if (locations === undefined) {
-  //   return null;
-  // }
-  
-  
-
-
-
-  // const handleAddTeammate = (newTeammate) => {
-  //   const newTeammateArray = [...meetUps, newTeammate]
-  //   setMeetUps(newTeammateArray)
-  // }
-
-  // const handleAddTeammate = (selected, newTeammate) => {
-  //   // debugger
-  //   const newMeetUps = meetUps.map((meetUp) => {
-  //     if (meetUp.id === selected.meet_up_id) {
-  //       return {
-  //         ...meetUp, 
-  //         teammates: [...meetUp.teammates, newTeammate]
-  //       };
-  //     } else {
-  //       return meetUp;
-  //     }
-  //   });
-  //   setMeetUps(newMeetUps)
-  // }
-  //if(!setLoggedInPlayer)  return <Login setLoggedInPlayer={setLoggedInPlayer} />
 
   // All of the web routes
   const router = createBrowserRouter([
@@ -162,8 +92,8 @@ function App() {
         // setSports={setSports}
         selectedSport={selectedSport}
         setSelectedSport={setSelectedSport}
-        meetUps={meetUps}
-        setMeetUps={setMeetUps} 
+        // meetUps={meetUps}
+        // setMeetUps={setMeetUps} 
         selectedMeetUp={selectedMeetUp}
         setSelectedMeetUp={setSelectedMeetUp}
         // fields={fields}
@@ -188,13 +118,21 @@ function App() {
         setSelectedField={setSelectedField}
         // sports={sports}
         // fields={fields}
-        meetUps={meetUps}
-        setMeetUps={setMeetUps}
+        // meetUps={meetUps}
+        // setMeetUps={setMeetUps}
         individualLocation={individualLocation}
         // locations={locations}
         // handleAddTeammate={handleAddTeammate}
       />
     },
+    {
+      path: '/requests',
+      element: <Requests />
+    },
+    {
+      path: '/management',
+      element: <Management />
+    }
     // {
     //   path: '/map',
     //   element: <Map2 

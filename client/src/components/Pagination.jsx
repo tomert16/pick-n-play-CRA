@@ -28,7 +28,7 @@ const Container = styled.div`
     .prev-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 22rem;
+        bottom: 30rem;
         left: 3rem;
         background-color: transparent;
         border-color: transparent;
@@ -40,7 +40,7 @@ const Container = styled.div`
     .field-prev-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 22rem;
+        bottom: 20rem;
         left: 3rem;
         background-color: transparent;
         border-color: transparent;
@@ -52,7 +52,7 @@ const Container = styled.div`
     .next-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 20rem;
+        bottom: 30rem;
         left: 113.1rem;
         background-color: transparent;
         border-color: transparent;

@@ -13,6 +13,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* TailwindCSS Directives*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* Fixed styled options */
 .flex {
   display: flex;

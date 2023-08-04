@@ -48,7 +48,6 @@ function WelcomePage() {
       <div className="locations-list">{locations.map((location) => (
         <LocationCard key={location.id} location={location} />
       ))}</div>
-      
     </Container>
   )
 }
