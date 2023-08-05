@@ -7,20 +7,26 @@ import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import { createNewRequest, fetchRequests, selectRequests } from '../redux/requests/requestsSlice';
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom';
+import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
 
 function Requests() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loggedInPlayer = useSelector(selectLoggedInPlayer) || {};
     const [name, setName] = useState("");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState();
     // fetch request data
     const requests = useSelector(selectRequests);
     useEffect(() => {
         dispatch(fetchRequests())
-            .then(() => {
-                dispatch(fetchRequests());
-            })
+        .then(() => {
+            dispatch(fetchRequests());
+        })
+    },[dispatch])
+    // fetch locations for form dropdown
+    const locations = useSelector(selectAllLocations);
+    useEffect(() => {
+        dispatch(fetchAllLocations());
     },[dispatch])
 
     // create a new request
@@ -35,6 +41,8 @@ function Requests() {
         setName("");
         setLocation("");
     }
+
+    console.log(location)
   return (
     <Container>
         <NavBar />
@@ -59,7 +67,12 @@ function Requests() {
                     </div>
                     <div class="form-group">
                         <label for="location">Location:</label>
-                        <input class="form-control" name="location" id="location" type="text" placeholder="Enter location if requesting a field/park" value={location} onChange={(e) => setLocation(e.target.value)}/>
+                        <select onChange={(e) => setLocation(e.target.value)}>
+                            <option value="null">Select Here</option>
+                            {locations.map((location) => (
+                                <option value={location.state}>{location.state}</option>
+                            ))}
+                        </select>
                     </div>
                     <input type="submit" class="btn" value="submit"/>    
                 </form>
@@ -82,6 +95,7 @@ const Container = styled.div`
             font-size: 4rem;
         }
     }
+    
     .card {
         width: 350px;
         border: 1px solid #ccc;

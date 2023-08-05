@@ -33,7 +33,7 @@ function FieldCard({ field }) {
 }
 
 const Container = styled.div`
-  /* justify-content: center; */
+  justify-content: center;
   border-style: solid;
   border-radius: 3px;
   border-color: transparent;
@@ -41,10 +41,12 @@ const Container = styled.div`
   cursor: pointer;
   h3 {
     position: relative;
-    top: 15rem;
-    font-size: 2rem;
+    top: 13rem;
+    left: 6rem;
+    font-size: 1.5rem;
     font-family:"Ultra", serif;
-    height: 3em;
+    height: 3rem;
+    width: 60%;
     color: rgb(0, 0, 0);
   }
   img {

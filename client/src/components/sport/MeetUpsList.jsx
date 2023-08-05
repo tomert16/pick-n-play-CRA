@@ -26,10 +26,11 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
   } if 
   (meetUp.sport.sport_type === "Football") {
     return (playersTotal + '/10')
+  } if 
+  (meetUp.sport.sport_type === "Volleyball") {
+    return (playersTotal + '/10')
   }
-
   }
-
  
 
 

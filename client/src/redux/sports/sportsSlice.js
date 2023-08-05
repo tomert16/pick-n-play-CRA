@@ -17,6 +17,14 @@ export const fetchSportById = createAsyncThunk(
     }
 )
 
+export const addNewSport = createAsyncThunk(
+    'sports/addNewSport',
+    async({ sport_type, img_url, bg_img, location_id}) => {
+        const reqBody = { sport_type, img_url, bg_img, location_id};
+        const req = await axios.post('/sports', reqBody);
+        return req.data;
+    }
+)
 
 
 export const sportsSlice = createSlice(
@@ -38,6 +46,9 @@ export const sportsSlice = createSlice(
                 .addCase(fetchSportById.fulfilled, (state, action) => {
                     state.isLoading = false;
                     state.byId = action.payload;
+                })
+                .addCase(addNewSport.fulfilled, (state, action) => {
+                    state.list.push(action.payload);
                 })
         }
     }

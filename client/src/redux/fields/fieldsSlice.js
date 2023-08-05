@@ -17,6 +17,15 @@ export const fetchFieldById = createAsyncThunk(
     }
 )
 
+export const addNewField = createAsyncThunk(
+    'fields/addNewField',
+    async({field_name, img_url, location_id}) => {
+        const reqBody = {field_name, img_url, location_id};
+        const req = await axios.post('/fields', reqBody);
+        return req.data;
+    }
+)
+
 const fieldsSlice = createSlice(
     {
         name: 'fields',
@@ -31,6 +40,9 @@ const fieldsSlice = createSlice(
                 })
                 .addCase(fetchFieldById.fulfilled, (state, action) => {
                     state.byId = action.payload;
+                })
+                .addCase(addNewField.fulfilled, (state, action) => {
+                    state.list.push(action.payload);
                 })
         }
     }

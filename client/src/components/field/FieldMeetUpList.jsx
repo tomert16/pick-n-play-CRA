@@ -14,19 +14,21 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
 
     const playersTotal = meetUp?.teammates?.length + 1
     const playersNumber = () => {
-      if (meetUp.sport.type === "Soccer") {
-        return (playersTotal + '/14')
+        if (meetUp.sport.type === "Soccer") {
+          return (playersTotal + '/14')
+        } if 
+          (meetUp.sport.type === "Basketball") {
+            return (playersTotal + '/10')
+        } if 
+        (meetUp.sport.type === "Tennis") {
+          return (playersTotal + '/4')
       } if 
-        (meetUp.sport.type === "Basketball") {
-          return (playersTotal + '/10')
+      (meetUp.sport.type === "Football") {
+        return (playersTotal + '/10')
       } if 
-      (meetUp.sport.type === "Tennis") {
-        return (playersTotal + '/4')
-    } if 
-    (meetUp.sport.type === "Football") {
-      return (playersTotal + '/10')
-    }
-    
+      (meetUp.sport.type === "Volleyball") {
+        return (playersTotal + '/10')
+      }
     }
     return (
       <div className='meet-ups-list'>

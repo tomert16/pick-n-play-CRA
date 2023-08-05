@@ -30,10 +30,8 @@ function FieldList({ individualLocation}) {
 const Container = styled.div`
   .fields-list {
     display: flex;
-    /* grid-template-columns: 15rem 15rem;
-    grid-gap: 14rem;
-    grid-row-gap: 1rem; */
-    margin: -8rem;
+    flex-wrap: wrap; 
+    margin: -6rem;
     justify-content: center;
     gap: 1.5rem;
   }
