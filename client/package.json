@@ -1,0 +1,53 @@
+{
+  "name": "pick-n-play-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3000",
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.14.3",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/react": "^13.4.0",
+    "axios": "^1.4.0",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.3.1",
+    "ol": "^7.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^9.1.3",
+    "semantic-ui-react": "^2.1.4",
+    "styled-components": "^6.0.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "PORT=8080 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
