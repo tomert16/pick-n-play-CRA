@@ -24,6 +24,7 @@ function UserJoinedMeetUps({ loggedInPlayer }) {
                 <h2>{meetUp.sport}</h2>
                 <p>{meetUp.date}</p>
                 <p>{meetUp.field.name}</p>
+                <p>Host: {meetUp.host}</p>
             </div>
         ))}
         </div>

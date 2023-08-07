@@ -14,7 +14,7 @@ export const stayLoggedIn = createAsyncThunk(
     'players/stayLoggedIn',
     async() => {
         const req = await axios.get('/me');
-        return req.data
+        return req.data;
     }
 );
 
@@ -56,11 +56,14 @@ const playersSlice = createSlice(
                 .addCase(logIn.fulfilled, (state, action) => {
                     state.player = action.payload;
                 })
+                .addCase(logIn.rejected, (action) => {
+                    console.log("Unable to login:", action.error.message);
+                })
                 .addCase(stayLoggedIn.fulfilled, (state, action) => {
                     state.player = action.payload;
                 })
                 .addCase(stayLoggedIn.rejected, (state, action) => {
-                    console.log('Error:', action.error.message)
+                    console.log('Error:', action.error.message);
                 })
                 .addCase(logOut.fulfilled, (state, action) => {
                     state.player = null;
@@ -68,6 +71,9 @@ const playersSlice = createSlice(
                 .addCase(createNewPlayer.fulfilled, (state, action) => {
                     state.data.push(action.payload);
                     state.player = action.payload;
+                })
+                .addCase(createNewPlayer.rejected, (action) => {
+                    console.log("Unable to sign up:", action.error.message);
                 })
                 .addCase(updateLocation.fulfilled, (state, action) => {
                     state.player.location = action.payload;

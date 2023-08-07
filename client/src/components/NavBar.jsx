@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../assets/pnplogo.png';
 import styled from 'styled-components';
 import { logOut } from '../redux/players/playersSlice';
-import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 
 
 function NavBar({ setSportFieldToggle }) {

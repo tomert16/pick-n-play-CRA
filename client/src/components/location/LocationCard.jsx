@@ -57,10 +57,10 @@ const Container = styled.div`
     }
     h3 {
       position: absolute;
+      bottom: 36%;
       font-size: 1.7rem;
       text-align: center;
       width: 12rem;
-      margin-top: 3%;
     }
   }
 `;

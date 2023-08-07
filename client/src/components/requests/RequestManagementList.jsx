@@ -21,7 +21,8 @@ function RequestManagementList({ request, handleDeleteRequest }) {
                 {request.id}
               </TableCell>
               <TableCell align="right">{request.name}</TableCell>
-              <TableCell align="right">{request.location}</TableCell>
+              <TableCell align="center">{request.location}</TableCell>
+              <TableCell align="center">{request.player.name}</TableCell>
               <TableCell align="right">{request.likes}</TableCell>
               <TableCell align="center">{request.dislikes}</TableCell>
             </TableRow>

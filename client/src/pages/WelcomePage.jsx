@@ -10,35 +10,26 @@ import { selectLoggedInPlayer, stayLoggedIn } from "../redux/players/playersSlic
 function WelcomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const locations = useSelector(selectAllLocations);
   // get logged in user info
   const loggedInPlayer = useSelector(selectLoggedInPlayer);
 
-  // useEffect(() => {
-  //   const fetchLoggedInCustomer = async () => {
-  //     try {
-  //       await dispatch(stayLoggedIn());
-  //     } catch (error) {
-  //       console.log('Error:', error);
-  //     }
-  //   };
-  //   fetchLoggedInCustomer()
-  // },[dispatch])
+
+
   // fetch all locations
-  const locations = useSelector(selectAllLocations);
   useEffect(() => {
     dispatch(fetchAllLocations());
   }, [dispatch])
   
-  // if (loggedInPlayer.location != null) {
-    //   navigate(`/locations/${loggedInPlayer.location.id}`)
-    // }
+  
   useEffect(() => {
     if (loggedInPlayer?.location?.id) {
       navigate(`/locations/${loggedInPlayer.location.id}`)
     }
   },[loggedInPlayer])
+
   if (loggedInPlayer === undefined) return null;
+  if (locations === undefined) return null;
 
   return (
     <Container>

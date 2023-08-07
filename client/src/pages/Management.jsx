@@ -87,7 +87,8 @@ function Management() {
                     <TableCell align="center"></TableCell>
                     <TableCell align="center">ID</TableCell>
                     <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Location</TableCell>
+                    <TableCell align="center">Location</TableCell>
+                    <TableCell align="center">Requester</TableCell>
                     <TableCell align="right">Likes</TableCell>
                     <TableCell align="center">Dislikes</TableCell>
                 </TableRow>

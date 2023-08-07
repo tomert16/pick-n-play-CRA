@@ -68,10 +68,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
         setFormToggle(false);
     };
     
-    // const sportsDropdownFilter = individualField.meet_ups.filter((field) => {
-    //     if (sportFilter === 'all') return true;
-    //     return field.sport.type.toLowerCase() === sportFilter.toLowerCase();
-    // })
+ 
     const handleFormToggle = () => {
         setFormToggle(true)
     }
@@ -149,7 +146,7 @@ const Container = styled.div`
     .field-info-title {
         color: rgb(12, 12, 12);
         text-align: center;
-        font-size: 5pc;
+        font-size: 5rem;
         font-family: "Ultra", serif;
         position: relative;
         background-color: transparent;
@@ -176,13 +173,8 @@ const Container = styled.div`
     }
     .new-meet-up-container{
         position: absolute;
-        top: 10rem;
-        right: 10%;
-    }
-    .new-meet-up-container{
-        position: absolute;
-        top: 10rem;
-        right: 10%;
+        top: 17rem;
+        left: 97%;
     }
 .new-mu-form{
     display:flex;

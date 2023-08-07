@@ -3,10 +3,10 @@ import axios from "axios";
 
 export const fetchAllLocations = createAsyncThunk(
     'locations/fetchAllLocations',
-async() => {
-        const req = await axios.get('/locations');
-        return req.data;
-    }
+    async() => {
+            const req = await axios.get('/locations');
+            return req.data;
+        }
 );
 
 export const fetchLocationById = createAsyncThunk(

@@ -21,7 +21,7 @@ function SportCard({ sport }) {
           setMouseOverInfo(0)
         )} 
       >
-          <h3 style={{opacity: mouseOverInfo}}>{sport_type}</h3>
+          <p style={{opacity: mouseOverInfo}}>{sport_type}</p>
             <img className="sport-image" 
               src={img_url} 
               alt={sport_type} 
@@ -41,14 +41,15 @@ const Container = styled.div`
   border-color: transparent;
   text-align: center; 
   cursor: pointer;
-  h3 {
+  p {
     position: relative;
     /* left: 4rem; */
     top: 15rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family:"Ultra", serif;
     height: 3em;
     color: rgb(0, 0, 0);
+    font-weight: bolder;
   }
   img {
     height: 18rem;

@@ -20,7 +20,7 @@ function FieldCard({ field }) {
         setMouseOverInfo(0)
       )}
     >
-        <h3 style={{opacity: mouseOverInfo}}>{field_name}</h3>
+        <p style={{opacity: mouseOverInfo}}>{field_name}</p>
         <img 
           className="field-image" 
           src={img_url} alt={field_name} 
@@ -39,14 +39,15 @@ const Container = styled.div`
   border-color: transparent;
   text-align: center;
   cursor: pointer;
-  h3 {
+  p {
     position: relative;
     top: 13rem;
-    left: 6rem;
+    left: 1rem;
     font-size: 1.5rem;
     font-family:"Ultra", serif;
+    font-weight: bolder;
     height: 3rem;
-    width: 60%;
+    width: 15vw;
     color: rgb(0, 0, 0);
   }
   img {

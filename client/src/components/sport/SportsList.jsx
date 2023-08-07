@@ -25,12 +25,11 @@ function SportsList({  handleSelectedSport, individualLocation }) {
 const Container = styled.div`
   .sports-list { 
     display: flex; 
-    /* grid-template-columns: 15rem 15rem;
-    grid-gap: 14rem;
-    grid-row-gap: 1rem; */
-    margin: -8rem;
+    flex-wrap: wrap;
+    margin-top: -8rem;
     justify-content: center;
     gap: 1.5rem;
+    width: 100vw;
  } 
  .home-prompt {
   font-size: 60px;

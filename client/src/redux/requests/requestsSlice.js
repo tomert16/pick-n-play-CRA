@@ -61,7 +61,7 @@ const requestsSlice = createSlice(
                     state.list.push(action.payload);
                 })
                 .addCase(removeRequest.fulfilled, (state, action) => {
-                    state.list.filter((request) => request.id != action.payload)
+                    state.list.filter((request) => request.id !== action.payload)
                 })
                 .addCase(updateRequestLikes.fulfilled, (state, action) => {
                     state.list = state.list.map((request) => {

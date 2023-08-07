@@ -28,6 +28,9 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
       } if 
       (meetUp.sport.type === "Volleyball") {
         return (playersTotal + '/10')
+      } if 
+      (meetUp.sport.type === "Hockey") {
+        return (playersTotal + '/10')
       }
     }
     return (

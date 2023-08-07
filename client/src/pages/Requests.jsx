@@ -42,7 +42,6 @@ function Requests() {
         setLocation("");
     }
 
-    console.log(location)
   return (
     <Container>
         <NavBar />

@@ -12,12 +12,20 @@ function Login() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
     
-    const loggedInPlayer = useSelector(selectLoggedInPlayer)
+    // const loggedInPlayer = useSelector(selectLoggedInPlayer)
 
-    function handleLogin(){
-        const data = { email, password };
-        dispatch(logIn(data))
+   const handleLogin = async(e) => {
+        try {
+            e.preventDefault();
+            const data = { email, password };
+            await dispatch(logIn(data));
+            navigate(`/welcome`);
+        } catch (err) {
+            // console.error("Error during login:", err);
+            setError('Incorrect email or password')
+        }
     }
 
   return (
@@ -27,17 +35,12 @@ function Login() {
                 <Header />
                 <div class="card">
                     <a class="signup">Log in</a>
-                    <form onSubmit={(e) => {
-                        e.preventDefault()
-                        handleLogin()
-                        navigate(`/welcome`)
-                    }}>
+                    <form onSubmit={handleLogin}>
                         <div class="inputBox1">
                             <input type="email" required="required" value={email} 
                             onChange={(e) => setEmail(e.target.value)} />
                             <span class="user">Email</span>
                         </div><br></br><br></br>
-
                         <div class="inputBox">
                             <input type="password" required="required" value={password} 
                             onChange={(e) => setPassword(e.target.value)} />
@@ -45,6 +48,7 @@ function Login() {
                         </div><br></br><br></br>
                         <button class="enter">Enter</button>
                     </form>
+                    {error && <p className="error-message">{error}</p>}
                 </div>
             </div>
         </div>
@@ -100,14 +104,18 @@ const Container = styled.div`
             min-height: 15rem;
         }
     }
-        .signup {
-            color: #000;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block;
-            font-weight: bold;
-            font-size: x-large;
-            margin-top: 1.5em;
-        }
+    .signup {
+        color: #000;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        font-weight: bold;
+        font-size: x-large;
+        margin-top: 1.5em;
+    }
+    .error-message {
+        color: red;
+        font-size: 1.2rem;
+    }
 `;
 export default Login;

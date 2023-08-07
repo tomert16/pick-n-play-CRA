@@ -23,13 +23,16 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
     } if 
     (meetUp.sport.sport_type === "Tennis") {
       return (playersTotal + '/4')
-  } if 
-  (meetUp.sport.sport_type === "Football") {
-    return (playersTotal + '/10')
-  } if 
-  (meetUp.sport.sport_type === "Volleyball") {
-    return (playersTotal + '/10')
-  }
+    } if 
+    (meetUp.sport.sport_type === "Football") {
+      return (playersTotal + '/10')
+    } if 
+    (meetUp.sport.sport_type === "Volleyball") {
+      return (playersTotal + '/10')
+    } if 
+    (meetUp.sport.sport_type === "Hockey") {
+      return (playersTotal + '/10')
+    }
   }
  
 

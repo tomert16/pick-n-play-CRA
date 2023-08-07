@@ -16,8 +16,10 @@ function Signup() {
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const [passwordConfirmationInput, setPasswordConfirmationInput] = useState("");
+    const [errors, setErrors] = useState(null);
 
-    const handleSignup = () => {
+    const handleSignup = async(e) => {
+        e.preventDefault();
         const newPlayer = {
             first_name: firstNameInput,
             last_name: lastNameInput,
@@ -25,9 +27,8 @@ function Signup() {
             password: passwordInput,
             passwordConfirmation: passwordConfirmationInput
         };
-
         dispatch(createNewPlayer(newPlayer));
-        
+        navigate('/welcome')
     }
 
   return (
@@ -37,11 +38,7 @@ function Signup() {
                 <Header login/>
                 <div class="card">
                     <a class="signup">Sign Up</a>
-                    <form onSubmit={(e) => {   
-                            e.preventDefault();
-                             handleSignup()
-                             navigate('/welcome')
-                        }}>
+                    <form onSubmit={handleSignup}>
                         <div class="inputBox1">
                             <input type="text" required="required" alue={firstNameInput} 
                             onChange={(e) => setFirstNameInput(e.target.value)} />

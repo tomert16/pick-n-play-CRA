@@ -31,9 +31,10 @@ const Container = styled.div`
   .fields-list {
     display: flex;
     flex-wrap: wrap; 
-    margin: -6rem;
+    margin-top: -6rem;
     justify-content: center;
     gap: 1.5rem;
+    width: 100vw
   }
   .home-prompt {
   font-size: 60px;

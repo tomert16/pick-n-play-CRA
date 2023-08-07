@@ -19,7 +19,7 @@ import { fetchSportById } from '../../redux/sports/sportsSlice';
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
     const {id} = useParams();
     const dispatch = useDispatch();
-    const [joinToggle, setJoinToggle] = useState(true);
+    // const [joinToggle, setJoinToggle] = useState(true);
     // toastify animation
 
    
@@ -28,7 +28,9 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
         (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14) ||
         (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10) ||
         (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4) ||
-        (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) 
+        (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) ||
+        (meetUp.sport.sport_type === 'Volleyball' && totalPlayers >= 10) ||
+        (meetUp.sport.sport_type === 'Hockey' && totalPlayers >= 10)
 
 
 
