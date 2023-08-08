@@ -33,4 +33,4 @@ yarn-error.log*
 *.code-workspace
 
 # env variables
-/.env
+.env
