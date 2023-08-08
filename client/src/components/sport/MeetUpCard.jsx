@@ -116,11 +116,11 @@ const Container = styled.div`
     cursor: pointer;
     position: relative;
     background: rgba(0,0,0,.5);
-    height: 100%;
+    height: 100vh;
     left: 0;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 100vw;
     z-index: 1000;
     overflow-x: scroll;
     text-align: center;
@@ -129,9 +129,9 @@ const Container = styled.div`
     border-style: solid;
     border-radius: 10px;
     justify-content: center;
-    position: relative;
+    position: absolute;
     left: 35%;
-    top: 15rem;
+    top: 15%;
     height: max-content;
     width: 30%;
   }

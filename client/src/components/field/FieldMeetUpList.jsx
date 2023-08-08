@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import FieldMeetUpCard from './FieldMeetUpCard'
 
 function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUps, setFieldMeetUps}) {
@@ -34,8 +35,8 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
       }
     }
     return (
-      <div className='meet-ups-list'>
-        <div className="meet-ups" onClick={() => goToMeetUp(meetUp)}>
+      <Container className='meet-ups-list'>
+        <div className="field-meet-ups" onClick={() => goToMeetUp(meetUp)}>
           <div>
           <img className='mu-field-img' src={meetUp.sport.image} />
             <div className="mu-info">
@@ -54,11 +55,42 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
           setShowMeetUp={setShowMeetUp}
           handleAddTeammate={handleAddTeammate}
           fieldMeetUps={fieldMeetUps}
-          setFieldMeetUps={setFieldMeetUps}
+        setFieldMeetUps={setFieldMeetUps}
           /> : null
       }
-      </div>
+      </Container>
     )
-  }
+  };
+
+  const Container = styled.div`
+    margin-bottom: 2rem;
+    .field-meet-ups{
+      border-style: solid;
+      border-radius: 2pc;
+      width: 16vw;
+      height: 90%;
+      position: relative;
+      /* top: 3rem; */
+      left: 35%;
+      top: 2rem;
+      margin-bottom: 4rem;
+      cursor: pointer;
+      background-color: white;
+    }
+    .mu-field-img{
+      width: 100%;
+      height: 13pc;
+      position: relative;
+      border-top-left-radius: 2pc;
+      border-top-right-radius: 2pc;
+
+    }
+    .mu-info{
+      /* position: relative; */
+      margin-top: 3rem;
+      text-align: center;
+    }
+  `;
+
   
   export default FieldMeetUpList;

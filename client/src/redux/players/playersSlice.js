@@ -72,9 +72,6 @@ const playersSlice = createSlice(
                     state.data.push(action.payload);
                     state.player = action.payload;
                 })
-                .addCase(createNewPlayer.rejected, (action) => {
-                    console.log("Unable to sign up:", action.error.message);
-                })
                 .addCase(updateLocation.fulfilled, (state, action) => {
                     state.player.location = action.payload;
                 })

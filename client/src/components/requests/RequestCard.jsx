@@ -42,7 +42,7 @@ const Container = styled.div`
         border-style: solid;
         border-radius: 10px;
         width: 13rem;
-        height: 20vh;
+        height: 100%;
         text-align: center;
     }
     .icon-group{

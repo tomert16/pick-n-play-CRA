@@ -119,9 +119,9 @@ const Container = styled.div`
       border-style: solid;
       border-radius: 10px;
       justify-content: center;
-      position: relative;
+      position: absolute;
       left: 35%;
-      top: 15rem;
+      top: 15%;
       height: max-content;
       width: 30%;
     }

@@ -85,12 +85,14 @@ const Container = styled.div`
         bottom: 0;
         height: 100vh;
         width: 100vw;
-        background-color: #0000007f
+        background-color: #0000007f;
     }
     .card {
-        position: relative;
-        bottom: -2rem;
-        left: 30rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -102,29 +104,7 @@ const Container = styled.div`
         box-shadow: 16px 16px 32px #c8c8c8,
                 -16px -16px 32px #fefefe;
         border-radius: 8px; 
-        @media (max-width: 1024px) {
-            /* Adjust the left position for medium-sized screens */
-            left: 40rem;
-        }
-
-        @media (min-width: 1200px) {
-            /* Adjust the left position for larger screens */
-            left: 45rem;
-            top: 5rem;
-        }   
-        @media (max-width: 768px) {
-            /* Adjust the left position for smaller screens */
-            left: 2rem;
-            /* Adjust the width for smaller screens */
-            width: calc(100% - 4rem);
-        }
-
-        @media (max-width: 480px) {
-            /* Adjust the bottom position for even smaller screens */
-            bottom: -1rem;
-            /* Adjust the min-height for even smaller screens */
-            min-height: 15rem;
-        }
+       
     }
     .signup {
         color: #000;

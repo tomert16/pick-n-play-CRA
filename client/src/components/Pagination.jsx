@@ -28,8 +28,8 @@ const Container = styled.div`
     .prev-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 30rem;
-        left: 3rem;
+        bottom: 50%;
+        left: 1%;
         background-color: transparent;
         border-color: transparent;
         svg {
@@ -40,8 +40,8 @@ const Container = styled.div`
     .field-prev-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 20rem;
-        left: 3rem;
+        bottom: 30%;
+        left: 1%;
         background-color: transparent;
         border-color: transparent;
         svg {
@@ -52,8 +52,8 @@ const Container = styled.div`
     .next-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 30rem;
-        left: 113.1rem;
+        bottom: 50%;
+        left: 92%;
         background-color: transparent;
         border-color: transparent;
         svg {
@@ -64,8 +64,8 @@ const Container = styled.div`
     .field-next-btn {
         cursor: pointer;
         position: absolute;
-        bottom: 20rem;
-        left: 113.1rem;
+        bottom: 30%;
+        left: 92%;
         background-color: transparent;
         border-color: transparent;
         svg {

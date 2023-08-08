@@ -235,7 +235,7 @@ const Container = styled.div`
     color: white;
     position: relative;
     top: -14rem;
-    left: 8rem;
+    left: 50%;
     cursor: pointer;
     svg {
         font-size: 2rem;

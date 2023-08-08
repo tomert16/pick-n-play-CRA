@@ -369,31 +369,7 @@ code {
   bottom: 10%;
   gap: 1rem;
 } */
-.meet-ups{
-  border-style: solid;
-  border-radius: 2pc;
-  width: 20rem;
-  height: 30rem;
-  position: relative;
-  /* top: 3rem; */
-  left: 35%;
-  margin-bottom: 5pc;
-  cursor: pointer;
-  background-color: white;
-}
-.mu-field-img{
-  width: 16.7vw;
-  height: 13pc;
-  position: relative;
-  border-top-left-radius: 2pc;
-  border-top-right-radius: 2pc;
 
-}
-.mu-info{
-  /* position: relative; */
-  margin-top: 3rem;
-  text-align: center;
-}
 .meet-filter{
   position: relative;
   top:30pc;

@@ -42,7 +42,7 @@ const Container = styled.div`
   p {
     position: relative;
     top: 13rem;
-    left: 1rem;
+    left: 3rem;
     font-size: 1.5rem;
     font-family:"Ultra", serif;
     font-weight: bolder;

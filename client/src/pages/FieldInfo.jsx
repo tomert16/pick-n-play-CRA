@@ -146,16 +146,17 @@ const Container = styled.div`
     .field-info-title {
         color: rgb(12, 12, 12);
         text-align: center;
-        font-size: 5rem;
+        font-size: 4.5rem;
         font-family: "Ultra", serif;
         position: relative;
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
+        
     }
     .back-btn {
-        position: relative;
+        position: absolute;
         left: 1rem;
-        top: -12rem;
+        top: 14%;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -173,22 +174,22 @@ const Container = styled.div`
     }
     .new-meet-up-container{
         position: absolute;
-        top: 17rem;
-        left: 97%;
+        top: 14%;
+        left: 99%;
     }
-.new-mu-form{
-    display:flex;
-    flex-direction: column;
-    position: absolute;
-    /* top: 10rem; */
-    right: 1rem;
-    width: 15vw;
-    border-style: solid;
-    border-width: 20px;
-    border-radius: 10px;
-    border-color: rgb(8, 7, 7);
-    background-color: black;
-}
+    .new-mu-form{
+        display:flex;
+        flex-direction: column;
+        position: absolute;
+        /* top: 10rem; */
+        right: 1rem;
+        width: 15vw;
+        border-style: solid;
+        border-width: 20px;
+        border-radius: 10px;
+        border-color: rgb(8, 7, 7);
+        background-color: black;
+    }
     .create {
         margin-bottom: 15px;
         height: 35px;
@@ -221,14 +222,14 @@ const Container = styled.div`
     color: white;
     position: relative;
     top: -14rem;
-    left: 8rem;
+    left: 50%;
     cursor: pointer;
     svg {
         font-size: 2rem;
     }
     }
     #pagination {
-        margin-top: 5rem;
+        margin-top: 7rem;
     }
 `;
 

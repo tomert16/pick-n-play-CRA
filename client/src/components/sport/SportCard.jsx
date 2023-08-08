@@ -36,6 +36,7 @@ function SportCard({ sport }) {
 
 const Container = styled.div`
   /* justify-content: center; */
+  height: 90%;
   border-style: solid;
   border-radius: 3px;
   border-color: transparent;

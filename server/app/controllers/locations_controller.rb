@@ -1,8 +1,9 @@
 class LocationsController < ApplicationController
-    # skip_before_action :authorized, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show]
     # GET /locations
     def index
-        render json: Location.all, status: :ok
+        location = Location.all
+        render json: location, status: :ok
     end
     # GET /locations/:id
     def show 

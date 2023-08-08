@@ -24,6 +24,8 @@ function App() {
   const [selectedField, setSelectedField] = useState();
   // const [locations, setLocations] = useState()
   const [individualLocation, setIndividualLocation] = useState();
+  // management page link
+  const ADMIN_LINK = process.env.REACT_APP_ADMIN_LINK
   
   /// OL map api 
   // const [center, setCenter] = useState([-73.97, 40.72]);
@@ -130,7 +132,7 @@ function App() {
       element: <Requests />
     },
     {
-      path: '/management',
+      path: ADMIN_LINK,
       element: <Management />
     }
     // {

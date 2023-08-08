@@ -39,7 +39,7 @@ function Requests() {
         };
         dispatch(createNewRequest(newRequest));
         setName("");
-        setLocation("");
+        setLocation("null");
     }
 
   return (
@@ -103,7 +103,7 @@ const Container = styled.div`
         overflow: hidden;
         margin: 10px;
         position: relative;
-        left: 41%;
+        left: 40%;
         bottom: 2rem;
     }
     .card-header {

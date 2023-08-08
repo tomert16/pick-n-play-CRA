@@ -194,7 +194,7 @@ const Container = styled.div`
     border-radius: 10px;
     width: 20%;
     left: 37%;
-    height: 21vh;
+    height: 100%;
     /* gap: 0.5rem; */
     text-align: center;
   }
@@ -204,7 +204,7 @@ const Container = styled.div`
     border-radius: 10px;
     width: 20%;
     left: 37%;
-    height: 20vh;
+    height: 100%;
     /* gap: 0.5rem; */
     text-align: center;
   }
@@ -226,7 +226,7 @@ const Container = styled.div`
 
   .Btn {
     position: relative;
-    left: 40%;
+    left: 36%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -274,8 +274,8 @@ const Container = styled.div`
     width: 30%;
     justify-content: center;
     position: relative;
-    left: 38%;
-    top: 1rem;
+    left: 39%;
+    top: 0.3rem;
     
   }
 `;
