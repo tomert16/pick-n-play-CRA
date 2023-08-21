@@ -9,14 +9,12 @@ import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import styled from 'styled-components';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import Pagination from '../components/Pagination';
-import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Loader from '../components/Loader';
 
 
 
 function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const loggedInPlayer = useSelector(selectLoggedInPlayer)
@@ -54,7 +52,6 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const beginning = currentSlide === 1;
     
     const createMeetUp = () => {
-        //e.preventDefault()
         const newMeetUp = {
             "date": date,
             "field_id": individualField.id,
@@ -66,6 +63,8 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
                 dispatch(fetchFieldById(id));
             })
         setFormToggle(false);
+        setDate("");
+
     };
     
  
@@ -80,21 +79,19 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
         :
         <>
             <h1 className="field-info-title">{individualField.field_name}:</h1>
-            <button className="back-btn" onClick={() => navigate(-1)}>
-                <IoArrowBackCircleOutline />
-            </button>
-            <div className="meet-ups-list">{individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
-                (
-                    <FieldMeetUpList 
-                        meetUp={meetUp}
-                        key={meetUp.id}
-                        selectedField={selectedField}
-                        setSelectedField={setSelectedField}
-                        loggedInPlayer={loggedInPlayer}
-                        handleAddTeammate={handleAddTeammate}
-                    />
-                )
-            )}
+            <div className="meet-ups-list">
+                {individualField.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
+                    (
+                        <FieldMeetUpList 
+                            meetUp={meetUp}
+                            key={meetUp.id}
+                            selectedField={selectedField}
+                            setSelectedField={setSelectedField}
+                            loggedInPlayer={loggedInPlayer}
+                            handleAddTeammate={handleAddTeammate}
+                        />
+                    )
+                )}
             </div>
             <div id="pagination">
                 <Pagination 
@@ -119,7 +116,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
                     <h3>Create a Meet Up</h3> 
                     <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
                     <select onChange={(e) => setSportInput(e.target.value)}>
-                        <option >Pick a Sport</option>
+                        <option>Pick a Sport</option>
                         {loggedInPlayer.location.sports.map((sport) => (
                             <option value={sport.id}>{sport.sport_type}</option>
                         ))}
@@ -153,21 +150,8 @@ const Container = styled.div`
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
         
     }
-    .back-btn {
-        position: absolute;
-        left: 1rem;
-        top: 14%;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        svg {
-            color: black;
-            font-size: 4rem;
-        }
-    }
     .meet-ups-list{
         display: flex;
-        /* flex-wrap: nowrap; */
         position: relative;
         bottom: 10%;
         gap: 1rem;
@@ -181,7 +165,6 @@ const Container = styled.div`
         display:flex;
         flex-direction: column;
         position: absolute;
-        /* top: 10rem; */
         right: 1rem;
         width: 15vw;
         border-style: solid;

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-//import SportInfo from './SportInfo';
 
 function SportCard({ sport }) {
     const {sport_type, img_url} = sport
@@ -35,7 +34,6 @@ function SportCard({ sport }) {
 }
 
 const Container = styled.div`
-  /* justify-content: center; */
   height: 90%;
   border-style: solid;
   border-radius: 3px;
@@ -44,7 +42,6 @@ const Container = styled.div`
   cursor: pointer;
   p {
     position: relative;
-    /* left: 4rem; */
     top: 15rem;
     font-size: 1.5rem;
     font-family:"Ultra", serif;

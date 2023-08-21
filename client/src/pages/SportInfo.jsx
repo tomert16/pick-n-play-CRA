@@ -1,17 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Form } from "semantic-ui-react";
-import { useNavigate, useParams } from 'react-router-dom';
-import ClipLoader from "react-spinners/ClipLoader";
 import MeetUpList from '../components/sport/MeetUpsList';
 import NavBar from '../components/NavBar';
 import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 import styled from 'styled-components';
-import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,7 +17,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
     const [date, setDate] = useState("");
@@ -29,6 +26,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const [amountOfMeetUps] = useState(5);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [loading, setLoading] = useState(false);
+
 
     // loading function
     useEffect(() => {
@@ -58,19 +56,8 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
         dispatch(fetchSportById(id));
     },[dispatch]);
 
-    if (individualSport === undefined){
-        return null;
-    }
-
-    // Pagination variables and values 
-    const indexOfLastCard = currentSlide * amountOfMeetUps;
-    const indexOfFirstCard = indexOfLastCard - amountOfMeetUps;
-    // Change slides functionalities
-    const nextSlide = () => setCurrentSlide(currentSlide + 1);
-    const previousSlide = () => setCurrentSlide(currentSlide - 1);
-    const end = indexOfLastCard >= individualSport.meet_ups.length;
-    const beginning = currentSlide === 1;
-            
+    
+    
     const handleFormToggle = () => {
         setFormToggle(true)
     }
@@ -83,15 +70,30 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
             "player_id": parseInt(loggedInPlayer.id)  
         };
         dispatch(addNewMeetUp(newMeetUp))
-            .then(() => {
-                dispatch(fetchSportById(id));
-            })
+        .then(() => {
+            dispatch(fetchSportById(id));
+        })
         notify();
         setFormToggle(false);
         setDate("")
     };  
- 
-      return (
+    
+    
+    
+    if (individualSport === undefined){
+        return null;
+    }
+    // Pagination variables and values 
+    const indexOfLastCard = currentSlide * amountOfMeetUps;
+    const indexOfFirstCard = indexOfLastCard - amountOfMeetUps;
+    // Change slides functionalities
+    const nextSlide = () => setCurrentSlide(currentSlide + 1);
+    const previousSlide = () => setCurrentSlide(currentSlide - 1);
+    const end = indexOfLastCard >= individualSport.meet_ups.length;
+    const beginning = currentSlide === 1;
+    
+    
+    return (
           <Container>
             <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
             {loading ? 
@@ -99,19 +101,16 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
             :
             <div className="bg-image" style={{backgroundImage: `url(${individualSport.bg_img})`, backgroundRepeat: 'no-repeat', backgroundSize: "cover"}}>
                 <h1 className="info-title">{individualSport.sport_type}:</h1>
-                <button className="back-btn" onClick={() => navigate(-1)}>
-                    <IoArrowBackCircleOutline />
-                </button>
                     <div className="meet-ups-list">
-                    {individualSport.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
-                        (
-                            <MeetUpList 
-                                setSelectedMeetUp={setSelectedMeetUp}
-                                meetUp={meetUp}
-                                key={meetUp.id}
-                                loggedInPlayer={loggedInPlayer}
-                                handleAddTeammate={handleAddTeammate}
-                            />
+                        {individualSport.meet_ups.slice(indexOfFirstCard, indexOfLastCard).map((meetUp) => 
+                            (
+                                <MeetUpList 
+                                    setSelectedMeetUp={setSelectedMeetUp}
+                                    meetUp={meetUp}
+                                    key={meetUp.id}
+                                    loggedInPlayer={loggedInPlayer}
+                                    handleAddTeammate={handleAddTeammate}
+                                />
                             )
                         )}
                     </div>
@@ -179,21 +178,8 @@ const Container = styled.div`
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
     }
-    .back-btn {
-        position: relative;
-        left: 1rem;
-        top: -12rem;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        svg {
-            color: white;
-            font-size: 4rem;
-        }
-    }
     .meet-ups-list{
         display: flex;
-        /* flex-wrap: nowrap; */
         position: relative;
         bottom: 10%;
         gap: 1rem;
@@ -207,7 +193,6 @@ const Container = styled.div`
     display:flex;
     flex-direction: column;
     position: absolute;
-    /* top: 10rem; */
     right: 1rem;
     width: 15vw;
     border-style: solid;

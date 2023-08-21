@@ -14,7 +14,6 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     
-    // const loggedInPlayer = useSelector(selectLoggedInPlayer)
 
    const handleLogin = async(e) => {
         try {
@@ -23,7 +22,6 @@ function Login() {
             await dispatch(logIn(data));
             navigate(`/welcome`);
         } catch (err) {
-            // console.error("Error during login:", err);
             setError('Incorrect email or password')
         }
     }

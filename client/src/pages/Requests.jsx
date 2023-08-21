@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import NavBar from '../components/NavBar';
 import RequestCard from '../components/requests/RequestCard';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import { createNewRequest, fetchRequests, selectRequests } from '../redux/requests/requestsSlice';
-import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom';
 import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
 
@@ -45,9 +44,6 @@ function Requests() {
   return (
     <Container>
         <NavBar />
-        <button className="back-btn" onClick={() => navigate(-1)}>
-                <IoArrowBackCircleOutline />
-         </button>
         <h1 className="request-title">Sport or Field Requests:</h1>
         <div className="request-container flex">
             {requests.map((request) => (
@@ -82,19 +78,6 @@ function Requests() {
 }
 
 const Container = styled.div`
-    margin-bottom: 5%;
-    .back-btn {
-        position: relative;
-        left: 1rem;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        svg {
-            color: black;
-            font-size: 4rem;
-        }
-    }
-    
     .card {
         width: 350px;
         border: 1px solid #ccc;
@@ -103,8 +86,8 @@ const Container = styled.div`
         overflow: hidden;
         margin: 10px;
         position: relative;
-        left: 40%;
-        bottom: 2rem;
+        left: 37.5%;
+        top: 3rem;
     }
     .card-header {
         background-color: #333;
@@ -166,8 +149,8 @@ const Container = styled.div`
         text-align: center;
         font-size: 5pc;
         font-family: "Ultra", serif;
-        position: relative;
-        bottom: 5rem;
+        /* position: relative;
+        bottom: 3rem; */
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
     }
@@ -175,9 +158,6 @@ const Container = styled.div`
        justify-content: center;
        gap: 1rem;
        flex-wrap: wrap;
-       position: relative;
-       bottom: 5rem;
-      
     }
 `;
 

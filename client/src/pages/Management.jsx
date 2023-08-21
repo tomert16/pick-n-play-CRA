@@ -110,8 +110,6 @@ const Container = styled.div`
         text-align: center;
         font-size: 5pc;
         font-family: "Ultra", serif;
-        /* position: relative; */
-        /* bottom: 5rem; */
         background-color: transparent;
         text-shadow: 2px 2px 3px rgb(255, 205, 98);
     }
@@ -119,7 +117,7 @@ const Container = styled.div`
         font-size: 16px;
         position: relative;
         bottom: 8rem;
-        left: 75%;
+        left: 79%;
         margin: auto;
         padding: 1em 2.5em 1em 2.5em;
         border: none;

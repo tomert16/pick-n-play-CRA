@@ -1,7 +1,7 @@
 class PlayerMeetUpSerializer < ActiveModel::Serializer
   attributes :id, :player, :field, :date, :sport, :host
   belongs_to :player
-  belongs_to :meet_up
+  belongs_to :meet_up, serializer: MeetUpSerializer
 
   def player
     {
@@ -11,7 +11,7 @@ class PlayerMeetUpSerializer < ActiveModel::Serializer
   end
   def field
   {"name": object.meet_up.field.field_name}
-  end
+  end 
   
   def date
     object.meet_up.date.to_fs(:long)
@@ -24,4 +24,5 @@ class PlayerMeetUpSerializer < ActiveModel::Serializer
   def host
    "#{object.meet_up.player.first_name} #{object.meet_up.player.last_name}"
   end
+
 end

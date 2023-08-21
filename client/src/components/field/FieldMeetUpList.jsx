@@ -1,53 +1,62 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FieldMeetUpCard from './FieldMeetUpCard'
 
 function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUps, setFieldMeetUps}) {
-    const navigate = useNavigate();
     const [selectedFieldMeetUp, setSelectedFieldMeetUp] = useState();
     const [showMeetUp, setShowMeetUp] = useState(false);
+    const [isFull, setIsFull] = useState(false);
 
     const goToMeetUp = (fMeetUp) => {
         setSelectedFieldMeetUp(fMeetUp)
         setShowMeetUp(true);
     }
 
-    const playersTotal = meetUp?.teammates?.length + 1
+    const totalPlayers = meetUp?.teammates?.length + 1
     const playersNumber = () => {
         if (meetUp.sport.type === "Soccer") {
-          return (playersTotal + '/14')
+          return (totalPlayers + '/14')
         } if 
           (meetUp.sport.type === "Basketball") {
-            return (playersTotal + '/10')
+            return (totalPlayers + '/10')
         } if 
         (meetUp.sport.type === "Tennis") {
-          return (playersTotal + '/4')
+          return (totalPlayers + '/4')
       } if 
       (meetUp.sport.type === "Football") {
-        return (playersTotal + '/10')
+        return (totalPlayers + '/10')
       } if 
       (meetUp.sport.type === "Volleyball") {
-        return (playersTotal + '/10')
-      } if 
-      (meetUp.sport.type === "Hockey") {
-        return (playersTotal + '/10')
+        return (totalPlayers + '/10')
       }
     }
+    // determine if a meetUp is full
+    const isMeetUpFull = 
+      (meetUp?.sport.type === 'Soccer' && totalPlayers >= 14) ||
+      (meetUp?.sport.type === 'Basketball' && totalPlayers >= 10) ||
+      (meetUp?.sport.type === 'Tennis' && totalPlayers >= 4) ||
+      (meetUp?.sport.type === 'Football' && totalPlayers >= 10) ||
+      (meetUp?.sport.type === 'Volleyball' && totalPlayers >= 10);
+
+      useEffect(() => {
+        if (isMeetUpFull) {
+          setIsFull(true);
+        }
+      }, [isMeetUpFull])
+      
+
     return (
       <Container className='meet-ups-list'>
-        <div className="field-meet-ups" onClick={() => goToMeetUp(meetUp)}>
+        <div className={isFull ? 'full' : 'open'} onClick={() => goToMeetUp(meetUp)}>
           <div>
           <img className='mu-field-img' src={meetUp.sport.image} />
             <div className="mu-info">
-              <h3>{meetUp.sport.type}</h3>
+              <h4>{meetUp.sport.type}</h4>
               <p> {meetUp.date}</p>
               <p>Host: {meetUp.player.name}</p>
               <p>{playersNumber()}</p>
             </div>
           </div>
-          {/* <p>{meetUp.player.name}</p>
-          <div>{meetUp.player_meet_ups.map((teammate) => (<div>{teammate}</div>))}</div> */}
         </div>
         {showMeetUp ? <FieldMeetUpCard 
           meetUp={meetUp} 
@@ -55,7 +64,9 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
           setShowMeetUp={setShowMeetUp}
           handleAddTeammate={handleAddTeammate}
           fieldMeetUps={fieldMeetUps}
-        setFieldMeetUps={setFieldMeetUps}
+          setFieldMeetUps={setFieldMeetUps}
+          isMeetUpFull={isMeetUpFull}
+          totalPlayers={totalPlayers}
           /> : null
       }
       </Container>
@@ -64,18 +75,27 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
 
   const Container = styled.div`
     margin-bottom: 2rem;
-    .field-meet-ups{
+    .open{
       border-style: solid;
       border-radius: 2pc;
       width: 16vw;
       height: 90%;
       position: relative;
-      /* top: 3rem; */
       left: 35%;
-      top: 2rem;
       margin-bottom: 4rem;
       cursor: pointer;
       background-color: white;
+    }
+    .full {
+      border-style: solid;
+      border-radius: 2pc;
+      width: 16vw;
+      height: 90%;
+      position: relative;
+      left: 35%;
+      margin-bottom: 4rem;
+      background-color: white;
+      filter: brightness(45%)
     }
     .mu-field-img{
       width: 100%;
@@ -86,7 +106,6 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
 
     }
     .mu-info{
-      /* position: relative; */
       margin-top: 3rem;
       text-align: center;
     }

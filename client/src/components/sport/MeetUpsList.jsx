@@ -1,49 +1,59 @@
 import MeetUpCard from "./MeetUpCard";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams  } from 'react-router-dom';
 import styled from "styled-components";
 
 
-function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUps, handleAddTeammate }) {
-  const navigate = useNavigate();
+
+function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUps, handleAddTeammate }) {
   const [showMeetUp, setShowMeetUp] = useState(false);
-  const [teammates, setTeammates] = useState();
-  const {id} = useParams();
+  const [isFull, setIsFull] = useState(false);
+
+
   const handleMeetUpClick = (meetUp) => {
     setSelectedMeetUp(meetUp)
     setShowMeetUp(true)
 }
 
-  const playersTotal = meetUp?.teammates?.length + 1
+  // determine the total number of players
+  const totalPlayers = meetUp.teammates.length + 1;
   const playersNumber = () => {
     if (meetUp.sport.sport_type === "Soccer") {
-      return (playersTotal + '/14')
+      return (totalPlayers + '/14')
     } if 
       (meetUp.sport.sport_type === "Basketball") {
-        return (playersTotal + '/10')
+        return (totalPlayers + '/10')
     } if 
     (meetUp.sport.sport_type === "Tennis") {
-      return (playersTotal + '/4')
+      return (totalPlayers + '/4')
     } if 
     (meetUp.sport.sport_type === "Football") {
-      return (playersTotal + '/10')
+      return (totalPlayers + '/10')
     } if 
     (meetUp.sport.sport_type === "Volleyball") {
-      return (playersTotal + '/10')
-    } if 
-    (meetUp.sport.sport_type === "Hockey") {
-      return (playersTotal + '/10')
+      return (totalPlayers + '/10')
     }
   }
- 
+// determine if a meetUp is full
+  const isMeetUpFull = 
+      (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14) ||
+      (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10) ||
+      (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4) ||
+      (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) ||
+      (meetUp.sport.sport_type === 'Volleyball' && totalPlayers >= 10);
+      
+  useEffect(() => {
+    if (isMeetUpFull) {
+      setIsFull(true);
+    }
+  }, [isMeetUpFull])
 
 
   return (
     <Container className="meet-ups-list">
-        <div className="meet-ups" onClick={() => handleMeetUpClick(meetUp)}>
+        <div className={isFull ? `full` : `open`} onClick={() => handleMeetUpClick(meetUp)}>
           <img className="mu-field-img" src={meetUp?.field.img_url} />
           <div className="mu-info">
-            <h3>{meetUp.field.name}</h3>
+            <h4>{meetUp.field.name}</h4>
             <p>{meetUp.date}</p>
             <p>Host: {meetUp.player.name}</p>
             <p>{playersNumber()}</p>
@@ -56,8 +66,8 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
         loggedInPlayer={loggedInPlayer}
         showMeetUp={showMeetUp}
         setShowMeetUp={setShowMeetUp}
-        teammates={teammates}
-        setTeammates={setTeammates}
+        isMeetUpFull={isMeetUpFull}
+        totalPlayers={totalPlayers}
         /> : null}
         
     </Container>
@@ -66,18 +76,29 @@ function MeetUpsList({ meetUp, setMeetUps, selectedMeetUp, setSelectedMeetUp, lo
 
 const Container = styled.div`
   margin-bottom: 5rem;
-  .meet-ups{
+  .open{
     border-style: solid;
     border-radius: 2pc;
     width: 16vw;
     height: 90%;
     position: relative;
-    /* top: 3rem; */
     left: 36%;
     top: 2rem;
     margin-bottom: 4rem;
     cursor: pointer;
     background-color: white;
+  }
+  .full {
+    border-style: solid;
+    border-radius: 2pc;
+    width: 16vw;
+    height: 90%;
+    position: relative;
+    left: 36%;
+    top: 2rem;
+    margin-bottom: 4rem;
+    background-color: white;
+    filter: brightness(45%)
   }
   .mu-field-img{
     width: 100%;
@@ -88,7 +109,6 @@ const Container = styled.div`
 
   }
   .mu-info{
-    /* position: relative; */
     margin-top: 3rem;
     text-align: center;
   }

@@ -46,7 +46,6 @@ const Container = styled.div`
         text-align: center;
     }
     .icon-group{
-        /* position: relative; */
         .request-like {
             font-size: 1.2rem;
             svg{

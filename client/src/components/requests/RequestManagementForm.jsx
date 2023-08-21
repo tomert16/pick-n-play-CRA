@@ -52,7 +52,7 @@ function RequestManagementForm({ locations, formType }) {
                     <p>Add Sport</p>
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input required="" class="form-control" name="name" id="name" type="text" placeholder="Enter name of sport or field/park" value={name} onChange={(e) => setName(e.target.value)}/>
+                        <input required="" class="form-control" name="name" id="name" type="text" placeholder="Enter name of sport" value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
                     <div class="form-group">
                         <label for="image">Image URL:</label>
@@ -76,7 +76,7 @@ function RequestManagementForm({ locations, formType }) {
                     <p>Add Field</p>
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input required="" class="form-control" name="name" id="name" type="text" placeholder="Enter name of sport or field/park" value={name} onChange={(e) => setName(e.target.value)}/>
+                        <input required="" class="form-control" name="name" id="name" type="text" placeholder="Enter name of field/park" value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
                     <div class="form-group">
                         <label for="name">Image URL:</label>

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import pnplogo from '../assets/pnplogo.png';
 import styled from 'styled-components';
-import { logOut } from '../redux/players/playersSlice';
+import { logOut, selectLoggedInPlayer } from '../redux/players/playersSlice';
 
 
-function NavBar({ setSportFieldToggle }) {
+function NavBar({ setSportFieldToggle, isHome }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [iconToggle, setIconToggle] = useState(false);
+    const loggedInPlayer = useSelector(selectLoggedInPlayer);
 
 
     
@@ -21,8 +22,8 @@ function NavBar({ setSportFieldToggle }) {
       };
 
      // Logout function 
-     function handleLogout(){
-        dispatch(logOut());
+     async function handleLogout(){
+        await dispatch(logOut());
         navigate('/');
     }
 
@@ -40,13 +41,13 @@ function NavBar({ setSportFieldToggle }) {
                     <img className="header-logo" src={pnplogo} alt='logo' />
                 </div>
                 <ul className="links flex">
-                    {links.map(({name, value, link}) =>{
+                    {isHome ? links.map(({name, value, link}) =>{
                         return (
                             <li onClick={() => setSportFieldToggle(value)} key={name}>
                                 <h4 to={link} >{name}</h4>
                             </li>
                         )
-                    })}
+                    }): <h4 onClick={() => navigate(`/locations/${loggedInPlayer?.location.id}`)}>Home</h4>}
                 </ul>
             </div>
             <div className="right flex a-center">
@@ -87,8 +88,6 @@ const Container = styled.div`
         position: sticky;
         height: 6.5rem;
         width: 100%;
-        /* justify-content: space-between; */
-        /* position: fixed; */
         top: 0;
         z-index: 2;
         padding: 0 -6rem;

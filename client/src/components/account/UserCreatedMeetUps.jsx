@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs"
+import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 
 function UserCreatedMeetUps({ loggedInPlayer }) {
   const [amountOfMeetUps] = useState(5);
@@ -22,7 +22,7 @@ function UserCreatedMeetUps({ loggedInPlayer }) {
             <h2>{meetUp.sport.sport_type}</h2>
             <p className='mu-date'>{meetUp.date}</p>
             <p>{meetUp.field.name}</p>
-            <p>Total Player: {meetUp.teammates.length + 1}</p>
+            <p>Total Players: {meetUp.teammates.length + 1}</p>
       </div>
     ))}
     </div>

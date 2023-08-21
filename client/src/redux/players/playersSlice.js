@@ -80,6 +80,4 @@ const playersSlice = createSlice(
 );
 
 export const selectLoggedInPlayer = (state) => state.players.player;
-// export const selectCreateNewPlayer = (state) => state.players.data;
-
 export default playersSlice.reducer;

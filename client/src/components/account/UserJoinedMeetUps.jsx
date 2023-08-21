@@ -15,6 +15,7 @@ function UserJoinedMeetUps({ loggedInPlayer }) {
     const end = indexOfLastCard >= loggedInPlayer?.player_meet_ups?.length;
     const beginning = currentSlide === 1;
 
+    console.log(loggedInPlayer.player_meet_ups)
 
   return (
     <Container className='user-joined-container'>

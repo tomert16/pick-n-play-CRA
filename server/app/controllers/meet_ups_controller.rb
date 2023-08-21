@@ -14,6 +14,10 @@ class MeetUpsController < ApplicationController
         render json: new_meet_up, status: :created
     end
 
+    def destroy
+       render json: MeetUp.destroy_by(meet_up_params)
+    end
+
     def join_meet_up
         join = PlayerMeetUp.create!(player_meet_up_params)
         join = PlayerMeetUp.includes(:player).find(join.id)

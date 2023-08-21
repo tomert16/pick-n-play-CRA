@@ -1,7 +1,5 @@
-import { format, set } from 'date-fns'
-import { useState, useEffect } from 'react'
-import { useNavigate, useParams} from 'react-router-dom'
-import ClipLoader from "react-spinners/ClipLoader";
+import { useState } from 'react';
+import {useParams} from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,37 +10,29 @@ import styled from 'styled-components';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
-import { toast } from 'react-toastify';
 import { fetchSportById } from '../../redux/sports/sportsSlice';
 
 
-function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
+function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, totalPlayers}) {
     const {id} = useParams();
     const dispatch = useDispatch();
-    // const [joinToggle, setJoinToggle] = useState(true);
-    // toastify animation
+    const [error, setError] = useState();
+
 
    
-    const totalPlayers = meetUp.teammates.length + 1;
-    const isMeetUpFull = 
-        (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14) ||
-        (meetUp.sport.sport_type === 'Basketball' && totalPlayers >= 10) ||
-        (meetUp.sport.sport_type === 'Tennis' && totalPlayers >= 4) ||
-        (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) ||
-        (meetUp.sport.sport_type === 'Volleyball' && totalPlayers >= 10) ||
-        (meetUp.sport.sport_type === 'Hockey' && totalPlayers >= 10)
-
-
-
     const handleJoinTeam = () => {
         const join = {
           "meet_up_id": meetUp.id,
           "player_id": loggedInPlayer.id
         };
-        dispatch(joinMeetUp(join))
-          .then(() => {
-            dispatch(fetchSportById(id))
-          })
+        if (loggedInPlayer.id !== meetUp.player.id){
+          dispatch(joinMeetUp(join))
+            .then(() => {
+              dispatch(fetchSportById(id));
+            });
+        } else {
+          setError('You are already in this meet up.');
+        }
       };
 
     const handleDropMeetUp = (id) => {
@@ -63,7 +53,6 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
             alert("Drop request cancelled");
           }
       }
-
   
 
     const handleBackClick = () => {
@@ -95,8 +84,11 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp}) {
               <li>{meetUp.player.name}</li>
             </Typography>
             <Typography variant="body2" color="text.secondary">
-            {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
+            {meetUp.teammates.map((player) => (<li className="teammates">{player.name}</li>))}
             </Typography>
+            {error && <Typography variant="body2" color="text.secondary" className='error-message'>
+              {error}
+            </Typography>}
           </CardContent>
           <CardActions>
             {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam()}>Join</Button>
@@ -113,7 +105,6 @@ const Container = styled.div`
     border-style: solid;
     border-radius: 3px;
     border-color: black;
-    cursor: pointer;
     position: relative;
     background: rgba(0,0,0,.5);
     height: 100vh;
@@ -142,10 +133,14 @@ const Container = styled.div`
     top: -1rem;
     left: 48%;
     z-index: 1;
+    cursor: pointer;
     svg {
       font-size: 2rem;
       color: #000000;
     }
+  }
+  .error-message {
+    color: red
   }
 `;
 

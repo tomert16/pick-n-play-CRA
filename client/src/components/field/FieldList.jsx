@@ -4,14 +4,7 @@ import FieldCard from './FieldCard';
 
 
 function FieldList({ individualLocation}) {
-    const navigate = useNavigate();
-   
-
-    // const handleSelectedField = (fields) => {
-        
-    //     navigate('/fieldinfo')
-    // }
-
+  
   return (
       <Container>
         <h1 className='home-prompt'>Pick A Field</h1>

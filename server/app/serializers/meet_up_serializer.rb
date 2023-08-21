@@ -23,6 +23,9 @@ class MeetUpSerializer < ActiveModel::Serializer
     object.date.to_fs(:long)
   end
   def teammates 
-    object.player_meet_ups.map {|player| "#{player.player.first_name} #{player.player.last_name}"}
+      object.player_meet_ups.map {|player| {
+        "id": player.player.id,
+        "name": "#{player.player.first_name} #{player.player.last_name}"
+        }}
   end
 end

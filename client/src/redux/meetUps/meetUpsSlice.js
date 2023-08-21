@@ -19,7 +19,13 @@ export const joinMeetUp = createAsyncThunk(
     }
 )
 
-
+export const removeMeetUp = createAsyncThunk(
+    'meetUps/removeMeetUp',
+    async(id) => {
+        const req = await axios.delete(`/meet_ups/${id}`);
+        return req.data;
+    }
+)
 
 const meetUpsSlice = createSlice(
     {
@@ -35,6 +41,9 @@ const meetUpsSlice = createSlice(
                 })
                 .addCase(joinMeetUp.fulfilled, (state, action) => {
                     state.teammates.push(action.payload)
+                })
+                .addCase(removeMeetUp.fulfilled, (state, action) => {
+                    state.list = state.list.filter((meetUp) => meetUp.id !== action.payload.id)
                 })
         }
     }

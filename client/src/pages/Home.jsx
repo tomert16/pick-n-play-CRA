@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux' 
+import { useDispatch, useSelector } from 'react-redux'; 
 import  styled  from 'styled-components';
 import SportsList from '../components/sport/SportsList';
 import FieldList from '../components/field/FieldList';
@@ -10,7 +10,6 @@ import { selectLocationById, fetchLocationById } from '../redux/locations/locati
 function Home({ loggedInPlayer }) {
   const [sportFieldToggle, setSportFieldToggle] = useState(true);
   
-  // const [individualLocation, setIndividualLocation] = useState();
   const {id} = useParams(); 
   const dispatch = useDispatch();
   //fetch individual state
@@ -19,14 +18,14 @@ function Home({ loggedInPlayer }) {
     dispatch(fetchLocationById(id));
   },[dispatch])
 
-   if (individualLocation == undefined){
+   if (individualLocation === undefined){
      return null;
    }
   
   return (
     
     <Container>
-      <NavBar loggedInPlayer={loggedInPlayer} individualLocation={individualLocation} setSportFieldToggle={setSportFieldToggle}/>
+      <NavBar loggedInPlayer={loggedInPlayer}  setSportFieldToggle={setSportFieldToggle} isHome={true}/>
       {sportFieldToggle ? <SportsList 
         individualLocation={individualLocation}  
       />

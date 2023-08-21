@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import NavBar from '../components/NavBar'
-import UserCreatedMeetUps from '../components/account/UserCreatedMeetUps'
-import UserJoinedMeetUps from '../components/account/UserJoinedMeetUps'
-import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice'
-import { selectLoggedInPlayer, updateLocation } from '../redux/players/playersSlice'
-import { IoArrowBackCircleOutline } from 'react-icons/io5'
-import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs"
-import styled from 'styled-components'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import UserCreatedMeetUps from '../components/account/UserCreatedMeetUps';
+import UserJoinedMeetUps from '../components/account/UserJoinedMeetUps';
+import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
+import { selectLoggedInPlayer, updateLocation } from '../redux/players/playersSlice';
+import styled from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -60,9 +58,6 @@ function Account() {
         <NavBar locations={locations}/>
       </div>
       <ToastContainer />
-      <button className="return" onClick={() => navigate(`/locations/${loggedInPlayer?.location.id}`)}>
-        <IoArrowBackCircleOutline />
-      </button>
        <div className="user-info-container">
           <h1 className="user-info-name">Profile Info</h1>
           <div className="details-container">
@@ -102,17 +97,6 @@ function Account() {
 
 const Container = styled.div`
   height: 100vh;
-  .return {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    svg {
-      font-size: 3rem;
-    }
-
-  }
   .user-info-details {
     display: flex;
     flex-direction: column;
@@ -139,8 +123,8 @@ const Container = styled.div`
     background-color: black;
     width: 80vw;
     margin-left: 10%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    margin-top: 1.5%;
+    border-radius: 8px;
   }
   .user-info-name{
     display:flex;
@@ -163,7 +147,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
     width: 60%;
     border-left: solid #ff51001c;
     text-align: right;
@@ -175,7 +158,6 @@ const Container = styled.div`
     font-family: "Ultra", serif;
     color: rgb(255, 190, 130);
     font-size: 30px;
-    /* padding-right: 35%; */
     text-align: center
   }
   .scroll-created {
@@ -195,7 +177,6 @@ const Container = styled.div`
     width: 20%;
     left: 37%;
     height: 100%;
-    /* gap: 0.5rem; */
     text-align: center;
   }
   .your-joined-meet-ups{
@@ -212,8 +193,6 @@ const Container = styled.div`
     font-family: "Ultra", serif;
     color: rgb(255, 190, 130);
     font-size: 30px;  
-    /* padding-right: 14%; */
-    /* margin-left: 10rem; */
     text-align: center;
   }
   .scroll-joined{

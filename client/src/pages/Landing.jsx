@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import sportsbg from '../assets/sportsbg.jpeg';
 import Header from '../components/Header';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 
-function Landing({ loggedInPlayer }) {
+function Landing() {
     const navigate = useNavigate();
+    const loggedInPlayer = useSelector(selectLoggedInPlayer);
 
-    // useEffect(() => {
-    //     if (loggedInPlayer) {
-    //         navigate('/welcome');
-    //     } else {
-    //         navigate('/');
-    //     }
-    // },[])
+    useEffect(() => {
+        if (loggedInPlayer) {
+            navigate('/welcome');
+        }
+    },[loggedInPlayer, navigate])
 
   return (
     <Container>
@@ -23,7 +24,7 @@ function Landing({ loggedInPlayer }) {
                 <div className="landing-text">
                     <div className="motto">
                         <h1>Play Whenever, Wherever</h1>
-                        <h3>Find a Game. Meet People</h3>
+                        <h3>Find a Game. Meet People.</h3>
                         <h5>Ready to Play? Click below and Get Started!</h5>
                     </div>
                     <button class="cssbuttons-io-button" onClick={() => navigate('/signup')}> Get started

@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import FieldMeetUpList from './FieldMeetUpList';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -14,9 +13,10 @@ import { joinMeetUp} from '../../redux/meetUps/meetUpsSlice';
 import { fetchFieldById } from '../../redux/fields/fieldsSlice';
 
 
-function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, setFieldMeetUps}) {
+function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, totalPlayers}) {
   const dispatch = useDispatch();
   const {id} = useParams();
+  const [error, setError] = useState();
   
   const handleBackClick = () => {
     setShowMeetUp(false)
@@ -26,10 +26,14 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
       "meet_up_id": meetUp.id,
       "player_id": loggedInPlayer.id
     }
-    dispatch(joinMeetUp(join))
-      .then(() => {
-        dispatch(fetchFieldById(id));
-      })
+    if (loggedInPlayer.id !== meetUp.player.id) {
+      dispatch(joinMeetUp(join))
+        .then(() => {
+          dispatch(fetchFieldById(id));
+        })
+    } else {
+      setError('You are already in this meet up.');
+    }
   }
 
   const handleDropMeetUp = (id) => {
@@ -51,13 +55,6 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
     }
   };
 
-  
-  const totalPlayers = meetUp?.teammates.length + 1;
-  const isMeetUpFull = 
-      (meetUp?.sport.type === 'Soccer' && totalPlayers >= 14) ||
-      (meetUp?.sport.type === 'Basketball' && totalPlayers >= 10) ||
-      (meetUp?.sport.type === 'Tennis' && totalPlayers >= 4) ||
-      (meetUp?.sport.type === 'Football' && totalPlayers >= 10)
       
 
   return (
@@ -87,9 +84,12 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, fieldMeetUps, s
         <Typography variant="body2" color="text.secondary">
         {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
         </Typography>
+        {error && <Typography variant="body2" color="text.secondary" className='error-message'>
+              {error}
+            </Typography>}
       </CardContent>
       <CardActions>
-        {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam(loggedInPlayer)}>Join</Button>
+        {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam()}>Join</Button>
           :
           <p>Full</p>}
         <Button size="small" onClick={() => handleDropMeetUp()}>Leave</Button>
@@ -136,6 +136,9 @@ const Container = styled.div`
         font-size: 2rem;
         color: #000000;
       }
+  }
+  .error-message {
+    color: red;
   }
 `;
 
