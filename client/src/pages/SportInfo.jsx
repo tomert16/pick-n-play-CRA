@@ -139,9 +139,9 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     <Form className='new-mu-form'>
                         <h3>Create a Meet Up</h3> 
                         <input fluid type="datetime-local" name="date" value={date}  onChange={(e) => setDate(e.target.value)}/>
-                        <select onChange={(e) => setLocation(e.target.value)} >
+                        <select key={loggedInPlayer.location.fields.length} onChange={(e) => setLocation(e.target.value)} >
                             <option >Pick your field/court</option>
-                            {loggedInPlayer.location.fields.map((field) => (
+                            {loggedInPlayer?.location?.fields.map((field) => (
                                 <option key={field.id }value={field.id}>{field.field_name}</option>
                             ))}
                         </select>

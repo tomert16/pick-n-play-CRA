@@ -72,6 +72,9 @@ const playersSlice = createSlice(
                     state.data.push(action.payload);
                     state.player = action.payload;
                 })
+                .addCase(createNewPlayer.rejected, (action) => {
+                    console.log('Error:', action.error.message)
+                })
                 .addCase(updateLocation.fulfilled, (state, action) => {
                     state.player.location = action.payload;
                 })

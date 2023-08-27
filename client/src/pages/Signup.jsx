@@ -19,7 +19,6 @@ function Signup() {
     const [errors, setErrors] = useState(null);
 
     const handleSignup = async(e) => {
-        e.preventDefault();
         const newPlayer = {
             first_name: firstNameInput,
             last_name: lastNameInput,
@@ -27,8 +26,13 @@ function Signup() {
             password: passwordInput,
             passwordConfirmation: passwordConfirmationInput
         };
-        dispatch(createNewPlayer(newPlayer));
-        navigate('/welcome')
+        try {
+            e.preventDefault();
+            await dispatch(createNewPlayer(newPlayer));
+            navigate('/welcome')
+        } catch (err) {
+            setErrors("Invalid information")
+        }
     }
 
   return (
@@ -71,6 +75,7 @@ function Signup() {
 
                         <button class="enter">Enter</button>
                     </form>
+                    {errors && <p className="error-message">{errors}</p>}
                 </div>
             </div>
         </div>
@@ -114,6 +119,10 @@ const Container = styled.div`
         font-weight: bold;
         font-size: x-large;
         margin-top: 1.5em;
+    }
+    .error-message {
+        color: red;
+        font-size: 1.2rem;
     }
 `;
 

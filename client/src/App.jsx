@@ -2,7 +2,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import './App.css';
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 import SportInfo from "./pages/SportInfo";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";

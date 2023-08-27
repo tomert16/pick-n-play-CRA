@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addNewField } from '../../redux/fields/fieldsSlice';
+import { updateLocation } from '../../redux/players/playersSlice';
 import { addNewSport } from '../../redux/sports/sportsSlice';
 
 function RequestManagementForm({ locations, formType }) {
@@ -12,19 +13,23 @@ function RequestManagementForm({ locations, formType }) {
     const [bgImage, setBgImage] = useState("");
 
     
-    const handleSubmitField = (e) => {
+    const handleSubmitField = async(e) => {
         e.preventDefault();
         const newField = {
             "field_name": name,
             "img_url": image,
             "location_id": parseInt(location)
         };
-        let text = "Ready to add?"
-        if (window.confirm(text) === true) {
-            text = "Successfully added ✅"
-            dispatch(addNewField(newField));
+        try {
+            let text = "Ready to add?"
+            if (window.confirm(text) === true) {
+                text = "Successfully added ✅"
+                await dispatch(addNewField(newField))
+            }
+            alert(text);
+        } catch {
+            alert("An error has occured ❌")
         }
-        alert(text);
     };
 
     // form handler to submit new sport 
