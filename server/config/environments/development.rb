@@ -45,6 +45,19 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # Tell the Rails that requests from localhosts are allowed.
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"),
+    IPAddr.new("::/0"),
+    "localhost",
+    ENV["SERVER_HOST_NAME"],
+    "server"
+  ]
+
+#   config.action_dispatch.default_headers = {
+#   "Access-Control-Allow-Origin" => "*",
+#   "Access-Control-Request-Method" => %w{GET POST PUT DELETE OPTIONS}.join(",")
+# }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

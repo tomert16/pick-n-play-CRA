@@ -21,7 +21,7 @@ export const createNewRequest = createAsyncThunk(
 export const removeRequest = createAsyncThunk(
     'request/removeRequest',
     async(id) => {
-        const req = await axios.delete(`requests/${id}`);
+        const req = await axios.delete(`/requests/${id}`);
         return req.data;
     }
 )
