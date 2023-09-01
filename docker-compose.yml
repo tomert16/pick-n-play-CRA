@@ -4,13 +4,9 @@ services:
     container_name: db
     volumes: 
       - ./tmp/db:/var/lib/postgresql/data
-    environment:
-       POSTGRES_USERNAME: "${DB_USERNAME}"
-       POSTGRES_PASSWORD: "${DB_PASSWORD}"
     working_dir: /server
-    env_file: sample.env
   server:
-    build: server
+    # build: server
     image: pnp_server
     container_name: pnp_server
     depends_on: 
@@ -19,6 +15,9 @@ services:
      - ./server:/server
     environment:
        SERVER_HOST_NAME: pnp_server
+       DB_HOST_NAME: db
+       POSTGRES_USERNAME: postgres
+       POSTGRES_PASSWORD: password
     command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true
     tty: true
@@ -26,7 +25,7 @@ services:
      - 3000:3000
     working_dir: /server
   client: 
-    build: client
+    # build: client
     image: pnp_client
     container_name: pnp_client
     volumes: 
@@ -34,10 +33,9 @@ services:
     depends_on:
       - server
     environment:
-      BACKEND_URL: "${BACKEND_URL}"
+      REACT_APP_BACKEND_URL: http://pnp_server:3000
       # - DEBUG=TRUE
     command: sh -c "npm install && npm start"
     ports:
       - 8080:8080
     working_dir: /client
-    env_file: sample.env

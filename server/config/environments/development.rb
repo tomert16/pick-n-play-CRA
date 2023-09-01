@@ -51,7 +51,6 @@ Rails.application.configure do
     IPAddr.new("::/0"),
     "localhost",
     ENV["SERVER_HOST_NAME"],
-    "server"
   ]
 
 #   config.action_dispatch.default_headers = {

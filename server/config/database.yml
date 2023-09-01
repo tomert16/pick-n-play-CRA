@@ -17,9 +17,13 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  username: postgres
-  password: password
+  host: <%= ENV['DB_HOST_NAME'] %>
+  <% if ENV['DB_HOST_NAME'] == 'localhost' %>
+  # Local development does not require username and password
+  <% else %>
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  <% end %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:

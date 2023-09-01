@@ -36,3 +36,5 @@ gem "active_model_serializers", "~> 0.10.12"
 gem "byebug", "~> 11.1"
 
 gem 'whenever', require: false
+
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
