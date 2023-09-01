@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 import sportsbg from '../assets/sportsbg.jpeg';
 import Header from "../components/Header";
-import { useDispatch, useSelector } from "react-redux";
-import { logIn, selectLoggedInPlayer, stayLoggedIn } from '../redux/players/playersSlice';
+import { useDispatch } from "react-redux";
+import { logIn } from '../redux/players/playersSlice';
 
 function Login() {
     const navigate = useNavigate();
@@ -32,7 +31,7 @@ function Login() {
             <div className="content">
                 <Header />
                 <div class="card">
-                    <a>Log in</a>
+                    <a className="login-header">Log in</a>
                     <form onSubmit={handleLogin}>
                         <div class="inputBox1">
                             <input type="email" required="required" value={email} 
@@ -81,7 +80,7 @@ const Container = styled.div`
                 -16px -16px 32px #fefefe;
         border-radius: 8px; 
     }
-    a {
+    .login-header {
         color: #000;
         text-transform: uppercase;
         letter-spacing: 2px;
