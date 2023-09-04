@@ -11,7 +11,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
 import { fetchSportById } from '../../redux/sports/sportsSlice';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, totalPlayers}) {
