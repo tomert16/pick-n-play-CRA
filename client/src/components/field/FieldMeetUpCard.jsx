@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { joinMeetUp} from '../../redux/meetUps/meetUpsSlice';
 import { fetchFieldById } from '../../redux/fields/fieldsSlice';
+import PropTypes from 'prop-types';
 
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, totalPlayers}) {
@@ -55,7 +56,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
     }
   };
 
-      
+      console.log(typeof setShowMeetUp)
 
   return (
     <Container>
@@ -97,6 +98,14 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
     </Card>
     </Container>
   )
+}
+
+FieldMeetUpCard.propTypes = {
+  meetUp: PropTypes.object.isRequired,
+  loggedInPlayer: PropTypes.object.isRequired,
+  setShowMeetUp: PropTypes.func.isRequired,
+  isMeetUpFull: PropTypes.bool.isRequired,
+  totalPlayers: PropTypes.number.isRequired
 }
 
 const Container = styled.div`
@@ -142,4 +151,4 @@ const Container = styled.div`
   }
 `;
 
-export default FieldMeetUpCard;
+export default React.memo(FieldMeetUpCard);

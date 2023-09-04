@@ -52,19 +52,23 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const beginning = currentSlide === 1;
     
     const createMeetUp = () => {
-        const newMeetUp = {
-            "date": date,
-            "field_id": individualField.id,
-            "sport_id": sportInput,
-            "player_id": loggedInPlayer.id
-        }
-        dispatch(addNewMeetUp(newMeetUp))
-            .then(() => {
-                dispatch(fetchFieldById(id));
-            })
-        setFormToggle(false);
-        setDate("");
+        try{
 
+            const newMeetUp = {
+                "date": date,
+                "field_id": individualField.id,
+                "sport_id": sportInput,
+                "player_id": loggedInPlayer.id
+            }
+            dispatch(addNewMeetUp(newMeetUp))
+                .then(() => {
+                    dispatch(fetchFieldById(id));
+                })
+            setFormToggle(false);
+            setDate("");
+        } catch(err) {
+            console.error("Failed to add meet up", err);
+        }
     };
     
  
@@ -107,10 +111,10 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
             </div>
             <div className='new-meet-up-container'>
                 <button className='learn-more' onClick={handleFormToggle}>
-                    <span class="circle" aria-hidden="true">
-                    <span class="icon arrow"></span>
+                    <span className="circle" aria-hidden="true">
+                    <span className="icon arrow"></span>
                     </span>
-                    <span class="button-text">Want To Create Your Own</span>
+                    <span className="button-text">Want To Create Your Own</span>
                 </button>
                 {formToggle ? <Form className='new-mu-form'>
                     <h3>Create a Meet Up</h3> 

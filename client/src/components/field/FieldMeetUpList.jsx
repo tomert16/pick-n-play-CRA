@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FieldMeetUpCard from './FieldMeetUpCard'
 
@@ -112,4 +112,4 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
   `;
 
   
-  export default FieldMeetUpList;
+  export default React.memo(FieldMeetUpList);

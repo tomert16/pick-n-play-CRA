@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {useParams} from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,12 +11,13 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
 import { fetchSportById } from '../../redux/sports/sportsSlice';
+import PropTypes from 'prop-types'
 
 
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, totalPlayers}) {
     const {id} = useParams();
     const dispatch = useDispatch();
-    const [error, setError] = useState();
+    const [error, setError] = useState(null);
 
 
    
@@ -99,7 +100,15 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, total
         </Card>
     </Container>
   )
-}
+};
+
+MeetUpCard.propTypes = {
+  loggedInPlayer: PropTypes.object.isRequired,
+  meetUp: PropTypes.object.isRequired,
+  totalPlayers: PropTypes.number.isRequired,
+  isMeetUpFull: PropTypes.bool.isRequired,
+  setShowMeetUp: PropTypes.func.isRequired
+};
 
 const Container = styled.div`
     border-style: solid;
@@ -144,4 +153,4 @@ const Container = styled.div`
   }
 `;
 
-export default MeetUpCard;
+export default React.memo(MeetUpCard);

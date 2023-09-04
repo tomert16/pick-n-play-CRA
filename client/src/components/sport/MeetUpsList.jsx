@@ -1,17 +1,19 @@
 import MeetUpCard from "./MeetUpCard";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 
 
-function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer, meetUps, handleAddTeammate }) {
+
+function MeetUpsList({ meetUp, setSelectedMeetUp, loggedInPlayer }) {
   const [showMeetUp, setShowMeetUp] = useState(false);
   const [isFull, setIsFull] = useState(false);
 
 
   const handleMeetUpClick = (meetUp) => {
     setSelectedMeetUp(meetUp)
-    setShowMeetUp(true)
+  setShowMeetUp(true)
 }
 
   // determine the total number of players
@@ -33,6 +35,8 @@ function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer
       return (totalPlayers + '/10')
     }
   }
+
+  
 // determine if a meetUp is full
   const isMeetUpFull = 
       (meetUp.sport.sport_type === 'Soccer' && totalPlayers >= 14) ||
@@ -41,12 +45,12 @@ function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer
       (meetUp.sport.sport_type === 'Football' && totalPlayers >= 10) ||
       (meetUp.sport.sport_type === 'Volleyball' && totalPlayers >= 10);
       
+
   useEffect(() => {
     if (isMeetUpFull) {
       setIsFull(true);
     }
   }, [isMeetUpFull])
-
 
   return (
     <Container className="meet-ups-list">
@@ -61,10 +65,7 @@ function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer
         </div>
         {showMeetUp ? <MeetUpCard 
         meetUp={meetUp} 
-        selectedMeetUp={selectedMeetUp}
-        setSelectedMeetUp={setSelectedMeetUp}
         loggedInPlayer={loggedInPlayer}
-        showMeetUp={showMeetUp}
         setShowMeetUp={setShowMeetUp}
         isMeetUpFull={isMeetUpFull}
         totalPlayers={totalPlayers}
@@ -72,6 +73,10 @@ function MeetUpsList({ meetUp, selectedMeetUp, setSelectedMeetUp, loggedInPlayer
         
     </Container>
   )
+}
+
+MeetUpsList.propTypes = {
+  meetUp: PropTypes.object.isRequired,
 }
 
 const Container = styled.div`
@@ -115,4 +120,4 @@ const Container = styled.div`
 `;
 
 
-export default MeetUpsList;
+export default React.memo(MeetUpsList);
