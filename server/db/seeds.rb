@@ -2,6 +2,7 @@ Sport.destroy_all
 Field.destroy_all
 Player.destroy_all
 Location.destroy_all
+MeetUp.destroy_all
 # LocationSport.destroy_all
 
 
