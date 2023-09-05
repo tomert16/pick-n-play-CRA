@@ -6,7 +6,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
     working_dir: /server
   server:
-    # build: server
+    build: server
     image: pnp_server
     container_name: pnp_server
     depends_on: 
@@ -25,7 +25,7 @@ services:
      - 3000:3000
     working_dir: /server
   client: 
-    # build: client
+    build: client
     image: pnp_client
     container_name: pnp_client
     volumes: 
