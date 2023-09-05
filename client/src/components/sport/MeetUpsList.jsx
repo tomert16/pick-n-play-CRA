@@ -49,8 +49,11 @@ function MeetUpsList({ meetUp, setSelectedMeetUp, loggedInPlayer }) {
   useEffect(() => {
     if (isMeetUpFull) {
       setIsFull(true);
+    } else {
+      setIsFull(false);
     }
   }, [isMeetUpFull])
+
 
   return (
     <Container className="meet-ups-list">

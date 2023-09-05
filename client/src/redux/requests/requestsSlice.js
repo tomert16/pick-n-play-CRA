@@ -50,7 +50,8 @@ const requestsSlice = createSlice(
     {
         name: 'requests',
         initialState: {
-            list: []
+            list: [],
+            cannotCreate: false
         },
         extraReducers: (builder) => {
             builder

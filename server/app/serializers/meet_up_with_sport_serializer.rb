@@ -1,8 +1,5 @@
 class MeetUpWithSportSerializer < ActiveModel::Serializer
   attributes :id, :date, :longitude, :latitude, :field, :player, :sport, :teammates
-  # has_one :sport
-  # belongs_to :field
-  # belongs_to :player
   has_many :player_meet_ups
 
   def player
@@ -27,7 +24,11 @@ class MeetUpWithSportSerializer < ActiveModel::Serializer
   end
 
   def teammates 
-      object.player_meet_ups.map {|player| player.player.first_name + " " + player.player.last_name}
+      object.player_meet_ups.map {|player| {
+        "id": player.player.id,
+        "name": player.player.first_name + " " + player.player.last_name
+      }
+    }
   end
   def date 
     object.date.to_fs(:long)

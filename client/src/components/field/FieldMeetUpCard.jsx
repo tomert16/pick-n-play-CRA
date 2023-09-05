@@ -12,36 +12,39 @@ import { useParams } from 'react-router-dom';
 import { joinMeetUp} from '../../redux/meetUps/meetUpsSlice';
 import { fetchFieldById } from '../../redux/fields/fieldsSlice';
 import PropTypes from 'prop-types';
+import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessfullyJoined } from '../Toastify';
 
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, totalPlayers}) {
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const [error, setError] = useState();
+  const {id: fieldId} = useParams();
+  const [error, setError] = useState(null);
   
   const handleBackClick = () => {
     setShowMeetUp(false)
   }
-  const handleJoinTeam = () => {
+
+  // checks if the user has already joined the meet up
+  const isJoined = meetUp.teammates.some((teammate) => teammate.id === loggedInPlayer.id);
+
+  const handleJoinTeam = async() => {
     const join = {
       "meet_up_id": meetUp.id,
       "player_id": loggedInPlayer.id
     }
-    if (loggedInPlayer.id !== meetUp.player.id) {
-      dispatch(joinMeetUp(join))
-        .then(() => {
-          dispatch(fetchFieldById(id));
-        })
+    if (loggedInPlayer.id !== meetUp.player.id && !isJoined) {
+      await dispatch(joinMeetUp(join));
+      await dispatch(fetchFieldById(fieldId));
+      successfullyJoined();
     } else {
-      setError('You are already in this meet up.');
+      unsuccessfullyJoined();
     }
   }
 
-  const handleDropMeetUp = (id) => {
-    let text = "Are you sure you want to leave this meet up?"
-    if (window.confirm(text) === true) {
-      text = "Drop successfull";
-      fetch(`/player_meet_ups/${id}`, {
+  const handleDropMeetUp = async(id) => {
+    let confirmation = window.confirm("Are you sure you want to leave this meet up?");
+    if (confirmation === true) {
+      await fetch(`/player_meet_ups/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,14 +52,14 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
           "player_id": loggedInPlayer.id
         })
       })
-      alert(text);
-      window.location.reload();
+      await dispatch(fetchFieldById(fieldId));
+      successfullyDropped();
     } else {
-      alert("Drop request cancelled");
+      meetUpDropCanceled();
     }
   };
 
-      console.log(typeof setShowMeetUp)
+      console.log(isJoined)
 
   return (
     <Container>
@@ -83,7 +86,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
           <li>{meetUp.player.name}</li>
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {meetUp.teammates.map((player) => (<li className="teammates">{player}</li>))}
+        {meetUp.teammates.map((player) => (<li className="teammates" key={player.id}>{player.name}</li>))}
         </Typography>
         {error && <Typography variant="body2" color="text.secondary" className='error-message'>
               {error}

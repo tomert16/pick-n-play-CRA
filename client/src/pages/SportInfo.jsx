@@ -11,9 +11,8 @@ import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 import styled from 'styled-components';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer } from 'react-toastify';
+import { successfullyCreated, unsuccessfullyCreated } from '../components/Toastify';
 
 
 function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
@@ -22,11 +21,10 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const [date, setDate] = useState("");
     const [location, setLocation] = useState();
     const [formToggle, setFormToggle] = useState(false);
-    const loggedInPlayer = useSelector(selectLoggedInPlayer)
+    const loggedInPlayer = useSelector(selectLoggedInPlayer);
     const [amountOfMeetUps] = useState(5);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [loading, setLoading] = useState(false);
-
 
     // loading function
     useEffect(() => {
@@ -36,46 +34,32 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
         }, 2000)
     },[])
     
-
-    const notify = () => {
-        toast.success('Meet Up created ✅', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          });
-      }
-    
     // fetch individual sport
     const individualSport = useSelector(selectSportById);
     useEffect(() => {
         dispatch(fetchSportById(id));
     },[dispatch]);
 
-    
-    
     const handleFormToggle = () => {
         setFormToggle(true)
     }
-    const createMeetUps = () => {
-        
+
+    const createMeetUps = async() => {
         const newMeetUp = {
             "date": date,
             "field_id": parseInt(location),
             "sport_id": parseInt(individualSport.id),
             "player_id": parseInt(loggedInPlayer.id)  
         };
-        dispatch(addNewMeetUp(newMeetUp))
-        .then(() => {
-            dispatch(fetchSportById(id));
-        })
-        notify();
-        setFormToggle(false);
-        setDate("")
+        const addNew = await dispatch(addNewMeetUp(newMeetUp))
+        await dispatch(fetchSportById(id));
+        if (!addNew.error) {
+            setFormToggle(false);
+            successfullyCreated();
+            setDate("");
+        } else {
+            unsuccessfullyCreated();
+        }
     };  
     
     
@@ -96,6 +80,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     return (
           <Container>
             <NavBar loggedInPlayer={loggedInPlayer}  locations={locations}/>
+            <ToastContainer />
             {loading ? 
              <Loader />
             :
@@ -128,7 +113,6 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                     />
                 </div>
             <div className='new-meet-up-container'>
-            <ToastContainer />
                 <button className='learn-more' onClick={handleFormToggle}>
                     <span class="circle" aria-hidden="true">
                     <span class="icon arrow"></span>
@@ -140,7 +124,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
                         <h3>Create a Meet Up</h3> 
                         <input fluid type="datetime-local" name="date" value={date}  onChange={(e) => setDate(e.target.value)}/>
                         <select key={loggedInPlayer.location.fields.length} onChange={(e) => setLocation(e.target.value)} >
-                            <option >Pick your field/court</option>
+                            <option value="" >Pick your field/court</option>
                             {loggedInPlayer?.location?.fields.map((field) => (
                                 <option key={field.id }value={field.id}>{field.field_name}</option>
                             ))}

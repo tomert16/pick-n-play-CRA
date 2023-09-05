@@ -1,17 +1,17 @@
 # Frontend portion of the Pick n Play App:
-# Created With: 
+## Created With: 
 + React
 + Redux/Redux toolkit
 + Styled Components
 + Axios
 # Backend portion of the Pick n Play App
-# Created with:
+## Created with:
 + Ruby on Rails
-+ SQLite3
++ PostgreSQL
 
-### Pre-requisites:
-#### If running with Docker, make sure to have it installed.
-#### If running locally:
+# Pre-requisites:
+### If running with Docker, make sure to have it installed.
+### If running locally:
 - Make sure you have Ruby installed.
 - If you do not, install Ruby in your terminal from the official Ruby documentation.
 - Be sure to install version 2.7.4. 
@@ -21,7 +21,7 @@
 ### Docker:
 - Change the proxy in pacakge.json in client folder to: http://pnp_server:3000
 - run `docker compose up -d --build` in the terminal
-- Once all container are up and running, run `docker compose run server rails db:create db:migrate db:seed` in the terminal
+- Once all containers are up and running, run `docker compose run server rails db:create db:migrate db:seed` in the terminal
 - In the browser go to localhost:8080.
 ### Running Locally:
 - Change the proxy in pacakge.json in client folder to: http://localhost:3000

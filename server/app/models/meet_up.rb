@@ -5,5 +5,6 @@ class MeetUp < ApplicationRecord
   belongs_to :field
   belongs_to :sport
 
+  validates :date, presence: true
   
 end

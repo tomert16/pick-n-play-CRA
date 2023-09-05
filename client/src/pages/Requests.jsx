@@ -7,13 +7,15 @@ import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import { createNewRequest, fetchRequests, selectRequests } from '../redux/requests/requestsSlice';
 import { useNavigate } from 'react-router-dom';
 import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
+import { requestCreated, requestNotCreated } from '../components/Toastify';
+import { ToastContainer } from 'react-toastify';
 
 function Requests() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const loggedInPlayer = useSelector(selectLoggedInPlayer) || {};
     const [name, setName] = useState("");
     const [location, setLocation] = useState();
+
     // fetch request data
     const requests = useSelector(selectRequests);
     useEffect(() => {
@@ -22,6 +24,7 @@ function Requests() {
             dispatch(fetchRequests());
         })
     },[dispatch])
+
     // fetch locations for form dropdown
     const locations = useSelector(selectAllLocations);
     useEffect(() => {
@@ -29,22 +32,28 @@ function Requests() {
     },[dispatch])
 
     // create a new request
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const newRequest = {
             "name": name,
             "location": location,
             "player_id": loggedInPlayer.id
         };
-        dispatch(createNewRequest(newRequest));
-        setName("");
-        setLocation("null");
+        const addNew = await dispatch(createNewRequest(newRequest));
+        if (!addNew.error) {
+            requestCreated();
+            setName("");
+            setLocation("");
+        } else {
+           requestNotCreated(); 
+        }
     }
 
   return (
     <Container>
         <NavBar />
         <h1 className="request-title">Sport or Field Requests:</h1>
+        <ToastContainer />
         <div className="request-container flex">
             {requests.map((request) => (
                 <RequestCard key={request.id} request={request} />
@@ -65,7 +74,7 @@ function Requests() {
                         <select onChange={(e) => setLocation(e.target.value)}>
                             <option value="null">Select Here</option>
                             {locations.map((location) => (
-                                <option value={location.state}>{location.state}</option>
+                                <option key={location.id} value={location.state}>{location.state}</option>
                             ))}
                         </select>
                     </div>

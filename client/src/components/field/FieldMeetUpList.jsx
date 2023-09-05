@@ -41,6 +41,8 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
       useEffect(() => {
         if (isMeetUpFull) {
           setIsFull(true);
+        } else {
+          setIsFull(false);
         }
       }, [isMeetUpFull])
       

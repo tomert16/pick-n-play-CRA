@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FieldMeetUpList from '../components/field/FieldMeetUpList';
 import NavBar from '../components/NavBar';
 import { Form } from "semantic-ui-react";
@@ -11,7 +11,8 @@ import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import Pagination from '../components/Pagination';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Loader from '../components/Loader';
-
+import { ToastContainer } from 'react-toastify';
+import { successfullyCreated, unsuccessfullyCreated } from '../components/Toastify';
 
 
 function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {
@@ -33,6 +34,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
         },2000)
     },[])
 
+
    
     // fetch individual field
     const individualField = useSelector(selectFieldById);
@@ -51,23 +53,21 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const end = indexOfLastCard >= individualField.meet_ups.length
     const beginning = currentSlide === 1;
     
-    const createMeetUp = () => {
-        try{
-
-            const newMeetUp = {
-                "date": date,
-                "field_id": individualField.id,
-                "sport_id": sportInput,
-                "player_id": loggedInPlayer.id
-            }
-            dispatch(addNewMeetUp(newMeetUp))
-                .then(() => {
-                    dispatch(fetchFieldById(id));
-                })
+    const createMeetUp = async() => {
+        const newMeetUp = {
+            "date": date,
+            "field_id": individualField.id,
+            "sport_id": sportInput,
+            "player_id": loggedInPlayer.id
+        }
+        const addNew = await dispatch(addNewMeetUp(newMeetUp))
+        await dispatch(fetchFieldById(id));
+        if (!addNew.error) {
             setFormToggle(false);
+            successfullyCreated();
             setDate("");
-        } catch(err) {
-            console.error("Failed to add meet up", err);
+        } else {
+            unsuccessfullyCreated();
         }
     };
     
@@ -78,6 +78,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
   return (
     <Container>
         <NavBar locations={locations}/>
+        <ToastContainer />
         {loading ? 
             <Loader />
         :
@@ -120,9 +121,9 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
                     <h3>Create a Meet Up</h3> 
                     <input fluid type="datetime-local" name="date" value={date}onChange={(e) => setDate(e.target.value)}/>
                     <select onChange={(e) => setSportInput(e.target.value)}>
-                        <option>Pick a Sport</option>
+                        <option value="">Pick a Sport</option>
                         {loggedInPlayer.location.sports.map((sport) => (
-                            <option value={sport.id}>{sport.sport_type}</option>
+                            <option key={sport.id} value={sport.id}>{sport.sport_type}</option>
                         ))}
                     </select><br></br>
                     <button 
