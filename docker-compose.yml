@@ -4,6 +4,10 @@ services:
   db: 
     image: postgres
     container_name: db
+    environment:
+      DB_HOST_NAME: "${DB_HOST_NAME}"
+      POSTGRES_USERNAME: "${POSTGRES_USERNAME}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     working_dir: /server
   server:
     build: server
