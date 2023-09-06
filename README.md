@@ -21,7 +21,7 @@
 ### Docker:
 #### Set up Environment Variables:
 - Create a copy of the sample.env file and name it .env
-- In the root directory in your terminal run `cp -p ./sample.env ./env`
+- In the root directory in your terminal run `cp -p ./sample.env ./.env`
 ##### Once the .env file has been created
 - run `docker compose up -d --build` in the terminal
 - Once all containers are up and running, run `docker compose run server rails db:create db:migrate db:seed` in the terminal
