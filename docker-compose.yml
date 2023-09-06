@@ -4,8 +4,6 @@ services:
   db: 
     image: postgres
     container_name: db
-    volumes: 
-      - ./tmp/db:/var/lib/postgresql/data
     working_dir: /server
   server:
     build: server
