@@ -19,6 +19,8 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, total
     const {id: sportId} = useParams();
     const dispatch = useDispatch();
 
+   
+
     // checks if the user has already joined the meet up
     const isJoined = meetUp.teammates.some((teammate) => teammate.id === loggedInPlayer.id)
 
@@ -40,7 +42,7 @@ function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, total
     const handleDropMeetUp = async(id) => {
           let confirmation = window.confirm("Are you sure you want to leave this meet up?");
           if (confirmation === true) {
-            await fetch(`/player_meet_ups/${id}`, {
+            await fetch(`/api1/player_meet_ups/${id}`, {
               method: "DELETE",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

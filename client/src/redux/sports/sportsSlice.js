@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchAllSports = createAsyncThunk(
     'sports/fetchAllSports',
     async() => {
-        const req = await axios.get('/sports');
+        const req = await axios.get(`/api1/sports`);
         return req.data;
     }
 )
@@ -12,7 +12,7 @@ export const fetchAllSports = createAsyncThunk(
 export const fetchSportById = createAsyncThunk(
     'sports/fetchSportById',
     async(id) => {
-        const req = await axios.get(`/sports/${id}`);
+        const req = await axios.get(`/api1/sports/${id}`);
         return req.data;
     }
 )
@@ -21,7 +21,7 @@ export const addNewSport = createAsyncThunk(
     'sports/addNewSport',
     async({ sport_type, img_url, bg_img, location_id}) => {
         const reqBody = { sport_type, img_url, bg_img, location_id};
-        const req = await axios.post('/sports', reqBody);
+        const req = await axios.post(`/api1/sports`, reqBody);
         return req.data;
     }
 )

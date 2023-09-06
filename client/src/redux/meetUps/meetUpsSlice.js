@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 export const addNewMeetUp = createAsyncThunk(
     'meetUps/createNewMeetUp',
     async({date, field_id, sport_id, player_id}) => {
         const reqBody = { date, field_id, sport_id, player_id };
-        const req  = await axios.post('/meet_ups', reqBody);
+        const req  = await axios.post(`/api1/meet_ups`, reqBody);
         return req.data;
     }
 );
@@ -14,7 +15,7 @@ export const joinMeetUp = createAsyncThunk(
     'meetUps/joinMeetUp',
     async({meet_up_id, player_id}) => {
         const reqBody = { meet_up_id, player_id };
-        const req = await axios.post('/join_meet_up', reqBody);
+        const req = await axios.post(`/api1/join_meet_up`, reqBody);
         return req.data;
     }
 )
@@ -22,7 +23,7 @@ export const joinMeetUp = createAsyncThunk(
 export const removeMeetUp = createAsyncThunk(
     'meetUps/removeMeetUp',
     async(id) => {
-        const req = await axios.delete(`/meet_ups/${id}`);
+        const req = await axios.delete(`/api1/meet_ups/${id}`);
         return req.data;
     }
 )

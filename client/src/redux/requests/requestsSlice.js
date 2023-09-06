@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchRequests = createAsyncThunk(
     'requests/fetchRequest',
     async() => {
-        const req = await axios.get('/requests');
+        const req = await axios.get('/api1/requests');
         return req.data;
     }
 )
@@ -13,7 +13,7 @@ export const createNewRequest = createAsyncThunk(
     'request/newRequest',
     async({ name, location, player_id}) => {
         const reqBody = { name, location, player_id };
-        const req = await axios.post('/requests', reqBody);
+        const req = await axios.post(`/api1/requests`, reqBody);
         return req.data;
     }
 )
@@ -21,7 +21,7 @@ export const createNewRequest = createAsyncThunk(
 export const removeRequest = createAsyncThunk(
     'request/removeRequest',
     async(id) => {
-        const req = await axios.delete(`/requests/${id}`);
+        const req = await axios.delete(`/api1/requests/${id}`);
         return req.data;
     }
 )
@@ -31,7 +31,7 @@ export const updateRequestLikes = createAsyncThunk(
     async(payload) => {
         const { likes, id } = payload;
         const reqBody = { likes }; 
-        const req = await axios.patch(`/requests/${id}`, reqBody);
+        const req = await axios.patch(`/api1/requests/${id}`, reqBody);
         return req.data;
     }
 )
@@ -41,7 +41,7 @@ export const updateRequestDislikes = createAsyncThunk(
     async(payload) => {
         const { dislikes, id } = payload;
         const reqBody ={ dislikes };
-        const req = await axios.patch(`/requests/${id}`, reqBody);
+        const req = await axios.patch(`/api1/requests/${id}`, reqBody);
         return req.data;
     }
 )

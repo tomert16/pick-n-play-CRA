@@ -3,9 +3,10 @@
 client/node_modules
 # in case docker's npm install does not get corrupted by another env's package-lock.json
 client/package-lock.json
-# prevents non-docker env files from being copied over
-client/*.env.*
 # SERVER
 server/Gemfile
 server/Gemfile.lock
 server/.bundle
+# prevents non-docker env files from being copied over
+client/*.env.*
+server/*.env.*

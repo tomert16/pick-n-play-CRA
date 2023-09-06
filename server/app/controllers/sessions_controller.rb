@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
     player = Player.find_by!(email: params[:email])
     if player&.authenticate(params[:password])
       session[:player_id] = player.id
+      puts "Plauer ID : #{player.id}"
       render json: player, status: :ok
     else
       render json: { errors: ["Invalid email or password"] }, status: :unauthorized

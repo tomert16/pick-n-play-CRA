@@ -22,20 +22,28 @@ function App() {
   const [selectedField, setSelectedField] = useState();
   const [individualLocation, setIndividualLocation] = useState();
   // management page link
-  const ADMIN_LINK = process.env.REACT_APP_ADMIN_LINK
+  const ADMIN_LINK = process.env.REACT_APP_ADMIN_LINK;
 
 
-  useEffect(() =>{   
-    fetch('/me')
-    .then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          dispatch(stayLoggedIn(user))
-        })
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api1/me`);
+        if (response.ok) {
+          const user = await response.json();
+          dispatch(stayLoggedIn(user));
+        } else {
+          // Handle non-successful response here
+          console.error("Failed to fetch user session data.");
+        }
+      } catch (error) {
+        // Handle any network or other errors here
+        console.error("An error occurred while fetching user session data:", error);
       }
-    });
-  },[dispatch]);
-
+    };
+  
+    fetchData();
+  }, [dispatch]);
 
   // All of the web routes
   const router = createBrowserRouter([

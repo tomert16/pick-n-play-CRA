@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
     wrap_parameters format: []
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :me]
 
     def index 
         render json: Player.all

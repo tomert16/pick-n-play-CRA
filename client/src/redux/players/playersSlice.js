@@ -5,7 +5,7 @@ export const logIn = createAsyncThunk(
     'players/logIn',
     async({ email, password }) => {
         const reqBody = {email, password};
-        const req = await axios.post('/login', reqBody);
+        const req = await axios.post(`/api1/login`, reqBody);
         return req.data;
     }
 );
@@ -13,7 +13,7 @@ export const logIn = createAsyncThunk(
 export const stayLoggedIn = createAsyncThunk(
     'players/stayLoggedIn',
     async() => {
-        const req = await axios.get('/me');
+        const req = await axios.get(`/api1/me`);
         return req.data;
     }
 );
@@ -21,7 +21,7 @@ export const stayLoggedIn = createAsyncThunk(
 export const logOut = createAsyncThunk(
     'players/logOut',
     async() => {
-        const req = await axios.delete('/logout');
+        const req = await axios.delete(`/api1/logout`);
         return req.data;
     }
 );
@@ -30,7 +30,7 @@ export const createNewPlayer = createAsyncThunk(
     'players/createNewUser',
     async({ first_name, last_name, email, password, password_confirmation }) => {
         const reqBody = { first_name, last_name, email, password, password_confirmation };
-        const req = await axios.post('/signup', reqBody);
+        const req = await axios.post(`/api1/signup`, reqBody);
         return req.data;
     }
 );
@@ -39,7 +39,7 @@ export const updateLocation = createAsyncThunk(
     'players/setLocation',
     async({ location, id }) => {
         const reqBody = { location };
-        const req = await axios.patch(`/players/${id}`, reqBody);
+        const req = await axios.patch(`/api1/players/${id}`, reqBody);
         return req.data;
     }
 )

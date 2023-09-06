@@ -18,7 +18,7 @@ import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessf
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, totalPlayers}) {
   const dispatch = useDispatch();
   const {id: fieldId} = useParams();
-  const [error, setError] = useState(null);
+
   
   const handleBackClick = () => {
     setShowMeetUp(false)
@@ -44,7 +44,7 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
   const handleDropMeetUp = async(id) => {
     let confirmation = window.confirm("Are you sure you want to leave this meet up?");
     if (confirmation === true) {
-      await fetch(`/player_meet_ups/${id}`, {
+      await fetch(`/api1/player_meet_ups/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -59,7 +59,6 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
     }
   };
 
-      console.log(isJoined)
 
   return (
     <Container>
@@ -88,9 +87,6 @@ function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, t
         <Typography variant="body2" color="text.secondary">
         {meetUp.teammates.map((player) => (<li className="teammates" key={player.id}>{player.name}</li>))}
         </Typography>
-        {error && <Typography variant="body2" color="text.secondary" className='error-message'>
-              {error}
-            </Typography>}
       </CardContent>
       <CardActions>
         {!isMeetUpFull ? <Button size="small" onClick={() => handleJoinTeam()}>Join</Button>

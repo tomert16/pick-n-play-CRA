@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchAllFields = createAsyncThunk(
     'fields/fetchAllFields',
     async() => {
-        const req = await axios.get('/fields');
+        const req = await axios.get(`/api1/fields`);
         return req.data;
     }
 )
@@ -12,7 +12,7 @@ export const fetchAllFields = createAsyncThunk(
 export const fetchFieldById = createAsyncThunk(
     'fields/fetchFieldById',
     async(id) => {
-        const req = await axios.get(`/fields/${id}`);
+        const req = await axios.get(`/api1/fields/${id}`);
         return req.data;
     }
 )
@@ -21,7 +21,7 @@ export const addNewField = createAsyncThunk(
     'fields/addNewField',
     async({field_name, img_url, location_id}) => {
         const reqBody = {field_name, img_url, location_id};
-        const req = await axios.post('/fields', reqBody);
+        const req = await axios.post('/api1/fields', reqBody);
         return req.data;
     }
 )

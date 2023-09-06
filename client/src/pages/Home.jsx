@@ -22,6 +22,8 @@ function Home({ loggedInPlayer }) {
      return null;
    }
   
+
+   
   return (
     
     <Container>
