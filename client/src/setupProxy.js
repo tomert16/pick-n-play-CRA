@@ -16,16 +16,3 @@ module.exports = function (app) {
         })
     );
 };
-//     app.use(
-//         createProxyMiddleware('/api2', {
-//             target: "http://pnp_server:3000",
-//             changeOrigin: true,
-//             pathRewrite: {
-//                 "^/api2": "",
-//             },
-//             headers: {
-//                 Connection: "keep-alive"
-//             }
-//         })
-//     )
-// }

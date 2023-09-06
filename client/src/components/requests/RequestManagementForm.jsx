@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addNewField } from '../../redux/fields/fieldsSlice';
-import { updateLocation } from '../../redux/players/playersSlice';
 import { addNewSport } from '../../redux/sports/sportsSlice';
 
 function RequestManagementForm({ locations, formType }) {

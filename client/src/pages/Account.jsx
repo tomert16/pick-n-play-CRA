@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import UserCreatedMeetUps from '../components/account/UserCreatedMeetUps';
 import UserJoinedMeetUps from '../components/account/UserJoinedMeetUps';
@@ -13,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Account() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const loggedInPlayer = useSelector(selectLoggedInPlayer) || {};
   const [location, setLocation] = useState({});
   const [displaySelect, setDisplaySelect] = useState(false);

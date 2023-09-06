@@ -57,13 +57,13 @@ const playersSlice = createSlice(
                     state.player = action.payload;
                 })
                 .addCase(logIn.rejected, (action) => {
-                    console.log("Unable to login:", action.error.message);
+                    console.error("Unable to login:", action.error.message);
                 })
                 .addCase(stayLoggedIn.fulfilled, (state, action) => {
                     state.player = action.payload;
                 })
                 .addCase(stayLoggedIn.rejected, (state, action) => {
-                    console.log('Error:', action.error.message);
+                    console.error('Error:', action.error.message);
                 })
                 .addCase(logOut.fulfilled, (state, action) => {
                     state.player = null;
@@ -73,7 +73,7 @@ const playersSlice = createSlice(
                     state.player = action.payload;
                 })
                 .addCase(createNewPlayer.rejected, (action) => {
-                    console.log('Error:', action.error.message)
+                    console.error('Error:', action.error.message)
                 })
                 .addCase(updateLocation.fulfilled, (state, action) => {
                     state.player.location = action.payload;
