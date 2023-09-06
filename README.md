@@ -31,6 +31,7 @@
 - Create copies of the sample.env files found in both the client and server directory.
 - Server: In your terminal run `cp -p ./server/sample.env ./server/.env`
 - Client: In your terminal run `cp -p ./client/sample.env ./client/.env`
+##### Once the .env file has been created
 - Frontend: navigate to the frontend directory with `cd client`
 - Open another tab in the terminal
 - Backend: navigate to the backend directory with `cd server`
