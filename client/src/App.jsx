@@ -13,6 +13,7 @@ import Landing from "./pages/Landing";
 import Requests from "./pages/Requests";
 import Management from "./pages/Management";
 import { stayLoggedIn } from "./redux/players/playersSlice";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
   const dispatch = useDispatch();
@@ -100,6 +101,10 @@ function App() {
     {
       path: '/requests',
       element: <Requests />
+    },
+    {
+      path: '/admin_login',
+      element: <AdminLogin />
     },
     {
       path: '/management',

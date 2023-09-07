@@ -5,10 +5,12 @@ import fieldsReducer from '../redux/fields/fieldsSlice';
 import meetUpsReducer from '../redux/meetUps/meetUpsSlice';
 import playersReducer from '../redux/players/playersSlice';
 import requestsReducer from '../redux/requests/requestsSlice';
+import adminsReducer from '../redux/admin/adminsSlice';
 
 
 export const store = configureStore({
     reducer: {
+        admin: adminsReducer,
         players: playersReducer,
         sports: sportsReducer,
         fields: fieldsReducer,

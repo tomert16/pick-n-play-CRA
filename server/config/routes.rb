@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :admins
   resources :requests
   resources :locations
   resources :player_meet_ups
@@ -17,4 +18,12 @@ Rails.application.routes.draw do
   get '/me', to: 'players#me'
   ## POST route to join a meet up
   post '/join_meet_up', to: 'meet_ups#join_meet_up'
+  ## POST route for admin signup
+  post '/admin_signup', to: 'admins#create'
+  ## POST route for admin login
+  post '/admin_login', to: 'sessions#create_admin'
+  ## DELETE route for admin logout
+  delete '/admin_logout', to: 'sessions#destroy_admin'
+  ## GET route for admin auto-login
+  get '/is_logged_in', to: 'admins#is_logged_in'
 end

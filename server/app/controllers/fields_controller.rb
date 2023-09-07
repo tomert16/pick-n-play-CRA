@@ -1,4 +1,6 @@
 class FieldsController < ApplicationController
+    before_action :admin_authorized, only: :create
+
     def index 
         render json: Field.all
     end

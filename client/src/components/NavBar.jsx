@@ -7,9 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import pnplogo from '../assets/pnplogo.png';
 import styled from 'styled-components';
 import { logOut, selectLoggedInPlayer } from '../redux/players/playersSlice';
+import { adminLogout } from '../redux/admin/adminsSlice';
 
 
-function NavBar({ setSportFieldToggle, isHome }) {
+function NavBar({ setSportFieldToggle, isHome, isAdmin }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [iconToggle, setIconToggle] = useState(false);
@@ -27,6 +28,12 @@ function NavBar({ setSportFieldToggle, isHome }) {
         navigate('/');
     }
 
+    // Admin Logut function
+    const handleAdminLogout = async() => {
+        await dispatch(adminLogout());
+        navigate('/admin_login');
+    };
+
     //nav bar links
     const links = [
         {name: 'Sports', value: true},
@@ -40,7 +47,7 @@ function NavBar({ setSportFieldToggle, isHome }) {
                 <div className="brand flex a-center j-center">
                     <img className="header-logo" src={pnplogo} alt='logo' />
                 </div>
-                <ul className="links flex">
+                {isAdmin ? null : <ul className="links flex">
                     {isHome ? links.map(({name, value, link}) =>{
                         return (
                             <li onClick={() => setSportFieldToggle(value)} key={name}>
@@ -48,12 +55,12 @@ function NavBar({ setSportFieldToggle, isHome }) {
                             </li>
                         )
                     }): <h4 onClick={() => navigate(`/locations/${loggedInPlayer?.location.id}`)}>Home</h4>}
-                </ul>
+                </ul>}
             </div>
             <div className="right flex a-center">
-                <button className="request" onClick={() => navigate('/requests')}>
+                {isAdmin ? null : <button className="request" onClick={() => navigate('/requests')}>
                     <span>Request Sport or Field</span>
-                </button>
+                </button>}
                 <div className="account-icon">
                     <MenuItem onClick={handleProfileMenuOpen}>
                         <IconButton
@@ -69,7 +76,7 @@ function NavBar({ setSportFieldToggle, isHome }) {
                                     navigate('/profile')
                                     window.location.reload()
                                 }}>Profile</MenuItem>
-                                <MenuItem type="button" onClick={() => handleLogout()}>Logout</MenuItem>
+                                <MenuItem type="button" onClick={isAdmin? () => handleAdminLogout() : () => handleLogout()}>Logout</MenuItem>
                             </div>: null}
                         </IconButton>
                     </MenuItem>
