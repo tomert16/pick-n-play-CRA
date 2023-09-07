@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
 import RequestManagementForm from '../components/requests/RequestManagementForm';
+import { adminStayLoggedIn } from '../redux/admin/adminsSlice';
 
 function Management() {
     const dispatch = useDispatch();
@@ -42,6 +43,24 @@ function Management() {
             notify();
     }
 
+    useEffect(() => {
+        const fetchAdminData = async() => {
+            try {
+                const response = await fetch(`/api1/is_logged_in`);
+                if (response.ok) {
+                    const admin = await response.json();
+                    dispatch(adminStayLoggedIn(admin));
+                }else {
+                    console.error("Failed to fetch admini session data.");
+                }
+            } catch (error) {
+                console.error("An error occurred while fetching admin session data:", error);
+            }
+        }
+
+     fetchAdminData();
+    },[dispatch])
+
  
     const notify = () => {
         toast.success('Request removed ✅', {
@@ -59,7 +78,7 @@ function Management() {
 
   return (
     <Container>
-        <NavBar />
+        <NavBar isAdmin={true}/>
         <h1 className="management-title">Request Management</h1>
         <button id="add-btn" class="full-rounded" onClick={() => setToggle(true)}>
             <span>Add Here</span>

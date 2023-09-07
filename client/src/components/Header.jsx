@@ -11,11 +11,11 @@ function Header(props) {
         <div className="logo" onClick={() => navigate('/')}>
             <img src={pnplogo} alt="logo" />
         </div>
-        {props.login ? 
+       {props.isAdmin ? null : props.login ? 
             <button onClick={() => navigate('/login')}>Login</button> 
             : 
             <button onClick={() => navigate('/signup')}>Sign Up</button>
-        }
+     }
     </Container>
   )
 }

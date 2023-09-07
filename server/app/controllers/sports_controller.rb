@@ -1,4 +1,6 @@
 class SportsController < ApplicationController
+    before_action :admin_authorized, only: :create
+
     def index 
         sports = Sport.all
         if params[:sport_type] 

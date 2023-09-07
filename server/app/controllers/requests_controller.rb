@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+    before_action :admin_authorized, only: :destroy
+
     def index 
         render json: Request.all, status: :ok
     end
