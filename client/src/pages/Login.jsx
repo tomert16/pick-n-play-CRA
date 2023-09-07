@@ -25,6 +25,8 @@ function Login() {
         }
     }
 
+    console.log(error)
+
   return (
     <Container>
         <div className="bg-image" style={{backgroundImage: `url(${sportsbg})`, backgroundSize: 'cover'}}>

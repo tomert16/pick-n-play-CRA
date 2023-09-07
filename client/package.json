@@ -26,6 +26,9 @@
     "styled-components": "^6.0.4",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.0"
+  },
   "scripts": {
     "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",

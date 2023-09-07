@@ -38,6 +38,9 @@ const adminSlice = createSlice(
                 .addCase(adminLogin.fulfilled, (state, action) => {
                     state.admin = action.payload;
                 })
+                .addCase(adminLogin.rejected, (action) => {
+                    console.error("Unable to login:", action.error.message)
+                })
                 .addCase(adminLogout.fulfilled, (state, action) => {
                     state.admin = null;
                 })

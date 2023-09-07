@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   ## POST route for admin signup
   post '/admin_signup', to: 'admins#create'
   ## POST route for admin login
-  post '/admin_login', to: 'sessions#create_admin'
+  post 'admin_login', to: 'sessions#create_admin'
   ## DELETE route for admin logout
   delete '/admin_logout', to: 'sessions#destroy_admin'
   ## GET route for admin auto-login

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :create_admin, :destroy_admin]
+  skip_before_action :authorized, only: [:create, :create_admin]
   
   def create
     player = Player.find_by!(email: params[:email])
