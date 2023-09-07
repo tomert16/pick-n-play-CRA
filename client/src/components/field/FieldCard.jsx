@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function FieldCard({ field }) {
-    const [mouseOverImage, setMouseOverImage] = useState(1)
-    const [mouseOverInfo, setMouseOverInfo] = useState(0)
+    const [mouseOverImage, setMouseOverImage] = useState(1);
+    const [mouseOverInfo, setMouseOverInfo] = useState(0);
     const { field_name, img_url  } = field;
     const navigate = useNavigate();
 
 
   return (
     <Container 
-      onMouseOver={()=>(
-        setMouseOverImage(.3),
-        setMouseOverInfo(1)
-    )}
-      onMouseLeave={()=>(
-        setMouseOverImage(1),
-        setMouseOverInfo(0)
-      )}
+      onMouseOver={()=>{
+        setMouseOverImage(.3);
+        setMouseOverInfo(1);
+      }}
+      onMouseLeave={()=>{
+        setMouseOverImage(1);
+        setMouseOverInfo(0);
+      }}
     >
         <p style={{opacity: mouseOverInfo}}>{field_name}</p>
         <img 
@@ -26,7 +26,6 @@ function FieldCard({ field }) {
           src={img_url} alt={field_name} 
           style={{opacity: mouseOverImage}}
           onClick={() => navigate(`/fields/${field.id}`)}  
-         
         />
     </Container>
   )

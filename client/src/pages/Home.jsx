@@ -16,7 +16,7 @@ function Home({ loggedInPlayer }) {
   const individualLocation = useSelector(selectLocationById);
   useEffect(() => {
     dispatch(fetchLocationById(id));
-  },[dispatch])
+  },[dispatch, id])
 
    if (individualLocation === undefined){
      return null;

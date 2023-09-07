@@ -38,7 +38,7 @@ function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {
     const individualSport = useSelector(selectSportById);
     useEffect(() => {
         dispatch(fetchSportById(id));
-    },[dispatch]);
+    },[dispatch, id]);
 
     const handleFormToggle = () => {
         setFormToggle(true)

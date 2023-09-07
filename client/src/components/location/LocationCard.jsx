@@ -7,7 +7,7 @@ import { selectLoggedInPlayer, updateLocation } from '../../redux/players/player
 function LocationCard({ location }){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const loggedInPlayer = useSelector(selectLoggedInPlayer)
+    const loggedInPlayer = useSelector(selectLoggedInPlayer);
     const [mouseOverImage, setMouseOverImage] = useState(1);
     const [mouseOverInfo, setMouseOverInfo] = useState(0);
 
@@ -29,14 +29,14 @@ function LocationCard({ location }){
               src={location.img_url} 
               alt={location.state} 
               style={{opacity: mouseOverImage}}
-              onMouseOver={() => (
-                setMouseOverImage(0.3),
-                setMouseOverInfo(1)
-              )}
-              onMouseLeave={() => (
-                setMouseOverImage(1),
-                setMouseOverInfo(0)
-              )}
+              onMouseOver={() => {
+                setMouseOverImage(0.3);
+                setMouseOverInfo(1);
+              }}
+              onMouseLeave={() => {
+                setMouseOverImage(1);
+                setMouseOverInfo(0);
+              }}
             />
         </div>
     </Container>

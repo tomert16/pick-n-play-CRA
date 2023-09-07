@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function SportCard({ sport }) {
-    const {sport_type, img_url} = sport
-    const [mouseOverImage, setMouseOverImage] = useState(1)
-    const [mouseOverInfo, setMouseOverInfo] = useState(0)
-    const navigate = useNavigate()
+    const {sport_type, img_url} = sport;
+    const [mouseOverImage, setMouseOverImage] = useState(1);
+    const [mouseOverInfo, setMouseOverInfo] = useState(0);
+    const navigate = useNavigate();
 
 
   return (
       <Container 
-        onMouseOver={()=>(
-          setMouseOverImage(.3),
-          setMouseOverInfo(1)
-        )}
-        onMouseLeave={()=>(
-          setMouseOverImage(1),
-          setMouseOverInfo(0)
-        )} 
+        onMouseOver={()=>{
+          setMouseOverImage(.3);
+          setMouseOverInfo(1);
+        }}
+        onMouseLeave={()=>{
+          setMouseOverImage(1);
+          setMouseOverInfo(0);
+        }} 
       >
           <p style={{opacity: mouseOverInfo}}>{sport_type}</p>
             <img className="sport-image" 

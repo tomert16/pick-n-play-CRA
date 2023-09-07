@@ -41,7 +41,7 @@ function Signup() {
             <div className="content">
                 <Header login/>
                 <div class="card">
-                    <a class="signup">Sign Up</a>
+                    <h2 class="signup">Sign Up</h2>
                     <form onSubmit={handleSignup}>
                         <div class="inputBox1">
                             <input type="text" required="required" alue={firstNameInput} 
@@ -94,7 +94,7 @@ const Container = styled.div`
     }
     .card {
         position: absolute;
-        top: 50%;
+        top: 55%;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);

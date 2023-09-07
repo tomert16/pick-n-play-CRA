@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FieldMeetUpCard from './FieldMeetUpCard'
 
 function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUps, setFieldMeetUps}) {
+  // eslint-disable-next-line 
     const [selectedFieldMeetUp, setSelectedFieldMeetUp] = useState();
     const [showMeetUp, setShowMeetUp] = useState(false);
     const [isFull, setIsFull] = useState(false);
@@ -51,7 +52,7 @@ function FieldMeetUpList({meetUp, loggedInPlayer, handleAddTeammate, fieldMeetUp
       <Container className='meet-ups-list'>
         <div className={isFull ? 'full' : 'open'} onClick={() => goToMeetUp(meetUp)}>
           <div>
-          <img className='mu-field-img' src={meetUp.sport.image} />
+          <img className='mu-field-img' alt={meetUp.sport.type} src={meetUp.sport.image} />
             <div className="mu-info">
               <h4>{meetUp.sport.type}</h4>
               <p> {meetUp.date}</p>

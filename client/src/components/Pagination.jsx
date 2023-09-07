@@ -16,10 +16,10 @@ for (let i = 1; i < Math.ceil(total / amount); i++) {
         {end ? null : <button className={isSport ? "next-btn" : "field-next-btn"} onClick={() => next()} disabled={end}>
             <BsArrowRightCircle />
         </button>}
-    { displayNum ? <a className={isSport ? "slide-num flex j-center" : "field-slide-num flex j-center"}>
+        {displayNum ? <p className={isSport ? "slide-num flex j-center" : "field-slide-num flex j-center"}>
         {slide.map((index) => (
                 <h2 className={index === currentSlide ? 'active' : ''} key={index}>{index}</h2>
-        ))}</a> : null}
+        ))}</p> : null}
     </Container>
   )
 }

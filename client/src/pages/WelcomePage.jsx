@@ -5,7 +5,7 @@ import { fetchAllLocations, selectAllLocations } from "../redux/locations/locati
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { selectLoggedInPlayer, stayLoggedIn } from "../redux/players/playersSlice";
+import { selectLoggedInPlayer } from "../redux/players/playersSlice";
 
 function WelcomePage() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function WelcomePage() {
     if (loggedInPlayer?.location?.id) {
       navigate(`/locations/${loggedInPlayer.location.id}`)
     }
-  },[loggedInPlayer])
+  },[loggedInPlayer, navigate])
 
   if (loggedInPlayer === undefined) return null;
   if (locations === undefined) return null;

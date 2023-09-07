@@ -40,7 +40,7 @@ function FieldInfo({selectedField, setSelectedField, handleAddTeammate, location
     const individualField = useSelector(selectFieldById);
     useEffect(() => {
         dispatch(fetchFieldById(id))
-    },[dispatch])
+    },[dispatch, id])
     
     if (individualField === undefined) return null;
      

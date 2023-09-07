@@ -58,7 +58,7 @@ function MeetUpsList({ meetUp, setSelectedMeetUp, loggedInPlayer }) {
   return (
     <Container className="meet-ups-list">
         <div className={isFull ? `full` : `open`} onClick={() => handleMeetUpClick(meetUp)}>
-          <img className="mu-field-img" src={meetUp?.field.img_url} />
+          <img className="mu-field-img" alt={meetUp?.field.name} src={meetUp?.field.img_url} />
           <div className="mu-info">
             <h4>{meetUp.field.name}</h4>
             <p>{meetUp.date}</p>
