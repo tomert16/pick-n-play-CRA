@@ -72,10 +72,10 @@ function NavBar({ setSportFieldToggle, isHome, isAdmin }) {
                         >
                         <AccountCircle />
                             {iconToggle ? <div>
-                                <MenuItem onClick={() => {
+                                {isAdmin ? null : <MenuItem onClick={() => {
                                     navigate('/profile')
                                     window.location.reload()
-                                }}>Profile</MenuItem>
+                                }}>Profile</MenuItem>}
                                 <MenuItem type="button" onClick={isAdmin? () => handleAdminLogout() : () => handleLogout()}>Logout</MenuItem>
                             </div>: null}
                         </IconButton>

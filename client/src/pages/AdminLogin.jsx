@@ -14,17 +14,17 @@ function AdminLogin() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null)
 
+
     const handleAdminLogin = async(e) => {
         try {
             e.preventDefault();
-            const data = {email, password};
+            const data = { email, password };
             await dispatch(adminLogin(data));
-            navigate('/management');
+            navigate(`/management`);
         } catch (err) {
             setError('Incorrect email or password')
         }
-    };
-
+    }
 
   return (
     <Container>
