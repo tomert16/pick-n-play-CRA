@@ -10,10 +10,9 @@ import WelcomePage from "./pages/WelcomePage";
 import Account from "./pages/Account";
 import FieldInfo from "./pages/FieldInfo";
 import Landing from "./pages/Landing";
-import { stayLoggedIn } from "./redux/players/playersSlice";
 import Requests from "./pages/Requests";
 import Management from "./pages/Management";
-
+import { stayLoggedIn } from "./redux/players/playersSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +21,6 @@ function App() {
   const [selectedMeetUp, setSelectedMeetUp] = useState();
   const [selectedField, setSelectedField] = useState();
   const [individualLocation, setIndividualLocation] = useState();
-  // management page link
-  const ADMIN_LINK = process.env.REACT_APP_ADMIN_LINK;
 
 
   useEffect(() => {
@@ -105,7 +102,7 @@ function App() {
       element: <Requests />
     },
     {
-      path: ADMIN_LINK,
+      path: '/management',
       element: <Management />
     }
   ])
