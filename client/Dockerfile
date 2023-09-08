@@ -6,6 +6,7 @@ WORKDIR /client
 
 # copy files to container 
 COPY . . 
+
 # copy package.json and package-lock.json files
 COPY package.json .
 COPY package-lock.json .
