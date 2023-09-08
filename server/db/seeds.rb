@@ -3,16 +3,15 @@ Field.destroy_all
 Player.destroy_all
 Location.destroy_all
 MeetUp.destroy_all
-# LocationSport.destroy_all
+Admin.destroy_all
 
 
 puts "🧍‍♂️🧍‍♀️ Seeding players..."
-joey = Player.create!(first_name: "Joey", last_name: "B", email: "joey@gmail.com", password: "joey123") 
+joey = Player.create!(first_name: "Joey", last_name: "Bonventre", email: "joey@gmail.com", password: "joey123") 
 kevin = Player.create(first_name: "Kevin", last_name: "Mak", email: "kevin@gmail.com", password: "1234")
 dan = Player.create(first_name: "Daniel", last_name: "Yim", email: "dan@gmail.com", password: "800yd")
-avi = Player.create(first_name: "Avi", last_name: "R", email: "avi@gmail.com", password: "920ra")
+avi = Player.create(first_name: "Avi", last_name: "Ramsumair", email: "avi@gmail.com", password: "920ra")
 olivia = Player.create(first_name: "Olivia", last_name: "Radick", email: "olivia@gmail.com", password: "210ro")
-tomer = Player.create(first_name: "Tomer", last_name: "Tal", email: "tomer@gmail.com", password: "610tt")
 
 puts "🏙️🌄 seeding locations..."
 ny = Location.create(state: "New York City, New York", img_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHgPELUokxuHI11i4Ai44hR6JSZoUqG8UKeA&usqp=CAU")
@@ -49,26 +48,28 @@ mb_field4= Field.create(field_name: "X Gym Sports Mall", img_url: "https://encry
 
 
 puts "🌱🌱🌱 Seeding meet ups..."
-meetup1 = MeetUp.create(sport_id: soccer3.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: mb_field1.id, player_id: tomer.id)
+meetup1 = MeetUp.create(sport_id: soccer3.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: mb_field1.id, player_id: avi.id)
 meetup2 = MeetUp.create(sport_id: soccer3.id, date: DateTime.new(2023, 3, 8, 15, 45, 0), field_id: mb_field2.id, player_id: joey.id)
-meetup3 = MeetUp.create(sport_id: soccer2.id, date: DateTime.new(2023, 3, 9, 12, 0, 0), field_id: mia_field4.id, player_id: tomer.id)
+meetup3 = MeetUp.create(sport_id: soccer2.id, date: DateTime.new(2023, 3, 9, 12, 0, 0), field_id: mia_field4.id, player_id: olivia.id)
 meetup4 = MeetUp.create(sport_id: soccer1.id, date: DateTime.new(2023, 3, 10, 9, 30, 0), field_id: ny_field3.id, player_id: kevin.id)
 meetup5 = MeetUp.create(sport_id: soccer3.id, date: DateTime.new(2023, 3, 13, 11, 0, 0), field_id: mb_field1.id, player_id: dan.id)
-meetup6 = MeetUp.create(sport_id: football1.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: ny_field1.id, player_id: tomer.id)
+meetup6 = MeetUp.create(sport_id: football1.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: ny_field1.id, player_id: kevin.id)
 meetup7 = MeetUp.create(sport_id: football2.id, date: DateTime.new(2023, 3, 10, 9, 30, 0), field_id: mia_field3.id, player_id: avi.id)
 meetup8 = MeetUp.create(sport_id: football1.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: ny_field2.id, player_id: olivia.id)
-meetup9 = MeetUp.create(sport_id: bball1.id, date: DateTime.new(2023, 3, 16, 18, 30, 0), field_id: ny_field2.id, player_id: tomer.id)
+meetup9 = MeetUp.create(sport_id: bball1.id, date: DateTime.new(2023, 3, 16, 18, 30, 0), field_id: ny_field2.id, player_id: avi.id)
 meetup10 = MeetUp.create(sport_id: bball3.id, date: DateTime.new(2023, 3, 15, 10, 0, 0), field_id: mb_field4.id, player_id: joey.id)
 meetup11 = MeetUp.create(sport_id: bball2.id, date: DateTime.new(2023, 3, 18, 12, 0, 0), field_id: mia_field4.id, player_id: dan.id)
 meetup12 = MeetUp.create(sport_id: tennis2.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: mia_field1.id, player_id: joey.id)
 meetup13 = MeetUp.create(sport_id: tennis3.id, date: DateTime.new(2023, 3, 23, 13, 0, 0), field_id: mb_field2.id, player_id: kevin.id)
 meetup14 = MeetUp.create(sport_id: tennis3.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: mb_field4.id, player_id: olivia.id)
-meetup15 = MeetUp.create(sport_id: tennis1.id, date: DateTime.new(2023, 3, 20, 14, 0, 0), field_id: ny_field1.id, player_id: tomer.id)
+meetup15 = MeetUp.create(sport_id: tennis1.id, date: DateTime.new(2023, 3, 20, 14, 0, 0), field_id: ny_field1.id, player_id: avi.id)
 meetup16 = MeetUp.create(sport_id: bball2.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: mia_field3.id, player_id: kevin.id)
 meetup17 = MeetUp.create(sport_id:football2.id, date:DateTime.new(2023, 3, 23, 13, 0, 0), field_id: mia_field3.id, player_id: dan.id)
 meetup18 = MeetUp.create(sport_id: bball3.id, date: DateTime.new(2023, 3, 17, 16, 15, 0), field_id: mb_field4.id, player_id: joey.id)
 meetup19 = MeetUp.create(sport_id: soccer1.id, date: DateTime.new(2023, 3, 7, 10, 30, 0), field_id: ny_field1.id, player_id: kevin.id)
-meetup20 = MeetUp.create(sport_id: soccer1.id, date: DateTime.new(2023, 3, 26, 11, 0, 0), field_id: ny_field1.id, player_id: tomer.id)
+meetup20 = MeetUp.create(sport_id: soccer1.id, date: DateTime.new(2023, 3, 26, 11, 0, 0), field_id: ny_field1.id, player_id: olivia.id)
 
+puts "🧑‍💼👩‍💼🏢 Seeding admins..."
+admin1 = Admin.create(name: "Tomer Tal", email: "tomer@gmail.com", password: "610tt")
 
 puts "Seeding completed successfully"

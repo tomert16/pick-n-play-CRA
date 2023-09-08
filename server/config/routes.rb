@@ -26,4 +26,6 @@ Rails.application.routes.draw do
   delete '/admin_logout', to: 'sessions#destroy_admin'
   ## GET route for admin auto-login
   get '/is_logged_in', to: 'admins#is_logged_in'
+  ## GET route for requests manages by admins
+  get '/managed_requests', to: 'requests#managed_requests'
 end

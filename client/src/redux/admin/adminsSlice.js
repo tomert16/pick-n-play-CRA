@@ -51,5 +51,5 @@ const adminSlice = createSlice(
     }
 );
 
-export const selectStayLoggedIn = (state) => state.admins.admin;
+export const selectLoggedInAdmin = (state) => state.admins.admin;
 export default adminSlice.reducer;

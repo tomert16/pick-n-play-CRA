@@ -9,6 +9,14 @@ export const fetchRequests = createAsyncThunk(
     }
 )
 
+export const fetchManagedRequests = createAsyncThunk(
+    'requests/fetchManagedRequest',
+    async() => {
+        const req = await axios.get('/api1/managed_requests');
+        return req.data;
+    }
+);
+
 export const createNewRequest = createAsyncThunk(
     'request/newRequest',
     async({ name, location, player_id}) => {
@@ -80,9 +88,13 @@ const requestsSlice = createSlice(
                         return request;
                     })
                 })
+                .addCase(fetchManagedRequests.fulfilled, (state, action) => {
+                    state.list = action.payload;
+                })
         }
     }
 );
 
 export const selectRequests = (state) => state.requests.list;
+export const selectManagedRequests = (state) => state.requests.list;
 export default requestsSlice.reducer;

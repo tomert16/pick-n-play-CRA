@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRequests, removeRequest, selectRequests } from '../redux/requests/requestsSlice';
+import { fetchManagedRequests, fetchRequests, removeRequest, selectManagedRequests} from '../redux/requests/requestsSlice';
 import { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,9 +24,9 @@ function Management() {
     
 
     // fetch requests
-    const requests = useSelector(selectRequests);
+    const requests = useSelector(selectManagedRequests);
     useEffect(() => {
-        dispatch(fetchRequests())
+        dispatch(fetchManagedRequests())
     },[dispatch])
     // fetch locations for form dropdown
     const locations = useSelector(selectAllLocations);
