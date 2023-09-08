@@ -7,8 +7,8 @@ WORKDIR /server
 #copy all the files to the container
 COPY . . 
 # Copy Gemfile and Gemfile.lock files
-COPY Gemfile /server/Gemfile
-COPY Gemfile.lock /server/Gemfile.lock
+COPY Gemfile .
+COPY Gemfile.lock .
 
 # install ruby gems
 RUN bundle install --quiet
