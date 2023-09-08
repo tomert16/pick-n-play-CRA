@@ -18,4 +18,4 @@ RUN npm install --silent
 EXPOSE 8080
 
 # start app 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
