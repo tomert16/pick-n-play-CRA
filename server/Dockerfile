@@ -4,6 +4,8 @@ FROM ruby:2.7.4
 # set a directory for the app
 WORKDIR /server
 
+#copy all the files to the container
+COPY . . 
 # Copy Gemfile and Gemfile.lock files
 COPY Gemfile /server/Gemfile
 COPY Gemfile.lock /server/Gemfile.lock
@@ -11,8 +13,6 @@ COPY Gemfile.lock /server/Gemfile.lock
 # install ruby gems
 RUN bundle install --quiet
 
-#copy all the files to the container
-COPY . . 
 
 # add a script to be executed when the container starts
 COPY entrypoint.sh /usr/bin/

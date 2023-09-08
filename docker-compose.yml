@@ -41,7 +41,6 @@ services:
       REACT_APP_API_ENDPOINT: "${REACT_APP_API_ENDPOINT}"
     env_file:
       - .env
-    command: sh -c "npm install && npm start"
     ports:
       - 8080:8080
     working_dir: /client
