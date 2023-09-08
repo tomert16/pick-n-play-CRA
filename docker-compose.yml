@@ -24,7 +24,6 @@ services:
        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     env_file:
       - .env
-    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true
     tty: true
     ports: 
@@ -42,7 +41,6 @@ services:
       REACT_APP_API_ENDPOINT: "${REACT_APP_API_ENDPOINT}"
     env_file:
       - .env
-    command: sh -c "npm install && npm start"
     ports:
       - 8080:8080
     working_dir: /client

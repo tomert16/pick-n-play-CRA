@@ -4,13 +4,12 @@ FROM node:18.16
 # start up working directory
 WORKDIR /client
 
-# copy package.json filr
+# Copy package.json and package-lock.json files to the container
 COPY package.json . 
+COPY package-lock.json  .
 
 # install dependencies
-COPY package.json ./client/package.json
-COPY package-lock.json ./client/package-lock.json
-RUN npm install
+RUN npm install --silent 
 
 # copy files to container 
 COPY . . 
