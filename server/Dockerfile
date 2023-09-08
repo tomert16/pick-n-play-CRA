@@ -5,8 +5,8 @@ FROM ruby:2.7.4
 WORKDIR /server
 
 # Copy Gemfile and Gemfile.lock files
-COPY Gemfile .
-COPY Gemfile.lock .
+COPY Gemfile ./server/Gemfile
+COPY Gemfile.lock ./server/Gemfile.lock
 
 # install ruby gems
 RUN bundle install --quiet
