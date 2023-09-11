@@ -6,7 +6,7 @@ import RequestCard from '../components/requests/RequestCard';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import { createNewRequest, fetchRequests, selectRequests } from '../redux/requests/requestsSlice';
 import { fetchAllLocations, selectAllLocations } from '../redux/locations/locationsSlice';
-import { requestCreated, requestNotCreated } from '../components/Toastify';
+import { requestCreated, requestNotCreated } from '../ui/Toastify';
 import { ToastContainer } from 'react-toastify';
 
 function Requests() {

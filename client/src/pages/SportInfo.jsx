@@ -7,12 +7,12 @@ import NavBar from '../components/NavBar';
 import { fetchSportById, selectSportById } from '../redux/sports/sportsSlice';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
-import Pagination from '../components/Pagination';
-import Loader from '../components/Loader';
+import Pagination from '../ui/Pagination';
+import Loader from '../ui/Loader';
 import styled from 'styled-components';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ToastContainer } from 'react-toastify';
-import { successfullyCreated, unsuccessfullyCreated } from '../components/Toastify';
+import { successfullyCreated, unsuccessfullyCreated } from '../ui/Toastify';
 
 
 function SportInfo({ setSelectedMeetUp, handleAddTeammate, locations }) {

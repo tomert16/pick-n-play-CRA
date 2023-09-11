@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { joinMeetUp } from '../../redux/meetUps/meetUpsSlice';
 import { fetchSportById } from '../../redux/sports/sportsSlice';
 import PropTypes from 'prop-types';
-import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessfullyJoined } from '../Toastify';
+import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessfullyJoined } from '../../ui/Toastify';
 
 
 function MeetUpCard({ loggedInPlayer, meetUp, setShowMeetUp, isMeetUpFull, totalPlayers }) {

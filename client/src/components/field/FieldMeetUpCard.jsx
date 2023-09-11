@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { joinMeetUp} from '../../redux/meetUps/meetUpsSlice';
 import { fetchFieldById } from '../../redux/fields/fieldsSlice';
 import PropTypes from 'prop-types';
-import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessfullyJoined } from '../Toastify';
+import { meetUpDropCanceled, successfullyDropped, successfullyJoined, unsuccessfullyJoined } from '../../ui/Toastify';
 
 
 function FieldMeetUpCard({meetUp, loggedInPlayer, setShowMeetUp, isMeetUpFull, totalPlayers}) {

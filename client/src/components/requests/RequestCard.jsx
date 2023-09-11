@@ -60,4 +60,4 @@ const Container = styled.div`
         }
     }
 `;
-export default RequestCard;
+export default React.memo(RequestCard);

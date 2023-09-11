@@ -8,11 +8,11 @@ import { fetchFieldById, selectFieldById } from '../redux/fields/fieldsSlice';
 import { selectLoggedInPlayer } from '../redux/players/playersSlice';
 import styled from 'styled-components';
 import { addNewMeetUp } from '../redux/meetUps/meetUpsSlice';
-import Pagination from '../components/Pagination';
+import Pagination from '../ui/Pagination';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import Loader from '../components/Loader';
+import Loader from '../ui/Loader';
 import { ToastContainer } from 'react-toastify';
-import { successfullyCreated, unsuccessfullyCreated } from '../components/Toastify';
+import { successfullyCreated, unsuccessfullyCreated } from '../ui/Toastify';
 
 
 function FieldInfo({selectedField, setSelectedField, handleAddTeammate, locations}) {

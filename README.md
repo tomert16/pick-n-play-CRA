@@ -24,8 +24,9 @@
 - In the root directory in your terminal run `cp -p ./sample.env ./.env`
 ##### Once the .env file has been created
 - run `docker compose up --build` in the terminal
+   - Client container might take a little longer to complete and run, due to package installation
 - Once all containers are up and running, open up a new tab in your terminal and run `docker compose run server rails db:create db:migrate db:seed`, to insert all of the necessary tables and seeds in the database. 
-- In the browser go to localhost:8080.
+- In the browser go to localhost:8080 .
 ### Running Locally:
 #### Set up Environment Variables:
 - Create copies of the sample.env files found in both the client and server directory.
