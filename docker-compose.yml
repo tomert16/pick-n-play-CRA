@@ -8,9 +8,9 @@ services:
       DB_HOST_NAME: "${DB_HOST_NAME}"
       POSTGRES_USERNAME: "${POSTGRES_USERNAME}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    working_dir: /server
   server:
-    build: server
+    build: 
+      context: ./server
     image: pnp_server
     container_name: pnp_server
     depends_on: 
@@ -24,13 +24,11 @@ services:
        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     env_file:
       - .env
-    stdin_open: true
-    tty: true
     ports: 
      - 3000:3000
-    working_dir: /server
   client: 
-    build: client
+    build: 
+      context: ./client
     image: pnp_client
     container_name: pnp_client
     volumes: 
@@ -41,7 +39,5 @@ services:
       REACT_APP_API_ENDPOINT: "${REACT_APP_API_ENDPOINT}"
     env_file:
       - .env
-    command: sh -c "npm install --silent && npm start"
     ports:
       - 8080:8080
-    working_dir: /client
