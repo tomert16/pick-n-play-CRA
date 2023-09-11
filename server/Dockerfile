@@ -11,7 +11,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install --quiet
 
 #copy all the files to the container
-COPY . . 
+COPY . ./
 
 # add a script to be executed when the container starts
 COPY entrypoint.sh /usr/bin/
